@@ -3,32 +3,86 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float ScreenOffset = 0.5f;
-    public float speed = 3f;
-    public float gravity = 1.5f;
+    public float speed = 5f;
+    public float gravity = 0.2f;
     public GameObject JetProp;
     public GameObject ProjectilePrefab;
     public float FireRate = 3;
-    public float ProjectileSpeed = 0.1f;
     public float ProjectileOffset = 1f;
-
-
-
     private float prevYcord;
     private float screenTop;
     private float screenBottom;
     private float screenLeft;
     private float screenRight;
     private float lastShotTime = 0;
+    public Sprite designersprite;
+    private Vector2 newPosition;
+    private Vector2 actPosition;
 
     public void Shoot()
     {
         GameObject projectile = Instantiate(ProjectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + ProjectileOffset, 0), Quaternion.identity);
-        projectile.GetComponent<Projectile>().speed = ProjectileSpeed;
+
         //projectile.GetComponent<PlayerProjectile>().ProjectileVector = new Vector2(0, 1);
     }
 
-    public void Awake()
+    public void Left()
+    {
+        actPosition = transform.position;
+        newPosition += Vector2.left * Time.deltaTime * speed;
+        if (newPosition.x >= screenLeft)
+        {
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        }
+        else
+        {
+            newPosition = actPosition;
+        }
+    }
+
+    public void Right()
+    {
+        actPosition = transform.position;
+        newPosition += Vector2.right * Time.deltaTime * speed;
+        if (newPosition.x <= screenRight)
+        {
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        }
+        else
+        {
+            newPosition = actPosition;
+        }
+    }
+
+    public void Up()
+    {
+        actPosition = transform.position;
+        newPosition += Vector2.up * Time.deltaTime * speed;
+        if (newPosition.y <= screenTop)
+        {
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        }
+        else
+        {
+            newPosition = actPosition;
+        }
+    }
+
+    public void Down()
+    {
+        actPosition = transform.position;
+        newPosition += Vector2.down * Time.deltaTime * speed;
+        if (newPosition.y >= screenBottom)
+        {
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        }
+        else
+        {
+            newPosition = actPosition;
+        }
+    }
+
+    public void Start()
     {
         prevYcord = transform.position.y;
 
@@ -38,50 +92,47 @@ public class PlayerMovement : MonoBehaviour
         screenBottom = -screenBounds.y;
         screenLeft = -screenBounds.x;
         screenRight = screenBounds.x;
+
+        transform.position = new Vector3(0, -4.5f, 0);
     }
 
     public void Update()
     {
-        Vector2 newPosition = transform.position;
-    
+
         // Adjuk hozzá a gravitáció hatását
-        newPosition.y -= gravity * Time.deltaTime;
-    
-        //Mozgás
+        actPosition = transform.position;
+        newPosition = transform.position;
+        newPosition += Vector2.down * Time.deltaTime * gravity;
+        if (newPosition.y >= screenBottom){
+            transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+        }
+        else{
+            newPosition = actPosition;
+        }
+
+
+        if (newPosition.y >= screenBottom) this.transform.position = newPosition;
+
         if (Input.GetKey(KeyCode.W))
         {
-            newPosition += Vector2.up * Time.deltaTime * speed;
+            Up();
         }
         if (Input.GetKey(KeyCode.S))
         {
-            newPosition += Vector2.down * Time.deltaTime * speed;
+            Down();
         }
         if (Input.GetKey(KeyCode.A))
         {
-            newPosition += Vector2.left * Time.deltaTime * speed;
+            Left();
         }
         if (Input.GetKey(KeyCode.D))
         {
-            newPosition += Vector2.right * Time.deltaTime * speed;
-        }
-
-        // Lövés
-        if (Input.GetKey(KeyCode.Space) && Time.time - lastShotTime > 1 / FireRate)
-        {
-            Shoot();
-            lastShotTime = Time.time;
+            Debug.Log("D");
+            Right();
         }
 
 
-    
-        // Korlátozzuk a karakter pozícióját a képernyő széleinél
-        newPosition.x = Mathf.Clamp(newPosition.x, screenLeft + ScreenOffset, screenRight - ScreenOffset);
-        newPosition.y = Mathf.Clamp(newPosition.y, screenBottom + ScreenOffset, screenTop - ScreenOffset);
-    
-        // Alkalmazzuk a korlátozott pozíciót
-        transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
-    
-        // Kis lángcsóva megjelenítése, ha az űrhajó y koordinátája pozitívan változik
+        //Jet Propulsion
         if (prevYcord < transform.position.y)
         {
             JetProp.transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
@@ -91,8 +142,23 @@ public class PlayerMovement : MonoBehaviour
         {
             JetProp.SetActive(false);
         }
-    
-        // Frissítsük a prevYcord értékét
         prevYcord = transform.position.y;
+
+
+
+        if (Input.GetKey(KeyCode.Space) && Time.time > lastShotTime + 1 / FireRate)
+        {
+            Shoot();
+            lastShotTime = Time.time;
+        }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        if (Input.GetKey(KeyCode.B))
+        {
+            GameObject.Find("Background").GetComponent<SpriteRenderer>().sprite = designersprite;
+        }
+
     }
 }
