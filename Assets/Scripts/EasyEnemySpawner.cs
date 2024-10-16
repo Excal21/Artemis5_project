@@ -1,17 +1,18 @@
 using UnityEngine;
 
-
 public class EasyEnemySpawner : MonoBehaviour
 {
     public GameObject EasyEnemyPrefab;
     public int numberOfEnemies = 5;
+    public float spawnOffset = 0.5f; // Offset to ensure enemies don't move off the screen
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // Get the screen width in world units
         float screenWidth = Camera.main.orthographicSize * 2.0f * Screen.width / Screen.height;
-        float startX = -screenWidth / 2.0f;
-        float spacing = screenWidth / (numberOfEnemies + 1);
+        float startX = -screenWidth / 2.0f + spawnOffset;
+        float spacing = (screenWidth - 2 * spawnOffset) / (numberOfEnemies + 1);
 
         for (int i = 0; i < numberOfEnemies; i++)
         {
@@ -28,3 +29,4 @@ public class EasyEnemySpawner : MonoBehaviour
         
     }
 }
+
