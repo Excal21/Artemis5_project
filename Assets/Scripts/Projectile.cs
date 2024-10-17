@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position += new Vector3(ProjectileVector.x, ProjectileVector.y, 0) * speed;
+        this.transform.position += new Vector3(ProjectileVector.x, ProjectileVector.y, 0) * speed * Time.deltaTime;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
