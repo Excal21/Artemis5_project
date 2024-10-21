@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Border
+  - Projectile
+  - Button
+  - Panel
   layers:
   - Default
   - TransparentFX
