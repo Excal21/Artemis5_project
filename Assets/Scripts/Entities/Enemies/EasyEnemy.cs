@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EasyEnemy : MonoBehaviour
@@ -14,10 +15,12 @@ public class EasyEnemy : MonoBehaviour
     public Vector3 projectileDirection = Vector2.down;
     public float projectileOffset = -1f;
     private float lastShotTime = 0;
+    private bool hasEnteredPlayArea = false;
+    public List<Sprite> enemySprites = new List<Sprite>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        GetComponent<SpriteRenderer>().sprite = enemySprites[0];
     }
 
     // Update is called once per frame
@@ -27,6 +30,7 @@ public class EasyEnemy : MonoBehaviour
         switch (state)
         {
             case 0: // Move down
+                GetComponent<SpriteRenderer>().sprite = enemySprites[0];
                 transform.Translate(Vector3.down * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= verticalMoveDistance)
@@ -36,6 +40,8 @@ public class EasyEnemy : MonoBehaviour
                 }
                 break;
             case 1: // Move left
+                GetComponent<SpriteRenderer>().sprite = enemySprites[1];
+
                 transform.Translate(Vector3.left * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= horizontalMoveDistance)
@@ -45,6 +51,8 @@ public class EasyEnemy : MonoBehaviour
                 }
                 break;
             case 2: // Move down
+                GetComponent<SpriteRenderer>().sprite = enemySprites[0];
+
                 transform.Translate(Vector3.down * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= verticalMoveDistance)
@@ -54,6 +62,8 @@ public class EasyEnemy : MonoBehaviour
                 }
                 break;
             case 3: // Move right
+                GetComponent<SpriteRenderer>().sprite = enemySprites[2];
+
                 transform.Translate(Vector3.right * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= horizontalMoveDistance)
@@ -63,7 +73,15 @@ public class EasyEnemy : MonoBehaviour
                 }
                 break;
         }
-        if (Time.time - lastShotTime > 1 / fireRate)
+
+        // Ellenőrizzük, hogy az ellenség belépett-e a játéktérre
+        if (!hasEnteredPlayArea && transform.position.y <= Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, Camera.main.nearClipPlane)).y-0.5f)
+        {
+            hasEnteredPlayArea = true;
+        }
+
+        // Csak akkor lőjön, ha belépett a játéktérre
+        if (hasEnteredPlayArea && Time.time - lastShotTime > 1 / fireRate)
         {
             Shoot();
             lastShotTime = Time.time;
@@ -84,6 +102,7 @@ public class EasyEnemy : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(0, projectileOffset), Quaternion.identity);
         projectile.GetComponent<Projectile>().ProjectileVector = projectileDirection;
         projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.transform.Rotate(0, 0, 180);
         //projectile.GetComponent<PlayerProjectile>().ProjectileVector = new Vector2(0, 1);
     }
 
