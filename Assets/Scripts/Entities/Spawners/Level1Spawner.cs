@@ -1,10 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Level1Spawner : MonoBehaviour
 {
     public GameObject EasyEnemyPrefab;
+    
+    public List<Sprite> easyEnemySprites;
+
     public int numberOfEnemies = 5;
     public float spawnOffset = 0.5f; // Offset to ensure enemies don't move off the screen
+    public List<Sprite> enemySprites = new List<Sprite>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +24,8 @@ public class Level1Spawner : MonoBehaviour
             // Calculate the position for each enemy
             float xPosition = startX + spacing * (i + 1);
             Vector3 spawnPosition = new Vector3(xPosition, Camera.main.orthographicSize + 2, 0);
-            Instantiate(EasyEnemyPrefab, spawnPosition, Quaternion.identity);
+            GameObject enemy = Instantiate(EasyEnemyPrefab, spawnPosition, Quaternion.identity);
+            enemy.GetComponent<EasyEnemy>().enemySprites = enemySprites;
         }
     }
 

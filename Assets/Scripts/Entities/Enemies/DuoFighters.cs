@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 
@@ -21,6 +23,9 @@ public class DuoFighters : MonoBehaviour
 
     private GameObject player;
 
+
+    public List<Sprite> enemySprites = new List<Sprite>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,32 +41,27 @@ public class DuoFighters : MonoBehaviour
         switch (state)
         {
             case 0: // Move down
+                SpriteChange(0);
                 if (fighter1 != null) fighter1.transform.Translate(Vector3.down * moveStep);
                 if (fighter2 != null) fighter2.transform.Translate(Vector3.down * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= verticalMoveDistance)
                 {
                     distanceMoved = 0.0f;
-                    state = 1;
+                    float fighterX;
+                    if (fighter1 != null && fighter2 != null) fighterX = (fighter1.transform.position.x + fighter2.transform.position.x) / 2;
+                    else if (fighter1 != null) fighterX = fighter1.transform.position.x;
+                    else fighterX = fighter2.transform.position.x;
+
+                    if(fighterX > player.transform.position.x) state = 1;
+                    else state = 2;
                 }
                 break;
-            case 1: // Move left or right based on Player position
-                float fighterX;
-                if (fighter1 != null && fighter2 != null) fighterX = fighter1.transform.position.x + fighter2.transform.position.x / 2;
-                else if (fighter1 != null) fighterX = fighter1.transform.position.x;
-                else fighterX = fighter2.transform.position.x;
+            case 1: // Move left
+                SpriteChange(1);
 
-                if (player.transform.position.x < fighterX)
-                {
-                    if (fighter1 != null) fighter1.transform.Translate(Vector3.left * moveStep);
-                    if (fighter2 != null) fighter2.transform.Translate(Vector3.left * moveStep);
-                }
-                else
-                {
-                    if (fighter1 != null) fighter1.transform.Translate(Vector3.right * moveStep);
-                    if (fighter2 != null) fighter2.transform.Translate(Vector3.right * moveStep);
-                }
-
+                if (fighter1 != null) fighter1.transform.Translate(Vector3.left * moveStep);
+                if (fighter2 != null) fighter2.transform.Translate(Vector3.left * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= horizontalMoveDistance)
                 {
@@ -69,6 +69,19 @@ public class DuoFighters : MonoBehaviour
                     state = 0;
                 }
                 break;
+            case 2: // Move right
+                SpriteChange(2);
+
+                if (fighter1 != null) fighter1.transform.Translate(Vector3.right * moveStep);
+                if (fighter2 != null) fighter2.transform.Translate(Vector3.right * moveStep);
+                distanceMoved += moveStep;
+                if (distanceMoved >= horizontalMoveDistance)
+                {
+                    distanceMoved = 0.0f;
+                    state = 0;
+                }
+                break;
+
         }
 
         if (Time.time - lastShotTime > 1 / fireRate)
@@ -96,6 +109,14 @@ public class DuoFighters : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, fighter.transform.position + new Vector3(0, projectileOffset), Quaternion.identity);
         projectile.GetComponent<Projectile>().ProjectileVector = projectileDirection;
         projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.transform.Rotate(0, 0, 180);
         //projectile.GetComponent<PlayerProjectile>().ProjectileVector = new Vector2(0, 1);
     }
+
+    private void SpriteChange(int spriteIndex)
+    {
+        if (fighter1 != null) fighter1.GetComponent<SpriteRenderer>().sprite = enemySprites[spriteIndex];
+        if (fighter2 != null) fighter2.GetComponent<SpriteRenderer>().sprite = enemySprites[spriteIndex];
+    }
+
 }
