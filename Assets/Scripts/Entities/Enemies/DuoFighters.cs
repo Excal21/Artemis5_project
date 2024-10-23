@@ -6,7 +6,7 @@ public class DuoFighters : MonoBehaviour
     public GameObject fighter1;
     public GameObject fighter2;
 
- public float speed = 2.0f;
+    public float speed = 2.0f;
     private int state = 0; // 0: down, 1: left, 2: down, 3: right
     private float distanceMoved = 0.0f;
     public float verticalMoveDistance = 1.0f; // Distance to move down
@@ -30,12 +30,14 @@ public class DuoFighters : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    float moveStep = speed * Time.deltaTime;
+        if (fighter1 == null && fighter2 == null) Destroy(this.gameObject);
+        else{
+        float moveStep = speed * Time.deltaTime;
         switch (state)
         {
             case 0: // Move down
-                fighter1.transform.Translate(Vector3.down * moveStep);
-                fighter2.transform.Translate(Vector3.down * moveStep);
+                if (fighter1 != null) fighter1.transform.Translate(Vector3.down * moveStep);
+                if (fighter2 != null) fighter2.transform.Translate(Vector3.down * moveStep);
                 distanceMoved += moveStep;
                 if (distanceMoved >= verticalMoveDistance)
                 {
@@ -44,19 +46,22 @@ public class DuoFighters : MonoBehaviour
                 }
                 break;
             case 1: // Move left or right based on Player position
-                if (player != null)
+                float fighterX;
+                if (fighter1 != null && fighter2 != null) fighterX = fighter1.transform.position.x + fighter2.transform.position.x / 2;
+                else if (fighter1 != null) fighterX = fighter1.transform.position.x;
+                else fighterX = fighter2.transform.position.x;
+
+                if (player.transform.position.x < fighterX)
                 {
-                    if (player.transform.position.x < (fighter1.transform.position.x + fighter2.transform.position.x) / 2)
-                    {
-                        fighter1.transform.Translate(Vector3.left * moveStep);
-                        fighter2.transform.Translate(Vector3.left * moveStep);
-                    }
-                    else
-                    {
-                        fighter1.transform.Translate(Vector3.right * moveStep);
-                        fighter2.transform.Translate(Vector3.right * moveStep);
-                    }
+                    if (fighter1 != null) fighter1.transform.Translate(Vector3.left * moveStep);
+                    if (fighter2 != null) fighter2.transform.Translate(Vector3.left * moveStep);
                 }
+                else
+                {
+                    if (fighter1 != null) fighter1.transform.Translate(Vector3.right * moveStep);
+                    if (fighter2 != null) fighter2.transform.Translate(Vector3.right * moveStep);
+                }
+
                 distanceMoved += moveStep;
                 if (distanceMoved >= horizontalMoveDistance)
                 {
@@ -68,11 +73,15 @@ public class DuoFighters : MonoBehaviour
 
         if (Time.time - lastShotTime > 1 / fireRate)
         {
-            //Shoot(fighter1);
-            //Shoot(fighter2);
+            
+            if (fighter1 != null) Shoot(fighter1);
+            if (fighter2 != null) Shoot(fighter2);
             lastShotTime = Time.time;
         }
 
+        }
+
+       
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -82,9 +91,9 @@ public class DuoFighters : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public void Shoot()
+    public void Shoot(GameObject fighter)
     {
-        GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(0, projectileOffset), Quaternion.identity);
+        GameObject projectile = Instantiate(projectilePrefab, fighter.transform.position + new Vector3(0, projectileOffset), Quaternion.identity);
         projectile.GetComponent<Projectile>().ProjectileVector = projectileDirection;
         projectile.GetComponent<Projectile>().speed = projectileSpeed;
         //projectile.GetComponent<PlayerProjectile>().ProjectileVector = new Vector2(0, 1);

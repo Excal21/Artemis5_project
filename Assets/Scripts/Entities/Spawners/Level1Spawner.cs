@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EasyEnemySpawner : MonoBehaviour
+public class Level1Spawner : MonoBehaviour
 {
     public GameObject EasyEnemyPrefab;
     public int numberOfEnemies = 5;
