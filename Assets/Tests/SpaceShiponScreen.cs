@@ -1,5 +1,6 @@
 using System.Collections;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -16,7 +17,7 @@ public class SpaceshipMotion
     [UnityTest]
     public IEnumerator MotionTestWithEnumeratorPasses()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("EntityTest");
         yield return new WaitForSeconds(1); // Wait for the scene to load
 
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -29,16 +30,17 @@ public class SpaceshipMotion
 
         Debug.Log("Scene loaded.");
         // Find the PlayerSpaceship object by tag
-        GameObject spaceship = GameObject.FindGameObjectWithTag("Player");
-        Assert.IsNotNull(spaceship, "Űrhajó nem található");
+        GameObject player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Player.prefab");
+        Assert.IsNotNull(player, "A teszt nem találta az ellenség prefabot");
 
+        GameObject spaceship = Object.Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
         // Get the screen bounds
         float RightBorder = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
 
-        spaceship.GetComponent<PlayerMovement>().speed = 24f;
+        spaceship.GetComponent<Player>().speed = 24f;
 
 
-        spaceship.GetComponent<PlayerMovement>().gravity = 10f;
+        spaceship.GetComponent<Player>().gravity = 10f;
         Assert.IsTrue(spaceship.transform.position.y >= BottomBorder, "A hajó kiment a képernyő aljáról.");
 
         for (int i = 0; i < 500; i++) // Simulate 100 frames
@@ -51,7 +53,7 @@ public class SpaceshipMotion
 
         for (int i = 0; i < 500; i++) // Simulate 100 frames
         {
-            spaceship.GetComponent<PlayerMovement>().Right();
+            spaceship.GetComponent<Player>().Right();
             yield return null; // Skip a frame
         }
         Assert.IsTrue(spaceship.transform.position.x <= RightBorder, "A hajó kiment a képernyő jobb széléről.");
@@ -60,7 +62,7 @@ public class SpaceshipMotion
 
         for (int i = 0; i < 1000; i++) // Simulate 100 frames
         {
-            spaceship.GetComponent<PlayerMovement>().Left();
+            spaceship.GetComponent<Player>().Left();
             yield return null; // Skip a frame
         }
         Assert.IsTrue(spaceship.transform.position.x >= LeftBorder, "A hajó kiment a képernyő bal széléről.");
@@ -68,7 +70,7 @@ public class SpaceshipMotion
 
         for (int i = 0; i < 500; i++) // Simulate 100 frames
         {
-            spaceship.GetComponent<PlayerMovement>().Up();
+            spaceship.GetComponent<Player>().Up();
             yield return null; // Skip a frame
         }
         Assert.IsTrue(spaceship.transform.position.y <= TopBorder, "A hajó kiment a képernyő tetejéről.");
@@ -76,7 +78,7 @@ public class SpaceshipMotion
 
         for (int i = 0; i < 500; i++) // Simulate 100 frames
         {
-            spaceship.GetComponent<PlayerMovement>().Down();
+            spaceship.GetComponent<Player>().Down();
             yield return null; // Skip a frame
         }
         Assert.IsTrue(spaceship.transform.position.y >= BottomBorder, "A hajó kiment a képernyő aljáról.");
