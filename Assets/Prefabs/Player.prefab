@@ -78,7 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224,
+    type: 3}
   m_Color: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +105,8 @@ MonoBehaviour:
   speed: 3
   gravity: 1.5
   JetProp: {fileID: 1096514636564054564}
-  ProjectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31, type: 3}
+  ProjectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
+    type: 3}
   FireRate: 5
   ProjectileOffset: 1
   designersprite: {fileID: 0}
@@ -184,7 +186,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa,
+    type: 3}
   m_Color: {r: 0.6023496, g: 0.8488124, b: 0.9056604, a: 1}
   m_FlipX: 0
   m_FlipY: 0
