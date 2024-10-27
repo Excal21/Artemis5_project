@@ -6,8 +6,11 @@ TagManager:
   tags:
   - Border
   - Projectile
-  - Button
   - Panel
+  - Button
+  - Toggle
+  - Slider
+  - Dropdown
   layers:
   - Default
   - TransparentFX
