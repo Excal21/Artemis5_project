@@ -33,9 +33,9 @@ public class EnemyLine
         GameObject easyEnemy = Object.Instantiate(easyEnemyPrefab, new Vector3(0 , 4, 0), Quaternion.identity);
         GameObject easyEnemy2 = Object.Instantiate(easyEnemyPrefab, new Vector3(-8.5f, 4.5f), Quaternion.identity);
         GameObject easyEnemy3 = Object.Instantiate(easyEnemyPrefab, new Vector3(8.5f, 4.5f), Quaternion.identity);
-        easyEnemy.GetComponent<EasyEnemy>().speed = 20;
-        easyEnemy2.GetComponent<EasyEnemy>().speed = 20;
-        easyEnemy3.GetComponent<EasyEnemy>().speed = 20;
+        easyEnemy.GetComponent<EasyEnemy>().speed = 40;
+        easyEnemy2.GetComponent<EasyEnemy>().speed = 40;
+        easyEnemy3.GetComponent<EasyEnemy>().speed = 40;
         
 
         easyEnemy.GetComponent<EasyEnemy>().fireRate = 0;
