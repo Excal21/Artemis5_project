@@ -25,7 +25,7 @@ public class Level1Spawner : MonoBehaviour
             float xPosition = startX + spacing * (i + 1);
             Vector3 spawnPosition = new Vector3(xPosition, Camera.main.orthographicSize + 2, 0);
             GameObject enemy = Instantiate(EasyEnemyPrefab, spawnPosition, Quaternion.identity);
-            enemy.GetComponent<EasyEnemy>().enemySprites = enemySprites;
+            enemy.GetComponent<EasyEnemy>().EnemySprites = enemySprites;
         }
     }
 

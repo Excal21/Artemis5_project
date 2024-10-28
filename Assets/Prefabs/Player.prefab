@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2252706370974871755}
   - component: {fileID: 1275030828540039298}
-  - component: {fileID: 8812612847530354203}
+  - component: {fileID: 5653958723097523949}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8812612847530354203
+--- !u!114 &5653958723097523949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,11 +104,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   gravity: 1.5
-  JetProp: {fileID: 1096514636564054564}
-  ProjectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
+  jetProp: {fileID: 1096514636564054564}
+  projectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
     type: 3}
-  FireRate: 5
-  ProjectileOffset: 1
+  fireRate: 2
+  projectileOffset: 1
   designersprite: {fileID: 0}
 --- !u!1 &1096514636564054564
 GameObject:

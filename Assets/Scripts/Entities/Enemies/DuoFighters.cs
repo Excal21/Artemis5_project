@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class DuoFighters : MonoBehaviour
@@ -9,7 +8,7 @@ public class DuoFighters : MonoBehaviour
     public GameObject fighter2;
 
     public float speed = 2.0f;
-    private int state = 0; // 0: down, 1: left, 2: down, 3: right
+    private int state = 0;
     private float distanceMoved = 0.0f;
     public float verticalMoveDistance = 1.0f; // Distance to move down
     public float horizontalMoveDistance = 2.0f; // Distance to move left/right

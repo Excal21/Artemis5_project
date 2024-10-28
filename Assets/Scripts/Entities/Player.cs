@@ -3,29 +3,54 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 5f;
-    public float gravity = 0.2f;
-    public GameObject JetProp;
-    public GameObject ProjectilePrefab;
-    public float FireRate = 3;
-    public float ProjectileOffset = 1f;
-    private float prevYcord;
+    #region Képernyőhatárok munkaváltozói
     private float screenTop;
     private float screenBottom;
     private float screenLeft;
     private float screenRight;
+    #endregion
+
+    #region Játékos munkaváltozói
+    private float prevYcord;
     private float lastShotTime = 0;
-    public Sprite designersprite;
     private Vector2 newPosition;
     private Vector2 actPosition;
+    #endregion
 
-    public void Shoot()
+    #region Tulajdonságok private mezői
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
+    private float gravity = 0.2f;
+    [SerializeField]
+    private GameObject jetProp;
+    [SerializeField]
+    private GameObject projectilePrefab;
+    [SerializeField]
+    private float fireRate = 3;
+    [SerializeField]
+    private float projectileOffset = 1f;
+    [SerializeField]
+    private Sprite designersprite;
+    #endregion
+
+    #region Getterek/Setterek
+    public float Speed { get => speed; set => speed = value; }
+    public float Gravity { get => gravity; set => gravity = value; }
+    public GameObject JetProp { get => jetProp; set => jetProp = value; }
+    public GameObject ProjectilePrefab { get => projectilePrefab; set => projectilePrefab = value; }
+    public float FireRate { get => fireRate; set => fireRate = value; }
+    public float ProjectileOffset { get => projectileOffset; set => projectileOffset = value; }
+    #endregion
+
+    public void Shoot() //Lövésért felelős metódus
     {
-        GameObject projectile = Instantiate(ProjectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + ProjectileOffset, 0), Quaternion.identity);
-
-        //projectile.GetComponent<PlayerProjectile>().ProjectileVector = new Vector2(0, 1);
+        GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
+        projectile.tag = "PlayerProjectile";
     }
 
+    #region Mozgások metódusai
+    //Gombok megnyomásakor ezek a metódusok hívódnak meg az Update()-ben és ezeket hívják meg a tesztek is
     public void Left()
     {
         actPosition = transform.position;
@@ -81,12 +106,12 @@ public class Player : MonoBehaviour
             newPosition = actPosition;
         }
     }
-
+    #endregion
     public void Start()
     {
         prevYcord = transform.position.y;
 
-        // Határozzuk meg a képernyő széleit
+        //Képernyő szélének meghatározása
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         screenTop = screenBounds.y;
         screenBottom = -screenBounds.y;
@@ -103,16 +128,19 @@ public class Player : MonoBehaviour
         actPosition = transform.position;
         newPosition = transform.position;
         newPosition += Vector2.down * Time.deltaTime * gravity;
-        if (newPosition.y >= screenBottom){
+        if (newPosition.y >= screenBottom)
+        {
             transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
         }
-        else{
+        else
+        {
             newPosition = actPosition;
         }
 
 
         if (newPosition.y >= screenBottom) this.transform.position = newPosition;
 
+        //Inputok lekezelése
         if (Input.GetKey(KeyCode.W))
         {
             Up();
@@ -135,18 +163,18 @@ public class Player : MonoBehaviour
         //Jet Propulsion
         if (prevYcord < transform.position.y)
         {
-            JetProp.transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
-            JetProp.SetActive(true);
+            jetProp.transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
+            jetProp.SetActive(true);
         }
         else
         {
-            JetProp.SetActive(false);
+            jetProp.SetActive(false);
         }
         prevYcord = transform.position.y;
 
 
 
-        if (Input.GetKey(KeyCode.Space) && Time.time > lastShotTime + 1 / FireRate)
+        if (Input.GetKey(KeyCode.Space) && Time.time > lastShotTime + 1 / fireRate)
         {
             Shoot();
             lastShotTime = Time.time;

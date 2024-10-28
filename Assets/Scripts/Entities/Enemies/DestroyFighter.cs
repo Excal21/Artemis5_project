@@ -16,7 +16,7 @@ public class DestroyChild : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Projectile" || other.tag == "Border")
+        if (other.tag == "PlayerProjectile" || other.tag == "Border")
         {
             Destroy(this.gameObject);
         }

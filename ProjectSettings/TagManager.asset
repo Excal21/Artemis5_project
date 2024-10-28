@@ -8,6 +8,7 @@ TagManager:
   - Projectile
   - Button
   - Panel
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX
