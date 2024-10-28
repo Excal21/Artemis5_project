@@ -5,7 +5,7 @@ public class EasyEnemy : MonoBehaviour
 {
     #region Egyszerű ellenfél munkaváltozói
     public float speed = 2.0f;
-    private int state = 0; // 0: down, 1: left, 2: down, 3: right
+    private int state = 0;
     private float distanceMoved = 0.0f;
     private float lastShotTime = 0;
     private bool hasEnteredPlayArea = false;
@@ -37,13 +37,14 @@ public class EasyEnemy : MonoBehaviour
     public float FireRate { get => fireRate; set => fireRate = value; }
     public List<Sprite> EnemySprites { get => enemySprites; set => enemySprites = value; }
     #endregion
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    //A start akkor fut le, mikor a Monobehaviour létrejön, az első Update előtt
     void Start()
     {
         GetComponent<SpriteRenderer>().sprite = enemySprites[0];
     }
 
-    // Update is called once per frame
+    //Képkockánként egyszer fut le
     void Update()
     {
         float moveStep = speed * Time.deltaTime;

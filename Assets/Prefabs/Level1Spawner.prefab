@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f76210d7731564fb4a35beb426f0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EasyEnemyPrefab: {fileID: 723683433129449643, guid: 06d2076b4d1f1c445bf7ff8624977bf5, type: 3}
+  EasyEnemyPrefab: {fileID: 723683433129449643, guid: 06d2076b4d1f1c445bf7ff8624977bf5,
+    type: 3}
+  easyEnemySprites: []
   numberOfEnemies: 5
   spawnOffset: 0.5
+  enemySprites:
+  - {fileID: 21300000, guid: 59c4f299daa677b49961489737d8e038, type: 3}
+  - {fileID: 21300000, guid: b6c07e0cf4ac95f4888f758a1cd8d8af, type: 3}
+  - {fileID: 21300000, guid: c1e74a763b54aeb48b5559a4eda3dd1a, type: 3}
