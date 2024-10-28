@@ -38,9 +38,9 @@ public class EnemyLine
         easyEnemy3.GetComponent<EasyEnemy>().speed = 40;
         
 
-        easyEnemy.GetComponent<EasyEnemy>().fireRate = 0;
-        easyEnemy2.GetComponent<EasyEnemy>().fireRate = 0;
-        easyEnemy3.GetComponent<EasyEnemy>().fireRate = 0;        
+        easyEnemy.GetComponent<EasyEnemy>().FireRate = 0;
+        easyEnemy2.GetComponent<EasyEnemy>().FireRate = 0;
+        easyEnemy3.GetComponent<EasyEnemy>().FireRate = 0;        
 
 
         Assert.IsNotNull(easyEnemy, "Failed to instantiate EasyEnemy");

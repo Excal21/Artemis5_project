@@ -31,16 +31,17 @@ public class SpaceshipMotion
         Debug.Log("Scene loaded.");
         // Find the PlayerSpaceship object by tag
         GameObject player = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Player.prefab");
-        Assert.IsNotNull(player, "A teszt nem találta az ellenség prefabot");
+        Assert.IsNotNull(player, "A teszt nem találta az Player prefabot");
 
         GameObject spaceship = Object.Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
+        Assert.IsNotNull(spaceship, "A teszt nem tudta létrehozni a játékos űrhajóját");
         // Get the screen bounds
         float RightBorder = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
 
-        spaceship.GetComponent<Player>().speed = 24f;
+        spaceship.GetComponent<Player>().Speed = 24f;
 
 
-        spaceship.GetComponent<Player>().gravity = 10f;
+        spaceship.GetComponent<Player>().Gravity = 10f;
         Assert.IsTrue(spaceship.transform.position.y >= BottomBorder, "A hajó kiment a képernyő aljáról.");
 
         for (int i = 0; i < 500; i++) // Simulate 100 frames
