@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8812612847530354203}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224,
+    type: 3}
   m_Color: {r: 1, g: 0.41037738, b: 0.41037738, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,14 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e001570d7a92e424499cecef46196289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScreenOffset: 0.5
   speed: 3
   gravity: 1.5
   JetProp: {fileID: 1096514636564054564}
-  ProjectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31, type: 3}
+  ProjectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
+    type: 3}
   FireRate: 5
-  ProjectileSpeed: 0.1
   ProjectileOffset: 1
+  designersprite: {fileID: 0}
 --- !u!1 &1096514636564054564
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +186,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa,
+    type: 3}
   m_Color: {r: 0.6023496, g: 0.8488124, b: 0.9056604, a: 1}
   m_FlipX: 0
   m_FlipY: 0
