@@ -3,33 +3,54 @@ using UnityEngine;
 
 public class EasyEnemy : MonoBehaviour
 {
+    #region Egyszerű ellenfél munkaváltozói
     public float speed = 2.0f;
-    private int state = 0; // 0: down, 1: left, 2: down, 3: right
+    private int state = 0;
     private float distanceMoved = 0.0f;
-    public float verticalMoveDistance = 1.0f; // Distance to move down
-    public float horizontalMoveDistance = 2.0f; // Distance to move left/right
-
-    public GameObject projectilePrefab;
-    public float projectileSpeed = 5.0f;
-    public float fireRate = 2.0f;
-    public Vector3 projectileDirection = Vector2.down;
-    public float projectileOffset = -1f;
     private float lastShotTime = 0;
     private bool hasEnteredPlayArea = false;
-    public List<Sprite> enemySprites = new List<Sprite>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    #endregion
+
+    #region Tulajdonságok privát mezői
+    //A távolságok egységben unity képernyőegységben értendők
+    [SerializeField]
+    private float verticalMoveDistance = 1.0f;
+    [SerializeField]
+    private float horizontalMoveDistance = 2.0f;
+    [SerializeField]
+    private GameObject projectilePrefab;
+    [SerializeField]
+    private float projectileSpeed = 5.0f;
+    [SerializeField]
+    private float fireRate = 2.0f;
+    [SerializeField]
+    private Vector3 projectileDirection = Vector2.down;
+    [SerializeField]
+    private float projectileOffset = -1f;
+    [SerializeField]
+    private List<Sprite> enemySprites = new List<Sprite>();
+    #endregion
+
+    #region Getterek/Setterek
+    public GameObject ProjectilePrefab { get => projectilePrefab; set => projectilePrefab = value; }
+    public float ProjectileSpeed { get => projectileSpeed; set => projectileSpeed = value; }
+    public float FireRate { get => fireRate; set => fireRate = value; }
+    public List<Sprite> EnemySprites { get => enemySprites; set => enemySprites = value; }
+    #endregion
+
+    //A start akkor fut le, mikor a Monobehaviour létrejön, az első Update előtt
     void Start()
     {
         GetComponent<SpriteRenderer>().sprite = enemySprites[0];
     }
 
-    // Update is called once per frame
+    //Képkockánként egyszer fut le
     void Update()
     {
         float moveStep = speed * Time.deltaTime;
         switch (state)
         {
-            case 0: // Move down
+            case 0: //Le
                 GetComponent<SpriteRenderer>().sprite = enemySprites[0];
                 transform.Translate(Vector3.down * moveStep);
                 distanceMoved += moveStep;
@@ -39,7 +60,7 @@ public class EasyEnemy : MonoBehaviour
                     state = 1;
                 }
                 break;
-            case 1: // Move left
+            case 1: //Balra
                 GetComponent<SpriteRenderer>().sprite = enemySprites[1];
 
                 transform.Translate(Vector3.left * moveStep);
@@ -50,7 +71,7 @@ public class EasyEnemy : MonoBehaviour
                     state = 2;
                 }
                 break;
-            case 2: // Move down
+            case 2: //Megint le
                 GetComponent<SpriteRenderer>().sprite = enemySprites[0];
 
                 transform.Translate(Vector3.down * moveStep);
@@ -61,7 +82,7 @@ public class EasyEnemy : MonoBehaviour
                     state = 3;
                 }
                 break;
-            case 3: // Move right
+            case 3: //Jobbra
                 GetComponent<SpriteRenderer>().sprite = enemySprites[2];
 
                 transform.Translate(Vector3.right * moveStep);
@@ -92,7 +113,7 @@ public class EasyEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Projectile" || other.tag == "Border")
+        if (other.tag == "PlayerProjectile" || other.tag == "Border")
         {
             Destroy(this.gameObject);
         }
@@ -103,7 +124,6 @@ public class EasyEnemy : MonoBehaviour
         projectile.GetComponent<Projectile>().ProjectileVector = projectileDirection;
         projectile.GetComponent<Projectile>().speed = projectileSpeed;
         projectile.transform.Rotate(0, 0, 180);
-        //projectile.GetComponent<PlayerProjectile>().ProjectileVector = new Vector2(0, 1);
     }
 
 }
