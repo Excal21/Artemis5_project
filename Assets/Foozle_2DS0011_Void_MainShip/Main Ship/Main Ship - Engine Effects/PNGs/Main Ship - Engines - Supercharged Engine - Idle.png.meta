@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 45f6f457915ba714198f557f7724f405
+guid: 6fae0afc620f94f45a56a14ff9682777
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3695450020079138224
-    second: fotor-ai-20241020103850_0
+      213: 5280763785014020309
+    second: Main Ship - Engines - Supercharged Engine - Idle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fotor-ai-20241020103850_0
+      name: Main Ship - Engines - Supercharged Engine - Idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1344
-        height: 768
+        width: 192
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b5f604c630e84330800000000000000
-      internalID: 3695450020079138224
+      spriteID: 5d8028c0faa094940800000000000000
+      internalID: 5280763785014020309
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      fotor-ai-20241020103850_0: 3695450020079138224
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

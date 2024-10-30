@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: 5e4d114695312c84ba35bb499dd6087e
+guid: eb3b06381430f3e43b56d5e93276d7bb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8964348670299197311
-    second: spaceships_0
+      213: 1224981832804390656
+    second: Main ship weapon - Projectile - Zapper_0
   - first:
-      213: -9062304531134733656
-    second: spaceships_1
+      213: 3204600389847400455
+    second: Main ship weapon - Projectile - Zapper_1
   - first:
-      213: 1132676901880397304
-    second: spaceships_2
+      213: -596982838872072440
+    second: Main ship weapon - Projectile - Zapper_2
   - first:
-      213: 7730256063860039076
-    second: spaceships_3
+      213: 545894370982134639
+    second: Main ship weapon - Projectile - Zapper_3
+  - first:
+      213: -5924213035578874020
+    second: Main ship weapon - Projectile - Zapper_4
+  - first:
+      213: -5731724567461003116
+    second: Main ship weapon - Projectile - Zapper_5
+  - first:
+      213: 3007546863773292764
+    second: Main ship weapon - Projectile - Zapper_6
+  - first:
+      213: 2038064369345424858
+    second: Main ship weapon - Projectile - Zapper_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,79 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spaceships_0
+      name: Main ship weapon - Projectile - Zapper_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 50
-        width: 48
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f7fcde7de93c76c70800000000000000
-      internalID: 8964348670299197311
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spaceships_1
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 47
-        width: 44
-        height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8a22d470b0a3c3280800000000000000
-      internalID: -9062304531134733656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spaceships_2
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 1
-        width: 46
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8fdfedd14a318bf00800000000000000
-      internalID: 1132676901880397304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spaceships_3
-      rect:
-        serializedVersion: 2
-        x: 47
+        x: 12
         y: 0
-        width: 49
-        height: 47
+        width: 8
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +149,162 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4addf25fee2674b60800000000000000
-      internalID: 7730256063860039076
+      spriteID: 007dc989c72000110800000000000000
+      internalID: 1224981832804390656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_1
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 700ceeb6317097c20800000000000000
+      internalID: 3204600389847400455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80f9600654717b7f0800000000000000
+      internalID: -596982838872072440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_3
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f638643c908639700800000000000000
+      internalID: 545894370982134639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c572598c1a7f8cda0800000000000000
+      internalID: -5924213035578874020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_5
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4908b16bfd2d470b0800000000000000
+      internalID: -5731724567461003116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd81c8c10f3fcb920800000000000000
+      internalID: 3007546863773292764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Zapper_7
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 0
+        width: 8
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adde63ceeb8a84c10800000000000000
+      internalID: 2038064369345424858
       vertices: []
       indices: 
       edges: []
@@ -222,11 +322,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      spaceships_0: 8964348670299197311
-      spaceships_1: -9062304531134733656
-      spaceships_2: 1132676901880397304
-      spaceships_3: 7730256063860039076
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

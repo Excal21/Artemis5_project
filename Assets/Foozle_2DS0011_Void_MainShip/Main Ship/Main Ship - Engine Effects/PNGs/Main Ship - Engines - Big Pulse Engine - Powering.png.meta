@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 45f6f457915ba714198f557f7724f405
+guid: b033adba82654384d97d27428780c924
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3695450020079138224
-    second: fotor-ai-20241020103850_0
+      213: 9221159061991863010
+    second: Main Ship - Engines - Big Pulse Engine - Powering_0
+  - first:
+      213: 5469186229087416257
+    second: Main Ship - Engines - Big Pulse Engine - Powering_1
+  - first:
+      213: 8984648045043596711
+    second: Main Ship - Engines - Big Pulse Engine - Powering_2
+  - first:
+      213: -6099170209708202703
+    second: Main Ship - Engines - Big Pulse Engine - Powering_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fotor-ai-20241020103850_0
+      name: Main Ship - Engines - Big Pulse Engine - Powering_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1344
-        height: 768
+        x: 15
+        y: 2
+        width: 18
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b5f604c630e84330800000000000000
-      internalID: 3695450020079138224
+      spriteID: 2e23663af4328ff70800000000000000
+      internalID: 9221159061991863010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Big Pulse Engine - Powering_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 2
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cfa63bf5e376eb40800000000000000
+      internalID: 5469186229087416257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Big Pulse Engine - Powering_2
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 2
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ad3bb45bc1efac70800000000000000
+      internalID: 8984648045043596711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Big Pulse Engine - Powering_3
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 2
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 135a2b152056b5ba0800000000000000
+      internalID: -6099170209708202703
       vertices: []
       indices: 
       edges: []
@@ -147,8 +222,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      fotor-ai-20241020103850_0: 3695450020079138224
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

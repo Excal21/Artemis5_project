@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 45f6f457915ba714198f557f7724f405
+guid: 4a69862c1d3213a44b242d206e6cbddb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3695450020079138224
-    second: fotor-ai-20241020103850_0
+      213: 1161604956373862266
+    second: Main ship weapon - Projectile - Auto cannon bullet_0
+  - first:
+      213: 8287931329708892841
+    second: Main ship weapon - Projectile - Auto cannon bullet_1
+  - first:
+      213: -4800783246844459176
+    second: Main ship weapon - Projectile - Auto cannon bullet_2
+  - first:
+      213: 6880207478361930997
+    second: Main ship weapon - Projectile - Auto cannon bullet_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +122,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fotor-ai-20241020103850_0
+      name: Main ship weapon - Projectile - Auto cannon bullet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1344
-        height: 768
+        x: 10
+        y: 6
+        width: 12
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +137,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b5f604c630e84330800000000000000
-      internalID: 3695450020079138224
+      spriteID: a774ff9ad89de1010800000000000000
+      internalID: 1161604956373862266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Auto cannon bullet_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 7
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a2212e02a5a40370800000000000000
+      internalID: 8287931329708892841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Auto cannon bullet_2
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 6
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85780389211306db0800000000000000
+      internalID: -4800783246844459176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Auto cannon bullet_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 7
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fcbfb8af386b7f50800000000000000
+      internalID: 6880207478361930997
       vertices: []
       indices: 
       edges: []
@@ -147,8 +222,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      fotor-ai-20241020103850_0: 3695450020079138224
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
