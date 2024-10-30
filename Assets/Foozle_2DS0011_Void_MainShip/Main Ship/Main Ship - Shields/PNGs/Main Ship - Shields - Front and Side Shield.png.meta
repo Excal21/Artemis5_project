@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Shields - Front and Side Shield_0: 8750295261629121697
+      Main Ship - Shields - Front and Side Shield_1: 8505258775091169397
+      Main Ship - Shields - Front and Side Shield_2: 2975968906857299237
+      Main Ship - Shields - Front and Side Shield_3: 8479493046639426775
+      Main Ship - Shields - Front and Side Shield_4: -1488889956880743766
+      Main Ship - Shields - Front and Side Shield_5: 223991586006138174
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

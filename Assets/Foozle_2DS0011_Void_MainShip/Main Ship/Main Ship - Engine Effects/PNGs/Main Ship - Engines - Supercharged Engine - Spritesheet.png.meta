@@ -322,7 +322,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Supercharged Engine - Spritesheet_0: 1505896292610601677
+      Main Ship - Engines - Supercharged Engine - Spritesheet_1: -1157367792519845776
+      Main Ship - Engines - Supercharged Engine - Spritesheet_2: 7637343892286418820
+      Main Ship - Engines - Supercharged Engine - Spritesheet_3: 8411443749173575552
+      Main Ship - Engines - Supercharged Engine - Spritesheet_4: 2281415964059188586
+      Main Ship - Engines - Supercharged Engine - Spritesheet_5: 5101681044321321197
+      Main Ship - Engines - Supercharged Engine - Spritesheet_6: -6972606277920029494
+      Main Ship - Engines - Supercharged Engine - Spritesheet_7: -7147069313694496400
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

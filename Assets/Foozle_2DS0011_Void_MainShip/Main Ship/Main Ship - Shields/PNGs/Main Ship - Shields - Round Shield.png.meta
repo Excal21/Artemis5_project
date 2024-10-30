@@ -422,7 +422,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Shields - Round Shield_0: -2888773462806500780
+      Main Ship - Shields - Round Shield_1: -3522374371042748213
+      Main Ship - Shields - Round Shield_10: 7404007778508470975
+      Main Ship - Shields - Round Shield_11: -3459012902084987596
+      Main Ship - Shields - Round Shield_2: -8060141029300776743
+      Main Ship - Shields - Round Shield_3: -3122870585617151156
+      Main Ship - Shields - Round Shield_4: -6917696627477117225
+      Main Ship - Shields - Round Shield_5: 8547827141361370171
+      Main Ship - Shields - Round Shield_6: -6586051163252987193
+      Main Ship - Shields - Round Shield_7: -1880319094238798451
+      Main Ship - Shields - Round Shield_8: 3650945727547203554
+      Main Ship - Shields - Round Shield_9: -8118450967131001696
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

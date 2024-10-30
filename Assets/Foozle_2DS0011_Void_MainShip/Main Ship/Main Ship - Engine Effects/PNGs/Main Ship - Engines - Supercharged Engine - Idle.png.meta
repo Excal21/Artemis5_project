@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Supercharged Engine - Idle_0: 5280763785014020309
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Shields - Invincibility Shield_0: -7185637956740736104
+      Main Ship - Shields - Invincibility Shield_1: 3066962688185937846
+      Main Ship - Shields - Invincibility Shield_2: -8234150838995869079
+      Main Ship - Shields - Invincibility Shield_3: -2198592717483152453
+      Main Ship - Shields - Invincibility Shield_4: -733672781905135858
+      Main Ship - Shields - Invincibility Shield_5: -6973448484612026494
+      Main Ship - Shields - Invincibility Shield_6: 2234710901924121866
+      Main Ship - Shields - Invincibility Shield_7: 513955238083294641
+      Main Ship - Shields - Invincibility Shield_8: -8765888365032802262
+      Main Ship - Shields - Invincibility Shield_9: -578589546221845060
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
