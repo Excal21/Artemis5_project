@@ -447,7 +447,20 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Burst Engine - Spritesheet_0: -5186741629839597557
+      Main Ship - Engines - Burst Engine - Spritesheet_1: -795807889479606599
+      Main Ship - Engines - Burst Engine - Spritesheet_10: -8450154748364208917
+      Main Ship - Engines - Burst Engine - Spritesheet_11: 6828155639790832243
+      Main Ship - Engines - Burst Engine - Spritesheet_12: -7917221286673571651
+      Main Ship - Engines - Burst Engine - Spritesheet_2: -9037470930521813108
+      Main Ship - Engines - Burst Engine - Spritesheet_3: 1102827649913007989
+      Main Ship - Engines - Burst Engine - Spritesheet_4: 4286227007918630193
+      Main Ship - Engines - Burst Engine - Spritesheet_5: 503035401987542015
+      Main Ship - Engines - Burst Engine - Spritesheet_6: -1331973298183711041
+      Main Ship - Engines - Burst Engine - Spritesheet_7: 7025964692657860342
+      Main Ship - Engines - Burst Engine - Spritesheet_8: -3316398468130613109
+      Main Ship - Engines - Burst Engine - Spritesheet_9: 16559960220759080
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

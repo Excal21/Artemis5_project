@@ -472,7 +472,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Weapons - Zapper_0: -6242273175121147769
+      Main Ship - Weapons - Zapper_1: 485060823638566006
+      Main Ship - Weapons - Zapper_10: 5903161520513228204
+      Main Ship - Weapons - Zapper_11: -183285216446968959
+      Main Ship - Weapons - Zapper_12: -788368179561073098
+      Main Ship - Weapons - Zapper_13: -3039775887846081553
+      Main Ship - Weapons - Zapper_2: 3836387281412830155
+      Main Ship - Weapons - Zapper_3: -4042525632343557018
+      Main Ship - Weapons - Zapper_4: 5848163795710759604
+      Main Ship - Weapons - Zapper_5: 527395334985809499
+      Main Ship - Weapons - Zapper_6: 3668567150197118092
+      Main Ship - Weapons - Zapper_7: 7895372245934476674
+      Main Ship - Weapons - Zapper_8: -4824682019707960117
+      Main Ship - Weapons - Zapper_9: 2838156914229403127
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

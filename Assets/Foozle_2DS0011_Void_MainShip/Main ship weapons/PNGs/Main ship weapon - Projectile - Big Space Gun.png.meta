@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main ship weapon - Projectile - Big Space Gun_0: 3988828326770655150
+      Main ship weapon - Projectile - Big Space Gun_1: -8024733606947100112
+      Main ship weapon - Projectile - Big Space Gun_2: 3692025383023953489
+      Main ship weapon - Projectile - Big Space Gun_3: 1137453674460749875
+      Main ship weapon - Projectile - Big Space Gun_4: -3352014669084381124
+      Main ship weapon - Projectile - Big Space Gun_5: -4653297501129094095
+      Main ship weapon - Projectile - Big Space Gun_6: -2228092687517378546
+      Main ship weapon - Projectile - Big Space Gun_7: -1542530954104006472
+      Main ship weapon - Projectile - Big Space Gun_8: -444571773457118995
+      Main ship weapon - Projectile - Big Space Gun_9: 2212986679589364865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

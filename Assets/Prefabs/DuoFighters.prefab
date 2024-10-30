@@ -48,14 +48,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fighter1: {fileID: 6563406299822589323}
   fighter2: {fileID: 7077678182129880747}
+  projectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
+    type: 3}
+  projectileDirection: {x: 0, y: -1, z: 0}
   speed: 2
   verticalMoveDistance: 0.5
   horizontalMoveDistance: 3
-  projectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
-    type: 3}
   projectileSpeed: 5
-  fireRate: 2
-  projectileDirection: {x: 0, y: -1, z: 0}
+  fireRate: 1.5
   projectileOffset: -1
   enemySprites:
   - {fileID: 21300000, guid: b1f6b71ef49797d419d9e7a90a092acf, type: 3}

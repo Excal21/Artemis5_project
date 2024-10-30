@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Burst Engine_0: 7417780117889004324
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

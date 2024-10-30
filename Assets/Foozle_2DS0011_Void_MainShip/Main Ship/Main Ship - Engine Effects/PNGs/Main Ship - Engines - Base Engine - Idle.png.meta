@@ -272,7 +272,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Base Engine - Idle_0: 2869836826937132121
+      Main Ship - Engines - Base Engine - Idle_1: -3642214747636528
+      Main Ship - Engines - Base Engine - Idle_2: -5619748045472601254
+      Main Ship - Engines - Base Engine - Idle_3: -4267442292630722726
+      Main Ship - Engines - Base Engine - Idle_4: 2712709625665527618
+      Main Ship - Engines - Base Engine - Idle_5: 551752801442154573
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

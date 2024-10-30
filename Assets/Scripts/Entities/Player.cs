@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +20,10 @@ public class Player : MonoBehaviour
 
     #region Tulajdonságok private mezői
     [SerializeField]
+    private List<Sprite> playerSprites;
+    [SerializeField]
+    private int health = 4;
+    [SerializeField]
     private float speed = 5f;
     [SerializeField]
     private float gravity = 0.2f;
@@ -27,11 +32,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject projectilePrefab;
     [SerializeField]
+    private float jetPropOffset = 0.1f;
+    [SerializeField]
     private float fireRate = 3;
     [SerializeField]
     private float projectileOffset = 1f;
     [SerializeField]
-    private Sprite designersprite;
     #endregion
 
     #region Getterek/Setterek
@@ -41,13 +47,11 @@ public class Player : MonoBehaviour
     public GameObject ProjectilePrefab { get => projectilePrefab; set => projectilePrefab = value; }
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float ProjectileOffset { get => projectileOffset; set => projectileOffset = value; }
+    public List<Sprite> PlayerSprites { get => playerSprites; set => playerSprites = value; }
+    public int Health { get => health; }
     #endregion
 
-    public void Shoot() //Lövésért felelős metódus
-    {
-        GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
-        projectile.tag = "PlayerProjectile";
-    }
+
 
     #region Mozgások metódusai
     //Gombok megnyomásakor ezek a metódusok hívódnak meg az Update()-ben és ezeket hívják meg a tesztek is
@@ -114,7 +118,7 @@ public class Player : MonoBehaviour
         //Képernyő szélének meghatározása
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         screenTop = screenBounds.y;
-        screenBottom = -screenBounds.y;
+        screenBottom = -screenBounds.y + 0.5f;
         screenLeft = -screenBounds.x;
         screenRight = screenBounds.x;
 
@@ -155,7 +159,6 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("D");
             Right();
         }
 
@@ -163,7 +166,7 @@ public class Player : MonoBehaviour
         //Jet Propulsion
         if (prevYcord < transform.position.y)
         {
-            jetProp.transform.position = new Vector2(transform.position.x, transform.position.y - 0.5f);
+            jetProp.transform.position = new Vector2(transform.position.x, transform.position.y - jetPropOffset);
             jetProp.SetActive(true);
         }
         else
@@ -183,10 +186,38 @@ public class Player : MonoBehaviour
         {
             Application.Quit();
         }
-        if (Input.GetKey(KeyCode.B))
-        {
-            GameObject.Find("Background").GetComponent<SpriteRenderer>().sprite = designersprite;
-        }
 
+
+    }
+
+
+
+    public void Damage()
+    {
+        health--;
+        this.GetComponent<SpriteRenderer>().sprite = playerSprites[3 - health];
+        GameObject.FindGameObjectWithTag("HealthIndicator").GetComponent<HealtIndicator>().UpdateHealth(health);
+    }
+
+
+    public void Shoot() //Lövésért felelős metódus
+    {
+        GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
+        projectile.tag = "PlayerProjectile";
+    }
+
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null){
+            Destroy(collision.gameObject);
+        }
+        if (health == 0)
+        {
+            Destroy(this.gameObject);
+        }
+        else{
+            Damage();
+        }
     }
 }

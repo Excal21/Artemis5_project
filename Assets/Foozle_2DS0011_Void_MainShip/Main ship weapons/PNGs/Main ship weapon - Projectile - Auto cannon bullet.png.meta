@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main ship weapon - Projectile - Auto cannon bullet_0: 1161604956373862266
+      Main ship weapon - Projectile - Auto cannon bullet_1: 8287931329708892841
+      Main ship weapon - Projectile - Auto cannon bullet_2: -4800783246844459176
+      Main ship weapon - Projectile - Auto cannon bullet_3: 6880207478361930997
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

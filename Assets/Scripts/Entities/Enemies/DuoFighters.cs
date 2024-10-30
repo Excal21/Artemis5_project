@@ -9,6 +9,7 @@ public class DuoFighters : MonoBehaviour
     private float lastShotTime = 0;
     private float distanceMoved = 0.0f;
     private int state = 0;
+    private bool hasEnteredPlayArea = false;
     #endregion
 
     #region Tulajdonságok privát mezői
@@ -77,7 +78,7 @@ public class DuoFighters : MonoBehaviour
                         else if (fighter1 != null) fighterX = fighter1.transform.position.x;
                         else fighterX = fighter2.transform.position.x;
 
-                        if (fighterX > player.transform.position.x) state = 1;
+                        if (player != null && fighterX > player.transform.position.x) state = 1;
                         else state = 2;
                     }
                     break;
@@ -108,7 +109,13 @@ public class DuoFighters : MonoBehaviour
 
             }
 
-            if (Time.time - lastShotTime > 1 / fireRate)
+            // Ellenőrizzük, hogy az ellenség belépett-e a játéktérre
+            if (!hasEnteredPlayArea && fighter1.transform.position.y <= Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, Camera.main.nearClipPlane)).y-0.5f)
+            {
+                hasEnteredPlayArea = true;
+            }
+
+            if (hasEnteredPlayArea && Time.time - lastShotTime > 1 / fireRate)
             {
 
                 if (fighter1 != null) Shoot(fighter1);

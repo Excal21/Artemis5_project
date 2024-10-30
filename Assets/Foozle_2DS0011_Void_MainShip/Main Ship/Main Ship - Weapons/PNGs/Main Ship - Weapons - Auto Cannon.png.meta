@@ -297,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Weapons - Auto Cannon_0: 611724665972262944
+      Main Ship - Weapons - Auto Cannon_1: -1375728824914041583
+      Main Ship - Weapons - Auto Cannon_2: 6307077810593842542
+      Main Ship - Weapons - Auto Cannon_3: 7220479240494759323
+      Main Ship - Weapons - Auto Cannon_4: -868710662863721769
+      Main Ship - Weapons - Auto Cannon_5: 4672232222400279883
+      Main Ship - Weapons - Auto Cannon_6: 439537449767786856
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Big Pulse Engine - Powering_0: 9221159061991863010
+      Main Ship - Engines - Big Pulse Engine - Powering_1: 5469186229087416257
+      Main Ship - Engines - Big Pulse Engine - Powering_2: 8984648045043596711
+      Main Ship - Engines - Big Pulse Engine - Powering_3: -6099170209708202703
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

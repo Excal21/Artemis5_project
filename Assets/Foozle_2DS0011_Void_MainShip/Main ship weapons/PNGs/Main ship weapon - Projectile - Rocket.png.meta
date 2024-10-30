@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main ship weapon - Projectile - Rocket_0: 2030580299708145595
+      Main ship weapon - Projectile - Rocket_1: -7594939969888058335
+      Main ship weapon - Projectile - Rocket_2: -6345550270201846964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

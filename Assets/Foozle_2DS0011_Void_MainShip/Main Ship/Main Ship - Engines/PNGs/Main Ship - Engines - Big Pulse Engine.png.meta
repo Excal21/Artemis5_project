@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Main Ship - Engines - Big Pulse Engine_0: 3608718117487646143
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
