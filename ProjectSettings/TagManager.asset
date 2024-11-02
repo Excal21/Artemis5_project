@@ -9,7 +9,14 @@ TagManager:
   - Button
   - Panel
   - PlayerProjectile
+<<<<<<< Updated upstream
   - HealthIndicator
+=======
+  - Slider
+  - Dropdown
+  - Toggle
+  - DropdownItem
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
