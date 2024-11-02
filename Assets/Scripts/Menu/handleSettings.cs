@@ -10,7 +10,7 @@ public class handleSettings : MonoBehaviour
 
     void Start()
     {
-        applyButton.enabled = false;
+        applyButton.interactable = false;
         
         setVolume(volumeSlider.value);
     }
@@ -32,7 +32,7 @@ public class handleSettings : MonoBehaviour
 
     public void setApplyButton()
     {
-        applyButton.enabled = true;
+        applyButton.interactable = true;
     }
 
     /*

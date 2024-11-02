@@ -8,6 +8,8 @@ using TMPro;
 
 public class HandleMainMenu : MonoBehaviour
 {
+    private handleSettings settingsHandler;
+
     [SerializeField] private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
     
     [SerializeField] private TextMeshProUGUI buildNumberTMP = null;                     // Reference to the TextMeshProUGUI component that displays the build number
@@ -17,7 +19,11 @@ public class HandleMainMenu : MonoBehaviour
     private Color selectedColor = Color.yellow;
     private Color disabledColor = Color.gray;
 
+    private GameObject currentSelectedPanel;
+    private GameObject currentSelectedObject;
     private GameObject lastSelectedObject;
+
+    private bool isPointerDown = false;
 
     //Ha kell, akkor a jeleneten létre kell hozni egy TextMeshProUGUI objektumot, majd a Canvas-t kijelölve
     //a TextMeshProUGUI objektumot a debugOutput változóhoz hozzá kell rendelni.
@@ -52,7 +58,7 @@ public class HandleMainMenu : MonoBehaviour
         GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (GameObject go in allGameObjects)
         {
-            if (go.CompareTag("Button") || go.CompareTag("Toggle") || go.CompareTag("Slider") || go.CompareTag("Dropdown"))
+            if (go.CompareTag("Button") || go.CompareTag("Toggle") || go.CompareTag("Slider") || go.CompareTag("Dropdown") || go.CompareTag("DropdownItem"))
             {
                 uIElements.Add(go);
             }
@@ -62,106 +68,221 @@ public class HandleMainMenu : MonoBehaviour
         foreach (GameObject uIElement in uIElements)
         {
             AddEventTrigger(uIElement);
-            SetDisabledColor(uIElement);
         }
 
+        //Induláskor legyen egy elem kiválasztva.
         EnsureActivePanelSelection();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DEBUGcheckButtonsStates();
+        //DEBUGcheckButtonsStates();
 
         //...mert EventTrigger nincs Enterre és NumPad Enterre.
         checkEnterPressed();
 
+        //Ha kattintásra nincs kiválasztva gomb, slider vagy dropdown, akkor legyen kiválasztva.
         checkMouseInput();
 
-        // Update UIElements colors based on selection
+        // UIElemek színének frissítése a kiválasztás alapján
         UpdateUIElementColors();
     }
 
     // Method to add event triggers to buttons
-    void AddEventTrigger(GameObject uiElement)
+    private void AddEventTrigger(GameObject uiElement)
     {
-        if (uiElement != null)
+        if (uiElement == null) return;
+
+        EventTrigger trigger = uiElement.GetComponent<EventTrigger>() ?? uiElement.AddComponent<EventTrigger>();
+
+
+        // Pointer Enter (hover/select) - change to yellow
+        EventTrigger.Entry entryEnter = new EventTrigger.Entry();
+        entryEnter.eventID = EventTriggerType.PointerEnter;
+
+        entryEnter.callback.AddListener((eventData) => 
         {
-            EventTrigger trigger = uiElement.GetComponent<EventTrigger>() ?? uiElement.AddComponent<EventTrigger>();
+            if (isPointerDown) return;
+            HandlePointerEnter(uiElement);
+        });
+        trigger.triggers.Add(entryEnter);
 
-            //Egérkurzor a játékobjektumon.
-            // Pointer Enter (hover/select) - change to yellow
-            EventTrigger.Entry entryEnter = new EventTrigger.Entry();
-            entryEnter.eventID = EventTriggerType.PointerEnter;
 
-            entryEnter.callback.AddListener((eventData) =>
+        // Pointer Down (on click or hold) - change to purple and execute function
+        EventTrigger.Entry entryClick = new EventTrigger.Entry();
+        entryClick.eventID = EventTriggerType.PointerDown;
+
+        entryClick.callback.AddListener((eventData) => 
+        {
+            isPointerDown = true;
+            ExecuteElementEvent(uiElement);
+        });
+        trigger.triggers.Add(entryClick);
+
+
+        // Pointer Up (release after drag) - reset to normal color
+        EventTrigger.Entry entryRelease = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerUp
+        };
+        entryRelease.callback.AddListener((eventData) =>
+        {
+            isPointerDown = false;
+            if(uiElement.TryGetComponent(out Slider slider))
             {
-                switch (uiElement.tag)
-                {
-                    case "Button":
-                        EventSystem.current.SetSelectedGameObject(uiElement);
-                        SetButtonTextColor(uiElement.GetComponent<Button>(), selectedColor);
-                        break;
-                    case "Slider":
-                        EventSystem.current.SetSelectedGameObject(uiElement);
-                        SetSliderHandleColor(uiElement.GetComponent<Slider>(), selectedColor);
-                        break;
-                    case "Dropdown":
-                        EventSystem.current.SetSelectedGameObject(uiElement);
-                        SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), selectedColor);
-                        break;
-                    case "Toggle":
-                        EventSystem.current.SetSelectedGameObject(uiElement);
-                        SetToggleBackgroundColor(uiElement.GetComponent<Toggle>(), selectedColor);
-                        break;
-                    default:
-                        break;
-                }
-            });
-            trigger.triggers.Add(entryEnter);
+                SetSliderHandleColor(slider, normalColor);
+            }
+        });
+        trigger.triggers.Add(entryRelease);
 
-            // Pointer Down (on click or hold) - change to purple and execute function
-            EventTrigger.Entry entryClick = new EventTrigger.Entry();
-            entryClick.eventID = EventTriggerType.PointerDown;
+        /*
+        // Add Enter key event listener
+        EventTrigger.Entry entryEnterKey = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerClick // This is for the UI element click
+        };
+        entryEnterKey.callback.AddListener((eventData) => HandleElementClick(uiElement));
+        trigger.triggers.Add(entryEnterKey);
+        */
+    }
 
-            entryClick.callback.AddListener((eventData) =>
+    /*
+    // Handles click events for the current selected UI element
+    private void HandleElementClick(GameObject uiElement)
+    {
+        Debug.Log("HandleElementClick");
+        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable)
+        {
+            Debug.Log("HandleElementClick -> EnsureActivePanelSelection will be called.");
+            EnsureActivePanelSelection();
+            return;
+        }
+
+        Debug.Log("HandleElementClick -> ExecuteElementEvent will be called.");
+        ExecuteElementEvent(uiElement);
+    }
+    */
+
+    // Általános eseménykezelő minden UI elemhez
+    private void ExecuteElementEvent(GameObject uiElement)
+    {
+        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable) return;
+
+        if (uiElement.TryGetComponent(out Button button))
+        {
+            SetButtonTextColor(button, clickedColor);
+            button.onClick.Invoke();
+            SetButtonTextColor(button, normalColor);
+        }
+        else if (uiElement.TryGetComponent(out Slider slider))
+        {
+            isPointerDown = true;
+            SetSliderHandleColor(slider, clickedColor);
+            slider.onValueChanged.Invoke(slider.value);
+            SetSliderHandleColor(slider, normalColor);
+        }
+        else if (uiElement.TryGetComponent(out TMP_Dropdown dropdown))
+        {
+            SetDropdownBackgroundColor(dropdown, clickedColor);
+            dropdown.onValueChanged.AddListener((value) =>
             {
-                
-                switch (uiElement.tag)
-                {
-                    case "Button":
-                        SetButtonTextColor(uiElement.GetComponent<Button>(), clickedColor);
-                        ExecuteButtonClick(uiElement.GetComponent<Button>());
-                        SetButtonTextColor(uiElement.GetComponent<Button>(), normalColor);
-                        break;
-                    case "Slider":
-                        SetSliderHandleColor(uiElement.GetComponent<Slider>(), clickedColor);
-                        ExecuteSliderClick(uiElement.GetComponent<Slider>());
-                        SetSliderHandleColor(uiElement.GetComponent<Slider>(), normalColor);
-                        break;
-                    case "Dropdown":
-                        SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), clickedColor);
-                        ExecuteDropdownClick(uiElement.GetComponent<TMP_Dropdown>());
-                        //SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), clickedColor);
-                        break;
-                    default:
-                        break;
-                }
+                SetDropdownBackgroundColor(dropdown, selectedColor);
+                currentSelectedObject = dropdown.gameObject;
+                EventSystem.current.SetSelectedGameObject(dropdown.gameObject);
             });
-            trigger.triggers.Add(entryClick);
+            dropdown.onValueChanged.Invoke(dropdown.value);
+        }
+        else if (uiElement.TryGetComponent(out Toggle toggle))
+        {
+            SetToggleBackgroundColor(toggle, clickedColor);
+            toggle.onValueChanged.Invoke(toggle.isOn);
+            SetToggleBackgroundColor(toggle, normalColor);
+        }
+        else
+        {
+            Debug.LogError("Unsupported UI element on PointerDown.");
+        }
+        isPointerDown = false;
+    }
+
+    // Kurzor belépése esemény, amely színt vált
+    private void HandlePointerEnter(GameObject uiElement)
+    {
+        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable) return;
+
+        currentSelectedObject = uiElement;
+        EventSystem.current.SetSelectedGameObject(uiElement);
+
+        if (uiElement.TryGetComponent(out Button button))
+        {
+            SetButtonTextColor(button, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out Slider slider))
+        {
+            SetSliderHandleColor(slider, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out TMP_Dropdown dropdown))
+        {
+            SetDropdownBackgroundColor(dropdown, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out Toggle toggle))
+        {
+            SetToggleBackgroundColor(toggle, selectedColor);
+        }
+        else
+        {
+            Debug.LogError("Unsupported UI element on PointerEnter.");
+        }
+    }
+
+    //Ha kattintásra nincs kiválasztva gomb, slider vagy dropdown, akkor legyen kiválasztva.
+    private void checkMouseInput()
+    {
+        if
+        (
+            (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2)) &&
+            //?. - ha a currentSelectedGameObject null, akkor nem hajtódik végre a GetComponent<___>().
+            (EventSystem.current.currentSelectedGameObject?.GetComponent<Button>() == null &&
+            EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>() == null &&
+            EventSystem.current.currentSelectedGameObject?.GetComponent<TMP_Dropdown>() == null)
+
+            //&& EventSystem.current.currentSelectedGameObject?.GetComponent<Toggle>() == null)
 
             /*
-            //Egérkurzor lelép a gombról.
-            // Pointer Exit - change back to white
-            EventTrigger.Entry entryExit = new EventTrigger.Entry();
-            entryExit.eventID = EventTriggerType.PointerExit;
-
-            entryExit.callback.AddListener((eventData) =>
-            {
-                Debug.Log("Pointer Exit");
-            });
-            trigger.triggers.Add(entryExit);
+            EventSystem.current.currentSelectedGameObject?.GetComponent<Button>() == null ||
+            EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>() == null ||
+            EventSystem.current.currentSelectedGameObject?.GetComponent<TMP_Dropdown>() == null
+            // || EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>() == null
             */
+
+        )
+        {
+            EnsureActivePanelSelection();
+        }
+        
+        // Check if no mouse buttons are pressed
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1) && !Input.GetMouseButton(2))
+        {
+            isPointerDown = false;
+        }
+    }
+
+    private void checkEnterPressed()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
+
+            if (currentSelectedGameObject != null)
+            {
+                ExecuteElementEvent(currentSelectedGameObject);
+            }
+            else
+            {
+                // Ha nincs kiválasztott elem, biztosítjuk, hogy az aktív panel kiválasztásra kerüljön
+                EnsureActivePanelSelection();
+            }
         }
     }
 
@@ -226,38 +347,68 @@ public class HandleMainMenu : MonoBehaviour
         }
     }
 
-    public void SetDisabledColor(GameObject uiElement)
+    public void SetDisabledColor(GameObject activePanel)
     {
+        if (activePanel == null) return;
+
         // Ellenőrizzük, hogy a GameObject le van-e tiltva (enabled = false)
-        var behaviour = uiElement.GetComponent<Behaviour>();
-        switch (uiElement.tag)
+        foreach(Transform uiElementTransform in activePanel.GetComponentsInChildren<Transform>())
         {
-            case "Button":
-                if(uiElement.GetComponent<Button>().enabled == false)
-                    SetButtonTextColor(uiElement.GetComponent<Button>(), disabledColor);
-                else
-                    SetButtonTextColor(uiElement.GetComponent<Button>(), normalColor);
-                break;
-            case "Slider":
-                if (uiElement.GetComponent<Slider>().enabled == false)
-                    SetSliderHandleColor(uiElement.GetComponent<Slider>(), disabledColor);
-                else
-                    SetSliderHandleColor(uiElement.GetComponent<Slider>(), normalColor);
-                break;
-            case "Dropdown":
-                if (uiElement.GetComponent<TMP_Dropdown>().enabled == false)
-                    SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), disabledColor);
-                else
-                    SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), normalColor);
-                break;
-            case "Toggle":
-                if (uiElement.GetComponent<Toggle>().enabled == false)
-                    SetToggleBackgroundColor(uiElement.GetComponent<Toggle>(), disabledColor);
-                else    
-                    SetToggleBackgroundColor(uiElement.GetComponent<Toggle>(), normalColor);
-                break;
-            default:
-                break;
+            GameObject uiElement = uiElementTransform.gameObject;
+            /*
+            switch (uiElement.tag)
+            {
+                case "Button":
+                    Debug.Log("======Button: " + uiElement.name);
+                    if(uiElement.GetComponent<Button>().interactable == false)
+                    {
+                        SetButtonTextColor(uiElement.GetComponent<Button>(), disabledColor);
+                    }
+                    else if (uiElement.GetComponent<Button>() != currentSelectedGameObject)
+                    {
+                        SetButtonTextColor(uiElement.GetComponent<Button>(), normalColor);
+                    }
+                    break;
+                case "Slider":
+                    if (uiElement.GetComponent<Slider>().interactable == false)
+                    {
+                        SetSliderHandleColor(uiElement.GetComponent<Slider>(), disabledColor);
+                    }
+                    break;
+                case "Dropdown":
+                    if (uiElement.GetComponent<TMP_Dropdown>().interactable == false)
+                    {
+                        SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), disabledColor);
+                    }
+                    break;
+                case "Toggle":
+                    if (uiElement.GetComponent<Toggle>().interactable == false)
+                    {
+                        SetToggleBackgroundColor(uiElement.GetComponent<Toggle>(), disabledColor);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            */
+            Graphic relevantGraphic = GetRelevantGraphic(uiElement);
+        
+            if (relevantGraphic == null) continue;
+
+            Selectable selectable = uiElement.GetComponent<Selectable>();
+            
+            if (selectable != null && !selectable.interactable)
+            {
+                relevantGraphic.color = disabledColor;
+            }
+            else if (uiElement == currentSelectedObject)
+            {
+                relevantGraphic.color = selectedColor;
+            }
+            else
+            {
+                relevantGraphic.color = normalColor;
+            }
         }
     }
 
@@ -265,13 +416,15 @@ public class HandleMainMenu : MonoBehaviour
     // Update colors based on selection
     void UpdateUIElementColors()
     {
+        currentSelectedPanel = GetActivePanel();
+        SetDisabledColor(currentSelectedPanel);
         if (EventSystem.current.currentSelectedGameObject != null)
         {
 
-            var selectedGameObject = EventSystem.current.currentSelectedGameObject;
+            currentSelectedObject = EventSystem.current.currentSelectedGameObject;
             
             // Ellenőrizzük, hogy van-e kiválasztott elem, és hogy az előzővel megegyezik-e
-            if (selectedGameObject != lastSelectedObject)
+            if (currentSelectedObject != lastSelectedObject)
             {
                 // Előző kiválasztott elem színének visszaállítása
                 if (lastSelectedObject != null)
@@ -282,11 +435,11 @@ public class HandleMainMenu : MonoBehaviour
                 }
 
                 // Az aktuális kiválasztott elem színének beállítása
-                var selectedGraphic = GetRelevantGraphic(selectedGameObject);
+                var selectedGraphic = GetRelevantGraphic(currentSelectedObject);
                 if (selectedGraphic != null)
                 {
                     selectedGraphic.color = selectedColor;
-                    lastSelectedObject = selectedGameObject;
+                    lastSelectedObject = currentSelectedObject;
                 }
             }
         }
@@ -310,73 +463,37 @@ public class HandleMainMenu : MonoBehaviour
         return null;
     }
 
-
-
-    void ExecuteButtonClick(Button button)
-    {
-        button.onClick.Invoke();  // Invokes the assigned click event
-        EnsureActivePanelSelection();
-    }
-
-    void ExecuteSliderClick(Slider slider)
-    {
-        slider.onValueChanged.Invoke(slider.value);  // Invokes the assigned value change event
-        EnsureActivePanelSelection();
-    }
-
-    void ExecuteDropdownClick(TMP_Dropdown dropdown)
-    {
-        Debug.Log("ExecuteDropdownClick");
-        dropdown.onValueChanged.Invoke(dropdown.value);  // Invokes the assigned value change event
-        EnsureActivePanelSelection();
-    }
-
-    void ExecuteToggleClick(Toggle toggle)
-    {
-        toggle.onValueChanged.Invoke(toggle.isOn);  // Invokes the assigned value change event
-        EnsureActivePanelSelection();
-    }
-
     // Ensure the active panel has a selected button
     void EnsureActivePanelSelection()
     {
         // Az aktív panel lekérdezése
-        GameObject activePanel = GetActivePanel();
-        if (activePanel != null)
+        currentSelectedPanel = GetActivePanel();
+        if (currentSelectedPanel != null)
         {
-            // Kiválasztott UI elem keresése közvetlenül
-            GameObject currentSelected = EventSystem.current.currentSelectedGameObject;
+            // Kiválasztott UI elem lekérdezése
+            currentSelectedObject = EventSystem.current.currentSelectedGameObject;
 
-            // Ha nincs kijelölve elem, a panel első UI eleme legyen az aktív
-            if (currentSelected == null || currentSelected.transform.IsChildOf(activePanel.transform) == false)
+            // Ha nincs kijelölve elem, a panel első interaktív UI eleme legyen az aktív
+            if (currentSelectedObject == null || !currentSelectedObject.transform.IsChildOf(currentSelectedPanel.transform))
             {
-                // Első UI elem megkeresése
-                SelectFirstUIElement(activePanel);
+                // Keresés a panel gyermekeiben
+                foreach (var selectable in currentSelectedPanel.GetComponentsInChildren<Selectable>(true))
+                {
+                    if (selectable.interactable)
+                    {
+                        // Kiválasztjuk az első interaktív elemet
+                        EventSystem.current.SetSelectedGameObject(selectable.gameObject);
+                        SetElementColor(selectable); // Az elem színének beállítása
+                        return; // Kilépünk, ha megtaláltuk az első interaktív elemet
+                    }
+                }
+
+                Debug.LogError("No selectable UI elements found in the active panel!");
             }
         }
         else
         {
             Debug.LogError("No active panel found!");
-        }
-    }
-
-    // Az aktív panel első UI elemének kiválasztása
-    void SelectFirstUIElement(GameObject panel)
-    {
-        // Próbálunk közvetlenül keresni egy gombot, toggle-t, slidert vagy dropdown-t
-        Selectable firstElement = panel.GetComponentInChildren<Button>() as Selectable ??
-                                panel.GetComponentInChildren<Toggle>() as Selectable ??
-                                panel.GetComponentInChildren<Slider>() as Selectable ??
-                                panel.GetComponentInChildren<TMP_Dropdown>() as Selectable;
-
-        if (firstElement != null)
-        {
-            EventSystem.current.SetSelectedGameObject(firstElement.gameObject);
-            SetButtonTextColor(firstElement.GetComponent<Button>(), selectedColor);
-        }
-        else
-        {
-            Debug.LogError("No selectable UI elements found in the active panel!");
         }
     }
 
@@ -395,47 +512,28 @@ public class HandleMainMenu : MonoBehaviour
         return null;
     }
 
-    private void checkMouseInput()
+    // Szín beállítása a kiválasztott UI elemhez
+    void SetElementColor(Selectable element)
     {
-        if
-        (
-            (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2)) &&
-            //?. - ha a currentSelectedGameObject null, akkor nem hajtódik végre a GetComponent<___>().
-            EventSystem.current.currentSelectedGameObject?.GetComponent<Button>() == null ||
-            EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>() == null ||
-            EventSystem.current.currentSelectedGameObject?.GetComponent<TMP_Dropdown>() == null
-        )
+        if (element is Button button)
         {
-            EnsureActivePanelSelection();
+            SetButtonTextColor(button, selectedColor);
         }
-    }
-
-    private void checkEnterPressed()
-    {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        else if (element is Slider slider)
         {
-            if (EventSystem.current.currentSelectedGameObject != null)
-            {
-                GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
-                switch (currentSelectedGameObject.tag)
-                {
-                    case "Button":
-                        ExecuteButtonClick(currentSelectedGameObject.GetComponent<Button>());
-                        break;
-                    case "Slider":
-                        ExecuteSliderClick(currentSelectedGameObject.GetComponent<Slider>());
-                        break;
-                    case "Dropdown":
-                        ExecuteDropdownClick(currentSelectedGameObject.GetComponent<TMP_Dropdown>());
-                        break;
-                    case "Toggle":
-                        ExecuteToggleClick(currentSelectedGameObject.GetComponent<Toggle>());
-                        break;
-                    default:
-                        EnsureActivePanelSelection();
-                        break;
-                }
-            }
+            SetSliderHandleColor(slider, selectedColor);
+        }
+        else if (element is TMP_Dropdown dropdown)
+        {
+            SetDropdownBackgroundColor(dropdown, selectedColor);
+        }
+        else if (element is Toggle toggle)
+        {
+            SetToggleBackgroundColor(toggle, selectedColor);
+        }
+        else
+        {
+            Debug.LogError("Unsupported UI element type.");
         }
     }
 
@@ -445,7 +543,7 @@ public class HandleMainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    //DEBUG!
+    //FOR DEBUGGING!
     void DEBUGcheckButtonsStates()
     {
         if(debugOutput != null)
@@ -463,6 +561,7 @@ public class HandleMainMenu : MonoBehaviour
                 }
             }
 
+            //FOR DEBUGGING!
             /*
             void PrintGameObjectHierarchy(GameObject go, int indentLevel = 0)
             {
@@ -513,15 +612,15 @@ public class HandleMainMenu : MonoBehaviour
 
                 TextMeshProUGUI text;
 
-                debugText += panel.name + ":\t" + (panel.activeInHierarchy? ColoredString("Active", Color.green) : ColoredString("Not Active", Color.blue)) + "\n";
+                debugText += panel.name + ": " + (panel.activeInHierarchy? ColoredString("Active", Color.green) : ColoredString("Not Active", Color.blue)) + "\n";
 
                 foreach (Button button in panelButtons)
                 {
                     text = button.GetComponentInChildren<TextMeshProUGUI>();
 
                     debugText += "    " + button.name
-                    + ":\t" + (button.enabled? ColoredString("Enabled", Color.green) : ColoredString("Disabled", Color.red))
-                    + "\t"  + (EventSystem.current.currentSelectedGameObject == button.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
+                    + ": \t" + (button.interactable? ColoredString("Interactable", Color.green) : ColoredString("Not interactable", Color.red))
+                    + " \t"  + (EventSystem.current.currentSelectedGameObject == button.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
                     + "\n    " + ColorToString(text.color) + "\n";
                 }
                 foreach (Toggle toggle in panelToggles)
@@ -533,7 +632,7 @@ public class HandleMainMenu : MonoBehaviour
                         if (background != null)
                         {
                             debugText += "    " + toggle.name
-                                + ":\t" + (EventSystem.current.currentSelectedGameObject == toggle.gameObject ? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
+                                + ": \t" + (EventSystem.current.currentSelectedGameObject == toggle.gameObject ? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
                                 + "\n    " + ColorToString(background.color) + "\n";
                         }
                         else
@@ -551,7 +650,7 @@ public class HandleMainMenu : MonoBehaviour
                     Image handle = slider.transform.Find("Handle Slide Area/Handle").GetComponent<Image>();
 
                     debugText += "    " + slider.name
-                    + ":\t" + (EventSystem.current.currentSelectedGameObject == slider.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
+                    + ": \t" + (EventSystem.current.currentSelectedGameObject == slider.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
                     + "\n    " + ColorToString(handle.color) + "\n";
                 }
                 foreach (TMP_Dropdown dropdown in panelDropdowns)
@@ -562,14 +661,17 @@ public class HandleMainMenu : MonoBehaviour
                         Image background = dropdown.GetComponent<Image>();
 
                         debugText += "    " + dropdown.name
-                        + ":\t" + (EventSystem.current.currentSelectedGameObject == dropdown.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
+                        + ": \t" + (EventSystem.current.currentSelectedGameObject == dropdown.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
                         + "\n    " + ColorToString(background.color) + "\n";
                     }
                 }
 
                 debugText += "\n";
             }
-            debugText += lastSelectedObject != null? "Last Selected GameObject: " + lastSelectedObject.name + "\n": "Last Selected Gameobject: null\n";
+            debugText += currentSelectedPanel  != null? "Current Selected Panel: "      + currentSelectedPanel.name  + "\n": "Current Selected Panel: null\n";
+            debugText += currentSelectedObject != null? "Current Selected GameObject: " + currentSelectedObject.name + "\n": "Current Selected Gameobject: null\n";
+            debugText += lastSelectedObject    != null? "Last Selected GameObject: "    + lastSelectedObject.name    + "\n": "Last Selected Gameobject: null\n";
+            debugText += "ispointerDown: " + (isPointerDown ? ColoredString("Yes", Color.green) : ColoredString("No", Color.red)) + "\n";
             debugOutput.text = debugText;
         }
     }
