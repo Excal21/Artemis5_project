@@ -38,6 +38,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float projectileOffset = 1f;
     [SerializeField]
+    private float projectileSpeed = 5f;
+    [SerializeField]
+    private bool controllable = true;
     #endregion
 
     #region Getterek/Setterek
@@ -47,8 +50,10 @@ public class Player : MonoBehaviour
     public GameObject ProjectilePrefab { get => projectilePrefab; set => projectilePrefab = value; }
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float ProjectileOffset { get => projectileOffset; set => projectileOffset = value; }
+    public float ProjectileSpeed { get => projectileSpeed; set => projectileSpeed = value; }
     public List<Sprite> PlayerSprites { get => playerSprites; set => playerSprites = value; }
     public int Health { get => health; }
+    public bool Controllable { set => controllable = value; }
     #endregion
 
 
@@ -144,29 +149,33 @@ public class Player : MonoBehaviour
 
         if (newPosition.y >= screenBottom) this.transform.position = newPosition;
 
-        //Inputok lekezelése
-        if (Input.GetKey(KeyCode.W))
+        if (controllable)
         {
-            Up();
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Down();
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            Left();
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            Right();
-        }
 
 
+            //Inputok lekezelése
+            if (Input.GetKey(KeyCode.W))
+            {
+                Up();
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                Down();
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                Left();
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                Right();
+            }
+
+        }
         //Jet Propulsion
         if (prevYcord < transform.position.y)
         {
-            jetProp.transform.position = new Vector2(transform.position.x, transform.position.y - jetPropOffset);
+            jetProp.transform.position = new Vector3(transform.position.x, transform.position.y - jetPropOffset, 1);
             jetProp.SetActive(true);
         }
         else
@@ -204,20 +213,24 @@ public class Player : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
         projectile.tag = "PlayerProjectile";
+        projectile.GetComponent<Projectile>().speed = projectileSpeed;
     }
 
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != null){
+        if (collision != null)
+        {
             Destroy(collision.gameObject);
         }
         if (health == 0)
         {
             Destroy(this.gameObject);
         }
-        else{
+        else
+        {
             Damage();
+
         }
     }
 }
