@@ -113,7 +113,7 @@ public class EasyEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "PlayerProjectile" || other.tag == "Border")
+        if (hasEnteredPlayArea && other.tag == "PlayerProjectile" || other.tag == "Border")
         {
             Destroy(this.gameObject);
         }

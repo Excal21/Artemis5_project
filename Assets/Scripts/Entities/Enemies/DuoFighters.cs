@@ -48,6 +48,7 @@ public class DuoFighters : MonoBehaviour
     public float ProjectileSpeed { get => projectileSpeed; set => projectileSpeed = value; }
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float ProjectileOffset { get => projectileOffset; set => projectileOffset = value; }
+    public bool HasEnteredPlayArea { get => hasEnteredPlayArea; }
     #endregion
 
     //A start akkor fut le, mikor a Monobehaviour létrejön, az első Update előtt
@@ -130,7 +131,7 @@ public class DuoFighters : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Projectile" || other.tag == "Border")
+        if (hasEnteredPlayArea && other.tag == "Projectile" || other.tag == "Border")
         {
             Destroy(this.gameObject);
         }
