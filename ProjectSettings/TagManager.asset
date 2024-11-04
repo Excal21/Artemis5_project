@@ -4,12 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Border
   - Projectile
-  - Button
-  - Panel
-  - PlayerProjectile
   - HealthIndicator
+  - Border
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX
@@ -19,12 +17,12 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Weapon
-  - Target
-  - Projectile
-  - Player
-  - PlayerCollisionOnly
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
