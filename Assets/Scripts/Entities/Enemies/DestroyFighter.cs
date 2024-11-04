@@ -16,7 +16,7 @@ public class DestroyChild : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "PlayerProjectile" || other.tag == "Border")
+        if (transform.parent.GetComponent<DuoFighters>().HasEnteredPlayArea && other.tag == "PlayerProjectile" || other.tag == "Border")
         {
             Destroy(this.gameObject);
         }
