@@ -3,20 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags:
-  - Border
-  - Projectile
-  - Button
-  - Panel
-  - PlayerProjectile
-<<<<<<< Updated upstream
-  - HealthIndicator
-=======
-  - Slider
-  - Dropdown
-  - Toggle
-  - DropdownItem
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -26,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Weapon
-  - Target
-  - Projectile
-  - Player
-  - PlayerCollisionOnly
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

@@ -8,8 +8,6 @@ using TMPro;
 
 public class HandleMainMenu : MonoBehaviour
 {
-    private handleSettings settingsHandler;
-
     [SerializeField] private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
     
     [SerializeField] private TextMeshProUGUI buildNumberTMP = null;                     // Reference to the TextMeshProUGUI component that displays the build number
@@ -77,7 +75,7 @@ public class HandleMainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //DEBUGcheckButtonsStates();
+        //DEBUG_CheckUIElementsStates();
 
         //...mert EventTrigger nincs Enterre és NumPad Enterre.
         checkEnterPressed();
@@ -117,6 +115,7 @@ public class HandleMainMenu : MonoBehaviour
         {
             isPointerDown = true;
             ExecuteElementEvent(uiElement);
+            EnsureActivePanelSelection();
         });
         trigger.triggers.Add(entryClick);
 
@@ -278,11 +277,8 @@ public class HandleMainMenu : MonoBehaviour
             {
                 ExecuteElementEvent(currentSelectedGameObject);
             }
-            else
-            {
-                // Ha nincs kiválasztott elem, biztosítjuk, hogy az aktív panel kiválasztásra kerüljön
-                EnsureActivePanelSelection();
-            }
+            // Ha nincs kiválasztott elem, biztosítjuk, hogy az aktív panel kiválasztásra kerüljön
+            EnsureActivePanelSelection();
         }
     }
 
@@ -420,7 +416,6 @@ public class HandleMainMenu : MonoBehaviour
         SetDisabledColor(currentSelectedPanel);
         if (EventSystem.current.currentSelectedGameObject != null)
         {
-
             currentSelectedObject = EventSystem.current.currentSelectedGameObject;
             
             // Ellenőrizzük, hogy van-e kiválasztott elem, és hogy az előzővel megegyezik-e
@@ -544,7 +539,7 @@ public class HandleMainMenu : MonoBehaviour
     }
 
     //FOR DEBUGGING!
-    void DEBUGcheckButtonsStates()
+    void DEBUG_CheckUIElementsStates()
     {
         if(debugOutput != null)
         {
