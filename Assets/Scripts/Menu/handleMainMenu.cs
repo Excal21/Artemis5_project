@@ -80,6 +80,9 @@ public class HandleMainMenu : MonoBehaviour
         //...mert EventTrigger nincs Enterre és NumPad Enterre.
         checkEnterPressed();
 
+        //TMP_Dropdown esetén a nyilak használatakor a Scrollbar pozícióját frissíteni kell.
+        checkArrowsInput();
+
         //Ha kattintásra nincs kiválasztva gomb, slider vagy dropdown, akkor legyen kiválasztva.
         checkMouseInput();
 
@@ -194,15 +197,44 @@ public class HandleMainMenu : MonoBehaviour
         }
         else if (uiElement.TryGetComponent(out Toggle toggle))
         {
-            SetToggleBackgroundColor(toggle, clickedColor);
-            toggle.onValueChanged.Invoke(toggle.isOn);
-            SetToggleBackgroundColor(toggle, normalColor);
+            if(uiElement.CompareTag("DropdownItem"))
+            {
+                // Dropdown Toggle
+                SetDropdownToggleBackgroundColor(toggle, clickedColor);
+                
+                TMP_Dropdown tmp_dropdown = toggle.GetComponentInParent<TMP_Dropdown>();
+                tmp_dropdown.onValueChanged.AddListener((value) =>
+                {
+                    SetDropdownBackgroundColor(tmp_dropdown, selectedColor);
+                    currentSelectedObject = tmp_dropdown.gameObject;
+                    EventSystem.current.SetSelectedGameObject(tmp_dropdown.gameObject);
+                });
+                tmp_dropdown.onValueChanged.Invoke(tmp_dropdown.value);
+
+                SetDropdownToggleBackgroundColor(toggle, normalColor);
+            }
+            else
+            {
+                // Normál Toggle
+                SetToggleBackgroundColor(toggle, clickedColor);
+                toggle.onValueChanged.Invoke(toggle.isOn);
+                SetToggleBackgroundColor(toggle, normalColor);
+            }
         }
         else
         {
             Debug.LogError("Unsupported UI element on PointerDown.");
         }
         isPointerDown = false;
+        /*
+                else if (uiElement.GetComponentInChildren<TMP_Dropdown>() is TMP_Dropdown childDropdown)
+                {
+                    Debug.Log("Dropdown child clicked: " + childDropdown.name);
+                    SetDropdownItemTextColor(childDropdown, clickedColor);
+                    childDropdown.onValueChanged.Invoke(childDropdown.value);
+                    SetDropdownItemTextColor(childDropdown, normalColor);
+                }
+        */
     }
 
     // Kurzor belépése esemény, amely színt vált
@@ -272,7 +304,6 @@ public class HandleMainMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             GameObject currentSelectedGameObject = EventSystem.current.currentSelectedGameObject;
-
             if (currentSelectedGameObject != null)
             {
                 ExecuteElementEvent(currentSelectedGameObject);
@@ -282,7 +313,73 @@ public class HandleMainMenu : MonoBehaviour
         }
     }
 
-    // Method to set button text color
+    private void checkArrowsInput()
+    {
+        if
+        (
+            Input.GetKeyDown(KeyCode.UpArrow)   || Input.GetKeyDown(KeyCode.DownArrow)  ||
+            Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow) ||
+            Input.GetKeyDown(KeyCode.PageUp)    || Input.GetKeyDown(KeyCode.PageDown)   ||
+            Input.GetKey(KeyCode.UpArrow)       || Input.GetKey(KeyCode.DownArrow)      ||
+            Input.GetKey(KeyCode.LeftArrow)     || Input.GetKey(KeyCode.RightArrow)     ||
+            Input.GetKey(KeyCode.PageUp)        || Input.GetKey(KeyCode.PageDown)
+        )
+        {
+            GameObject currentSelected = EventSystem.current.currentSelectedGameObject;
+
+            if (currentSelected != null && currentSelected.CompareTag("DropdownItem"))
+            {
+                AdjustDropdownScroll(currentSelected);
+            }
+        }
+    }
+
+    private void AdjustDropdownScroll(GameObject selectedItem)
+    {
+        // Keressük meg a TMP_Dropdown komponenst a teljes szülői hierarchiában
+        TMP_Dropdown dropdown = selectedItem.GetComponentInParent<TMP_Dropdown>();
+
+        if (dropdown == null)
+        {
+            Debug.LogWarning("No dropdown found in the hierarchy of the selected item.");
+            return;
+        }
+
+        // Ha van Scrollbar, beállítjuk a pozíciót
+        Scrollbar currentScrollbar = dropdown.GetComponentInChildren<Scrollbar>();
+        if (currentScrollbar != null)
+        {
+            int selectedIndex = selectedItem.transform.GetSiblingIndex();
+            float step = 1f / (dropdown.options.Count - 1);
+            currentScrollbar.value = 1 - (step * (selectedIndex-2));
+        }
+    }
+
+/*
+void AdjustDropdownScroll(TMP_Dropdown dropdown)
+{
+    // Keressük meg a Scrollbar komponenst a Dropdown hierarchy-jában
+    Scrollbar scrollbar = dropdown.GetComponentInChildren<Scrollbar>();
+    if (scrollbar == null)
+    {
+        Debug.LogWarning("No scrollbar found in dropdown.");
+        return;
+    }
+
+    // Eseménykezelő a Dropdown kiválasztott indexének figyelésére
+    dropdown.onValueChanged.AddListener((value) =>
+    {
+        int totalOptions = dropdown.options.Count;
+        int visibleItems = Mathf.Min(4, totalOptions); // Példa szerint 4 látható elem egy időben
+        float scrollValue = (float)value / (totalOptions - visibleItems);
+
+        // Állítsuk be a scrollbar pozícióját
+        scrollbar.value = 1 - scrollValue;
+    });
+}
+*/
+
+
     void SetButtonTextColor(Button button, Color color)
     {
         TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
@@ -292,10 +389,8 @@ public class HandleMainMenu : MonoBehaviour
         }
     }
 
-    // Method to set slider handle color
     void SetSliderHandleColor(Slider slider, Color selectedColor)
     {
-        // Set the color of the slider handle
         if (slider != null)
         {
             Image handle = slider.transform.Find("Handle Slide Area/Handle").GetComponent<Image>();
@@ -306,10 +401,8 @@ public class HandleMainMenu : MonoBehaviour
         }
     }
     
-    // Method to set dropdown background color
     void SetDropdownBackgroundColor(TMP_Dropdown dropdown, Color selectedColor)
     {
-        // Set the color of the dropdown background
         if (dropdown != null)
         {
             //Image background = dropdown.transform.Find("Template/Viewport/Content").GetComponent<Image>();
@@ -329,13 +422,23 @@ public class HandleMainMenu : MonoBehaviour
         }
     }
     
-    // Method to set toggle background color
     void SetToggleBackgroundColor(Toggle toggle, Color selectedColor)
     {
-        // Set the color of the toggle background
         if (toggle != null)
         {
             Image background = toggle.transform.Find("Background").GetComponent<Image>();
+            if (background != null)
+            {
+                background.color = selectedColor;
+            }
+        }
+    }
+
+    void SetDropdownToggleBackgroundColor(Toggle toggle, Color selectedColor)
+    {
+        if (toggle != null)
+        {
+            Image background = toggle.transform.Find("Item Background").GetComponent<Image>();
             if (background != null)
             {
                 background.color = selectedColor;

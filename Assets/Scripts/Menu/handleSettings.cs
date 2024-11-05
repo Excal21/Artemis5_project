@@ -8,6 +8,8 @@ public class handleSettings : MonoBehaviour
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private TextMeshProUGUI volumeText;
     [SerializeField] private Button applyButton;
+    [SerializeField] private Toggle fullscreenToggle;
+    [SerializeField] private Toggle vsyncToggle;
 
     [Header("Resolution Dropdowns")]
     public TMP_Dropdown resolutionDropdown;
@@ -106,6 +108,37 @@ public class handleSettings : MonoBehaviour
 
         PlayerPrefs.Save();
 
+        applyButton.interactable = false;
+    }
+
+    public void resetSettings()
+    {
+        tempVolume = 50f;
+        tempResolutionIndex = resolutions.Length - 1; // (1920x1080 felbontás)
+        tempIsFullscreen = true;
+        tempVsyncCount = 1;
+
+        volumeSlider.value = tempVolume;
+        volumeText.text = Mathf.RoundToInt(tempVolume).ToString();
+
+        resolutionDropdown.value = tempResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+
+        fullscreenToggle.isOn = tempIsFullscreen;
+        vsyncToggle.isOn = tempVsyncCount == 1;
+
+        AudioListener.volume = tempVolume / 100;
+        Screen.SetResolution(resolutions[tempResolutionIndex].width, resolutions[tempResolutionIndex].height, tempIsFullscreen);
+        QualitySettings.vSyncCount = tempVsyncCount;
+
+        // PlayerPrefs mentése, hogy az értékek tartósak legyenek
+        PlayerPrefs.SetFloat("masterVolume", tempVolume);
+        PlayerPrefs.SetInt("resolution", tempResolutionIndex);
+        PlayerPrefs.SetInt("fullscreen", tempIsFullscreen ? 1 : 0);
+        PlayerPrefs.SetInt("vsync", tempVsyncCount);
+        PlayerPrefs.Save();
+
+        // Apply gomb inaktiválása, mivel nincs alkalmazandó változtatás
         applyButton.interactable = false;
     }
 }
