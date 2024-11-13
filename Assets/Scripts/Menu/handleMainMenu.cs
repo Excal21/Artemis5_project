@@ -8,8 +8,9 @@ using TMPro;
 
 public class HandleMainMenu : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
+    private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
     
+    [Header("Build Number")]
     [SerializeField] private TextMeshProUGUI buildNumberTMP = null;                     // Reference to the TextMeshProUGUI component that displays the build number
     
     private Color normalColor = Color.white;
@@ -50,6 +51,7 @@ public class HandleMainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Debug.Log("HandleMainMenu.Start()");
         SetBuildNumber();
 
         //Find all UI elements in the scene and add them to the list.
@@ -641,6 +643,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
         Application.Quit();
     }
 
+    #region DEBUG!
     //FOR DEBUGGING!
     void DEBUG_CheckUIElementsStates()
     {
@@ -790,4 +793,5 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
         else
             return $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{ColorUtility.ToHtmlStringRGB(color)}</color>"; // Kódolt szín kiírása
     }
+    #endregion
 }

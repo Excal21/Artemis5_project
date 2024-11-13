@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class loadPrefs : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private bool canUse = false;
     [SerializeField] private handleSettings settings;
 
@@ -20,6 +21,7 @@ public class loadPrefs : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("loadPrefs.Start()");
         if (canUse)
         {
             StartCoroutine(LoadSettingsWithDelay());
