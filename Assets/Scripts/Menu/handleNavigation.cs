@@ -26,7 +26,10 @@ public class HandleNavigation : MonoBehaviour
     #endregion
 
     #region Szünet Menü Változói
-    [Header("Pause Menu")]
+    [Header("Pause Menu Background")]
+    [SerializeField] private GameObject pauseMenuBackground;
+    [Space(10)]
+    [Header("Pause Menu Panel")]
     [SerializeField] private GameObject panelPauseMenu;
     public static bool isGamePaused = false;
     #endregion
@@ -35,6 +38,9 @@ public class HandleNavigation : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Time.timeScale = 1;
+        isGamePaused = false;
+
         //Find all UI elements in the scene and add them to the list.
         GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         foreach (GameObject go in allGameObjects)
@@ -60,7 +66,8 @@ public class HandleNavigation : MonoBehaviour
     {
         //DEBUG_CheckUIElementsStates();
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        //Escape-re vagy a P billentyűre szüneteltetjük a játékot.
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             if(isGamePaused)
             {
@@ -88,7 +95,7 @@ public class HandleNavigation : MonoBehaviour
     }
     #endregion
 
-    #region Navigáció Kezelése
+    #region Egér Navigáció Kezelése
     // Method to add event triggers to buttons
     private void AddEventTrigger(GameObject uiElement)
     {
@@ -267,6 +274,7 @@ public class HandleNavigation : MonoBehaviour
         }
     }
 
+    // TMP_Dropdown esetén a nyilak használatakor a Scrollbar pozícióját frissíteni kell.
     private void checkArrowsInput()
     {
         if
@@ -511,7 +519,12 @@ public class HandleNavigation : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No active panel found!");
+            //Ha nincs aktív panel, akkor ellenőrizni kell, hogy fut-e a játék.
+            //Ha fut, akkor nem kell aktív panel, de ha nem fut, akkor hibaüzenetet kell kiírni.
+            if(isGamePaused)
+            {
+                Debug.LogError("No active panel found! The game is paused!");
+            }
         }
     }
 
@@ -531,31 +544,33 @@ public class HandleNavigation : MonoBehaviour
     }
     #endregion
 
-    #region Játék Szüneteltetése
+    #region Játék Szüneteltetése és Folytatása
     public void PauseGame()
     {
-        if(panelPauseMenu == null)
+        if(panelPauseMenu == null || pauseMenuBackground == null)
         {
-            Debug.LogError("Failed to pause the game. PanelPauseMenu is not set in the inspector!");
+            Debug.LogError("Failed to pause the game. PanelPauseMenu or PauseMenuBackground is not set in the inspector!");
             return;
         }
 
         isGamePaused = true;
         Time.timeScale = 0;
+        pauseMenuBackground.SetActive(true);
         panelPauseMenu.SetActive(true);
         EnsureActivePanelSelection();
     }
     public void ResumeGame()
     {
         //Furcsa eset, ha úgy próbáljuk folytatni a játékot, hogy nincs beállítva a szüneteltetéshez a canvas és a panel.
-        if(panelPauseMenu == null)
+        if(panelPauseMenu == null || pauseMenuBackground == null)
         {
-            Debug.LogError("Failed to resume the game. PanelPauseMenu is not set in the inspector!");
+            Debug.LogError("Failed to resume the game. PanelPauseMenu or PauseMenuBackground is not set in the inspector!");
             return;
         }
 
         isGamePaused = false;
         Time.timeScale = 1;
+        pauseMenuBackground.SetActive(false);
         panelPauseMenu.SetActive(false);
     }
     #endregion
@@ -563,7 +578,12 @@ public class HandleNavigation : MonoBehaviour
     #region Kilépés
     public void exitGame()
     {
-        Debug.Log("Exit Game!");
+        //Ha a játékot a Unity Editorban futtatjuk, akkor is kilépünk a játékból.
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+
         Application.Quit();
     }
     #endregion
@@ -574,7 +594,12 @@ public class HandleNavigation : MonoBehaviour
     {
         if(debugOutput != null)
         {
-            string debugText = "!DEBUG!:\n";
+            string debugText = "!DEBUG!:";
+
+            //debugText += "\n";
+
+            debugText += "Time.timeScale: " + (Time.timeScale == 0 ? ColoredString("0", Color.red) : ColoredString("1", Color.green))
+                        + "\t isGamePaused: " + (isGamePaused ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green)) + "\n";
 
             GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             List<GameObject> gameObjectsPanels = new List<GameObject>();

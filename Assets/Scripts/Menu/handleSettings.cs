@@ -25,7 +25,6 @@ public class handleSettings : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("handleSettings.Start()");
         applyButton.interactable = false;
         
         // Load initial settings

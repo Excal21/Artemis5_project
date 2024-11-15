@@ -21,7 +21,6 @@ public class loadPrefs : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("loadPrefs.Start()");
         if (canUse)
         {
             StartCoroutine(LoadSettingsWithDelay());

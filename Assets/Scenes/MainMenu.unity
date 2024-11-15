@@ -7500,7 +7500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8757ee62a250542af7144a34536744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIElements: []
   buildNumberTMP: {fileID: 1415227514}
   debugOutput: {fileID: 1241382257}
 --- !u!114 &1730310295

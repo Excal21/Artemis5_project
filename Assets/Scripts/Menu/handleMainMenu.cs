@@ -51,7 +51,8 @@ public class HandleMainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("HandleMainMenu.Start()");
+        Time.timeScale = 1;
+
         SetBuildNumber();
 
         //Find all UI elements in the scene and add them to the list.
@@ -639,7 +640,12 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
 
     public void exitGame()
     {
-        Debug.Log("Exit Game!");
+        //Ha a játékot a Unity Editorban futtatjuk, akkor is kilépünk a játékból.
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+
         Application.Quit();
     }
 
@@ -649,7 +655,11 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
     {
         if(debugOutput != null)
         {
-            string debugText = "!DEBUG!:\n";
+            string debugText = "!DEBUG!:";
+
+            //debugText += "\n";
+
+            debugText += "Time.timeScale: " + (Time.timeScale == 0 ? ColoredString("0", Color.red) : ColoredString("1", Color.green)) + "\n";
 
             GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             List<GameObject> gameObjectsPanels = new List<GameObject>();

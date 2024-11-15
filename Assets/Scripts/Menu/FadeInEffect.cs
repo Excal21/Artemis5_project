@@ -10,54 +10,37 @@ public class FadeInEffect : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("FadeInEffect.Start()");
         fadeImage = GetComponent<Image>();
-        
+        fadeImage.enabled = true;
         fadeImage.color = new Color(0, 0, 0, 1);
         
         StartCoroutine(FadeIn());
-        Debug.Log("FadeInEffect.Start() vége");
     }
 
     private IEnumerator FadeIn()
     {
-        Debug.Log("  FadeInEffect.FadeIn()");
+        if (fadeImage == null)
+        {
+            Debug.LogError("FadeImage is null!");
+            yield break;
+        }
+
         float elapsedTime = 0f;
 
         float stepDuration = fadeDuration / steps;
 
+        
         for (int i = 0; i < steps; i++)
         {
-            Debug.Log("    FadeInEffect.FadeIn() i: " + i);
             elapsedTime += stepDuration;
             float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return new WaitForSeconds(stepDuration); // Várakozás a következő lépésig
         }
-
-        /*
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
-            fadeImage.color = new Color(0, 0, 0, alpha);
-            yield return null; // Várakozás a következő frame-ig
-        }
-        */
-
-        /*
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
-            fadeImage.color = new Color(0, 0, 0, alpha);
-            yield return null;
-        }
-        */
+        
 
         fadeImage.color = new Color(0, 0, 0, 0);
 
         fadeImage.enabled = false;
-        Debug.Log("  FadeInEffect.FadeIn() vége");
     }
 }
