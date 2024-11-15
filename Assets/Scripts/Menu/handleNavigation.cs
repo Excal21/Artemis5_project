@@ -579,10 +579,12 @@ public class HandleNavigation : MonoBehaviour
     public void exitGame()
     {
         //Ha a játékot a Unity Editorban futtatjuk, akkor is kilépünk a játékból.
+        /*
         if (Application.isEditor)
         {
             UnityEditor.EditorApplication.isPlaying = false;
         }
+        */
 
         Application.Quit();
     }
