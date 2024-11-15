@@ -16,7 +16,7 @@ public class HandleNavigation : MonoBehaviour
     private Color selectedColor = Color.yellow;
     private Color disabledColor = Color.gray;
 
-    private GameObject currentSelectedPanel;
+    private GameObject currentActivePanel;
     private GameObject currentSelectedObject;
     private GameObject lastSelectedObject;
 
@@ -95,7 +95,7 @@ public class HandleNavigation : MonoBehaviour
     }
     #endregion
 
-    #region Egér Navigáció Kezelése
+    #region Egér Események Kezelése
     // Method to add event triggers to buttons
     private void AddEventTrigger(GameObject uiElement)
     {
@@ -124,7 +124,10 @@ public class HandleNavigation : MonoBehaviour
         {
             isPointerDown = true;
             ExecuteElementEvent(uiElement);
-            EnsureActivePanelSelection();
+            if(isGamePaused)
+            {
+                EnsureActivePanelSelection();
+            }
         });
         trigger.triggers.Add(entryClick);
 
@@ -297,6 +300,7 @@ public class HandleNavigation : MonoBehaviour
     }
     #endregion
 
+    #region Legördülő menü Kezelése
     private void AdjustDropdownScroll(GameObject selectedItem)
     {
         // Keressük meg a TMP_Dropdown komponenst a teljes szülői hierarchiában
@@ -317,6 +321,7 @@ public class HandleNavigation : MonoBehaviour
             currentScrollbar.value = 1 - (step * (selectedIndex-2));
         }
     }
+    #endregion
 
     #region Festések
     void SetButtonTextColor(Button button, Color color)
@@ -417,8 +422,8 @@ public class HandleNavigation : MonoBehaviour
     // Update colors based on selection
     void UpdateUIElementColors()
     {
-        currentSelectedPanel = GetActivePanel();
-        SetDisabledColor(currentSelectedPanel);
+        currentActivePanel = GetActivePanel();
+        SetDisabledColor(currentActivePanel);
         if (EventSystem.current.currentSelectedGameObject != null)
         {
             currentSelectedObject = EventSystem.current.currentSelectedGameObject;
@@ -494,17 +499,17 @@ public class HandleNavigation : MonoBehaviour
     void EnsureActivePanelSelection()
     {
         // Az aktív panel lekérdezése
-        currentSelectedPanel = GetActivePanel();
-        if (currentSelectedPanel != null)
+        currentActivePanel = GetActivePanel();
+        if (currentActivePanel != null)
         {
             // Kiválasztott UI elem lekérdezése
             currentSelectedObject = EventSystem.current.currentSelectedGameObject;
 
             // Ha nincs kijelölve elem, a panel első interaktív UI eleme legyen az aktív
-            if (currentSelectedObject == null || !currentSelectedObject.transform.IsChildOf(currentSelectedPanel.transform))
+            if (currentSelectedObject == null || !currentSelectedObject.transform.IsChildOf(currentActivePanel.transform))
             {
                 // Keresés a panel gyermekeiben
-                foreach (var selectable in currentSelectedPanel.GetComponentsInChildren<Selectable>(true))
+                foreach (var selectable in currentActivePanel.GetComponentsInChildren<Selectable>(true))
                 {
                     if (selectable.interactable)
                     {
@@ -517,15 +522,15 @@ public class HandleNavigation : MonoBehaviour
                 Debug.LogError("No selectable UI elements found in the active panel!");
             }
         }
+        /*
         else
         {
-            //Ha nincs aktív panel, akkor ellenőrizni kell, hogy fut-e a játék.
-            //Ha fut, akkor nem kell aktív panel, de ha nem fut, akkor hibaüzenetet kell kiírni.
             if(isGamePaused)
             {
-                Debug.LogError("No active panel found! The game is paused!");
+                Debug.LogError("No active panel found! The game is paused!\t Time.timeScale: " + Time.timeScale + "\t isGamePaused: " + isGamePaused);
             }
         }
+        */
     }
 
     // Get the currently active panel
@@ -555,8 +560,10 @@ public class HandleNavigation : MonoBehaviour
 
         isGamePaused = true;
         Time.timeScale = 0;
+
         pauseMenuBackground.SetActive(true);
         panelPauseMenu.SetActive(true);
+
         EnsureActivePanelSelection();
     }
     public void ResumeGame()
@@ -570,27 +577,20 @@ public class HandleNavigation : MonoBehaviour
 
         isGamePaused = false;
         Time.timeScale = 1;
+
         pauseMenuBackground.SetActive(false);
-        panelPauseMenu.SetActive(false);
+        currentActivePanel.SetActive(false);
     }
     #endregion
 
     #region Kilépés
     public void exitGame()
     {
-        //Ha a játékot a Unity Editorban futtatjuk, akkor is kilépünk a játékból.
-        /*
-        if (Application.isEditor)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        */
-
         Application.Quit();
     }
     #endregion
 
-    #region DEBUG!
+    #region FOR DEBUGGING!
     //FOR DEBUGGING!
     void DEBUG_CheckUIElementsStates()
     {
@@ -721,7 +721,7 @@ public class HandleNavigation : MonoBehaviour
 
                 //debugText += "\n";
             }
-            debugText += currentSelectedPanel  != null? "Current Selected Panel: "      + currentSelectedPanel.name  + "\t": "Current Selected Panel: null\t";
+            debugText += currentActivePanel  != null? "Current Active Panel: "      + currentActivePanel.name  + "\t": "Current Active Panel: null\t";
             debugText += currentSelectedObject != null? "Current Selected GameObject: " + currentSelectedObject.name + "\t": "Current Selected Gameobject: null\t";
             debugText += lastSelectedObject    != null? "Last Selected GameObject: "    + lastSelectedObject.name    + "\t": "Last Selected Gameobject: null\t";
             debugText += "ispointerDown: " + (isPointerDown ? ColoredString("Yes", Color.green) : ColoredString("No", Color.red)) + "\n";

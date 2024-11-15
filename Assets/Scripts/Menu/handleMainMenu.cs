@@ -8,6 +8,7 @@ using TMPro;
 
 public class HandleMainMenu : MonoBehaviour
 {
+    #region Változók
     private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
     
     [Header("Build Number")]
@@ -28,7 +29,9 @@ public class HandleMainMenu : MonoBehaviour
     //a TextMeshProUGUI objektumot a debugOutput változóhoz hozzá kell rendelni.
     //Ezt majd publicra kell állítani, hogy az inspectorban látható legyen, illetve a null-t kell kitörölni.
     public TextMeshProUGUI debugOutput = null;
+    #endregion
 
+    #region Építési szám kiszámítása 2024. szeptember 8. óta
     private void SetBuildNumber()
     {
         // Calculate the number of days since September 8, 2024
@@ -47,7 +50,9 @@ public class HandleMainMenu : MonoBehaviour
             Debug.LogError("Build number TMP is not assigned in the inspector.");
         }
     }
+    #endregion
 
+    #region Start és Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -92,7 +97,9 @@ public class HandleMainMenu : MonoBehaviour
         // UIElemek színének frissítése a kiválasztás alapján
         UpdateUIElementColors();
     }
+    #endregion
 
+    #region Egér Események Kezelése
     // Method to add event triggers to buttons
     private void AddEventTrigger(GameObject uiElement)
     {
@@ -169,6 +176,38 @@ public class HandleMainMenu : MonoBehaviour
     }
     */
 
+    // Kurzor belépése esemény, amely színt vált
+    private void HandlePointerEnter(GameObject uiElement)
+    {
+        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable) return;
+
+        currentSelectedObject = uiElement;
+        EventSystem.current.SetSelectedGameObject(uiElement);
+
+        if (uiElement.TryGetComponent(out Button button))
+        {
+            SetButtonTextColor(button, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out Slider slider))
+        {
+            SetSliderHandleColor(slider, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out TMP_Dropdown dropdown))
+        {
+            SetDropdownBackgroundColor(dropdown, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out Toggle toggle))
+        {
+            SetToggleBackgroundColor(toggle, selectedColor);
+        }
+        else
+        {
+            Debug.LogError("Unsupported UI element on PointerEnter.");
+        }
+    }
+    #endregion
+
+    #region UI objektum végrehajtása
     // Általános eseménykezelő minden UI elemhez
     private void ExecuteElementEvent(GameObject uiElement)
     {
@@ -239,37 +278,9 @@ public class HandleMainMenu : MonoBehaviour
                 }
         */
     }
+    #endregion
 
-    // Kurzor belépése esemény, amely színt vált
-    private void HandlePointerEnter(GameObject uiElement)
-    {
-        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable) return;
-
-        currentSelectedObject = uiElement;
-        EventSystem.current.SetSelectedGameObject(uiElement);
-
-        if (uiElement.TryGetComponent(out Button button))
-        {
-            SetButtonTextColor(button, selectedColor);
-        }
-        else if (uiElement.TryGetComponent(out Slider slider))
-        {
-            SetSliderHandleColor(slider, selectedColor);
-        }
-        else if (uiElement.TryGetComponent(out TMP_Dropdown dropdown))
-        {
-            SetDropdownBackgroundColor(dropdown, selectedColor);
-        }
-        else if (uiElement.TryGetComponent(out Toggle toggle))
-        {
-            SetToggleBackgroundColor(toggle, selectedColor);
-        }
-        else
-        {
-            Debug.LogError("Unsupported UI element on PointerEnter.");
-        }
-    }
-
+    #region Bemenetek ellenőrzése
     //Ha kattintásra nincs kiválasztva gomb, slider vagy dropdown, akkor legyen kiválasztva.
     private void checkMouseInput()
     {
@@ -336,7 +347,9 @@ public class HandleMainMenu : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Legördülő menü kezelése
     private void AdjustDropdownScroll(GameObject selectedItem)
     {
         // Keressük meg a TMP_Dropdown komponenst a teljes szülői hierarchiában
@@ -381,8 +394,9 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
     });
 }
 */
+    #endregion
 
-
+    #region Festések
     void SetButtonTextColor(Button button, Color color)
     {
         TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
@@ -546,6 +560,33 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
         }
     }
 
+    // Szín beállítása a kiválasztott UI elemhez
+    void SetElementColor(Selectable element)
+    {
+        if (element is Button button)
+        {
+            SetButtonTextColor(button, selectedColor);
+        }
+        else if (element is Slider slider)
+        {
+            SetSliderHandleColor(slider, selectedColor);
+        }
+        else if (element is TMP_Dropdown dropdown)
+        {
+            SetDropdownBackgroundColor(dropdown, selectedColor);
+        }
+        else if (element is Toggle toggle)
+        {
+            SetToggleBackgroundColor(toggle, selectedColor);
+        }
+        else
+        {
+            Debug.LogError("Unsupported UI element type.");
+        }
+    }
+    #endregion
+
+    #region UI Elemek Kezelése
     // Megfelelő grafikai elem visszaadása
     Graphic GetRelevantGraphic(GameObject uiElement)
     {
@@ -612,46 +653,16 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
         }
         return null;
     }
+    #endregion
 
-    // Szín beállítása a kiválasztott UI elemhez
-    void SetElementColor(Selectable element)
-    {
-        if (element is Button button)
-        {
-            SetButtonTextColor(button, selectedColor);
-        }
-        else if (element is Slider slider)
-        {
-            SetSliderHandleColor(slider, selectedColor);
-        }
-        else if (element is TMP_Dropdown dropdown)
-        {
-            SetDropdownBackgroundColor(dropdown, selectedColor);
-        }
-        else if (element is Toggle toggle)
-        {
-            SetToggleBackgroundColor(toggle, selectedColor);
-        }
-        else
-        {
-            Debug.LogError("Unsupported UI element type.");
-        }
-    }
-
+    #region Kilépés
     public void exitGame()
     {
-        //Ha a játékot a Unity Editorban futtatjuk, akkor is kilépünk a játékból.
-        /*
-        if (Application.isEditor)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        */
-
         Application.Quit();
     }
+    #endregion
 
-    #region DEBUG!
+    #region FOR DEBUGGING!
     //FOR DEBUGGING!
     void DEBUG_CheckUIElementsStates()
     {
