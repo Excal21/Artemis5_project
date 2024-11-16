@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1275030828540039298}
   - component: {fileID: 5653958723097523949}
   - component: {fileID: 7708698162874203232}
-  m_Layer: 0
+  - component: {fileID: 4814534696179698434}
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -108,15 +109,18 @@ MonoBehaviour:
   - {fileID: -4835859195297287297, guid: 682a3cfc7bbebb743918aaac47343f99, type: 3}
   - {fileID: 5091398421201204211, guid: 682eea3d0559cf44384f4fcd80d795f2, type: 3}
   - {fileID: 6372854951805474705, guid: dbb86782603522c448a6284ea236ee9e, type: 3}
-  health: 4
+  health: 3
   speed: 3
   gravity: 1.5
   jetProp: {fileID: 1096514636564054564}
   projectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
     type: 3}
-  jetPropOffset: 0.1
+  jetPropOffset: 0.4
   fireRate: 2
   projectileOffset: 1
+  projectileSpeed: 5
+  controllable: 1
+  rb: {fileID: 4814534696179698434}
 --- !u!61 &7708698162874203232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,6 +167,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.32, y: 0.28}
   m_EdgeRadius: 0
+--- !u!50 &4814534696179698434
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371738047655490110}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1096514636564054564
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,8 +220,8 @@ Transform:
   m_GameObject: {fileID: 1096514636564054564}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2252706370974871755}
@@ -241,7 +272,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -880626058481460888, guid: bc8a250b56c3c524fb236f9992731e38,
     type: 3}
-  m_Color: {r: 0.7132075, g: 0.7132075, b: 0.7132075, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

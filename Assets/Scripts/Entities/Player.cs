@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private float lastShotTime = 0;
     private Vector2 newPosition;
     private Vector2 actPosition;
+    float dx, dy;
     #endregion
 
     #region Tulajdonságok private mezői
@@ -41,6 +42,8 @@ public class Player : MonoBehaviour
     private float projectileSpeed = 5f;
     [SerializeField]
     private bool controllable = true;
+    [SerializeField]
+    private Rigidbody2D rb;
     #endregion
 
     #region Getterek/Setterek
@@ -130,6 +133,10 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, -4.5f, 0);
     }
 
+    public void FixedUpdate(){
+    rb.linearVelocity = new Vector2(dx, dy);
+}
+
     public void Update()
     {
 
@@ -148,6 +155,11 @@ public class Player : MonoBehaviour
 
 
         if (newPosition.y >= screenBottom) this.transform.position = newPosition;
+
+
+        Vector3 tilt = Input.acceleration;
+        dx = Input.acceleration.x * speed;
+        dy = (Input.acceleration.y + 0.7f) * speed;
 
         if (controllable)
         {
@@ -186,18 +198,12 @@ public class Player : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.Space) && Time.time > lastShotTime + 1 / fireRate)
+        if (Input.GetKey(KeyCode.Space) || Input.touchCount > 0 && Time.time > lastShotTime + 1 / fireRate)
         {
             Shoot();
             lastShotTime = Time.time;
         }
 
-        /*
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-        */
 
 
     }
