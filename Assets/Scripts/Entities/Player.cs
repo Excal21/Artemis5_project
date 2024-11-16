@@ -191,10 +191,13 @@ public class Player : MonoBehaviour
             Shoot();
             lastShotTime = Time.time;
         }
+
+        /*
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
         }
+        */
 
 
     }

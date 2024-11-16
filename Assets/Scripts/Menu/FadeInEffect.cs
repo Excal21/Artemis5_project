@@ -11,7 +11,7 @@ public class FadeInEffect : MonoBehaviour
     void Start()
     {
         fadeImage = GetComponent<Image>();
-        
+        fadeImage.enabled = true;
         fadeImage.color = new Color(0, 0, 0, 1);
         
         StartCoroutine(FadeIn());
@@ -19,10 +19,17 @@ public class FadeInEffect : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
+        if (fadeImage == null)
+        {
+            Debug.LogError("FadeImage is null!");
+            yield break;
+        }
+
         float elapsedTime = 0f;
 
         float stepDuration = fadeDuration / steps;
 
+        
         for (int i = 0; i < steps; i++)
         {
             elapsedTime += stepDuration;
@@ -30,16 +37,7 @@ public class FadeInEffect : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return new WaitForSeconds(stepDuration); // Várakozás a következő lépésig
         }
-
-        /*
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Lerp(1, 0, elapsedTime / fadeDuration);
-            fadeImage.color = new Color(0, 0, 0, alpha);
-            yield return null;
-        }
-        */
+        
 
         fadeImage.color = new Color(0, 0, 0, 0);
 

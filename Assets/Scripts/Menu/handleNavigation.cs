@@ -6,50 +6,32 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class HandleMainMenu : MonoBehaviour
+public class HandleNavigation : MonoBehaviour
 {
     #region Változók
     private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
-    
-    [Header("Build Number")]
-    [SerializeField] private TextMeshProUGUI buildNumberTMP = null;                     // Reference to the TextMeshProUGUI component that displays the build number
-    
+
     private Color normalColor = Color.white;
     private Color clickedColor = new Color(128f / 255f, 0f / 255f, 255f / 255f);        // Lila
     private Color selectedColor = Color.yellow;
     private Color disabledColor = Color.gray;
 
-    private GameObject currentSelectedPanel;
+    private GameObject currentActivePanel;
     private GameObject currentSelectedObject;
     private GameObject lastSelectedObject;
 
     private bool isPointerDown = false;
 
-    //Ha kell, akkor a jeleneten létre kell hozni egy TextMeshProUGUI objektumot, majd a Canvas-t kijelölve
-    //a TextMeshProUGUI objektumot a debugOutput változóhoz hozzá kell rendelni.
-    //Ezt majd publicra kell állítani, hogy az inspectorban látható legyen, illetve a null-t kell kitörölni.
-    public TextMeshProUGUI debugOutput = null;
+    public TextMeshProUGUI debugOutput;
     #endregion
 
-    #region Építési szám kiszámítása 2024. szeptember 8. óta
-    private void SetBuildNumber()
-    {
-        // Calculate the number of days since September 8, 2024
-        DateTime startDate = new DateTime(2024, 9, 8);
-        TimeSpan elapsedTime = DateTime.Now - startDate;
-        int elapsedDays = (int)elapsedTime.TotalDays;
-
-        // Set the build number text
-        if (buildNumberTMP != null)
-        {
-            buildNumberTMP.text = $"(build {elapsedDays})";
-        }
-        else
-        {
-            buildNumberTMP.text = "(build -1)";
-            Debug.LogError("Build number TMP is not assigned in the inspector.");
-        }
-    }
+    #region Szünet Menü Változói
+    [Header("Pause Menu Background")]
+    [SerializeField] private GameObject pauseMenuBackground;
+    [Space(10)]
+    [Header("Pause Menu Panel")]
+    [SerializeField] private GameObject panelPauseMenu;
+    public static bool isGamePaused = false;
     #endregion
 
     #region Start és Update
@@ -57,8 +39,7 @@ public class HandleMainMenu : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
-
-        SetBuildNumber();
+        isGamePaused = false;
 
         //Find all UI elements in the scene and add them to the list.
         GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
@@ -77,13 +58,28 @@ public class HandleMainMenu : MonoBehaviour
         }
 
         //Induláskor legyen egy elem kiválasztva.
-        EnsureActivePanelSelection();
+        //EnsureActivePanelSelection();
     }
 
     // Update is called once per frame
     void Update()
     {
         //DEBUG_CheckUIElementsStates();
+
+        //Escape-re vagy a P billentyűre szüneteltetjük a játékot.
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            if(isGamePaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
+
+        if(!isGamePaused) return;
 
         //...mert EventTrigger nincs Enterre és NumPad Enterre.
         checkEnterPressed();
@@ -128,7 +124,10 @@ public class HandleMainMenu : MonoBehaviour
         {
             isPointerDown = true;
             ExecuteElementEvent(uiElement);
-            EnsureActivePanelSelection();
+            if(isGamePaused)
+            {
+                EnsureActivePanelSelection();
+            }
         });
         trigger.triggers.Add(entryClick);
 
@@ -147,67 +146,8 @@ public class HandleMainMenu : MonoBehaviour
             }
         });
         trigger.triggers.Add(entryRelease);
-
-        /*
-        // Add Enter key event listener
-        EventTrigger.Entry entryEnterKey = new EventTrigger.Entry
-        {
-            eventID = EventTriggerType.PointerClick // This is for the UI element click
-        };
-        entryEnterKey.callback.AddListener((eventData) => HandleElementClick(uiElement));
-        trigger.triggers.Add(entryEnterKey);
-        */
     }
 
-    /*
-    // Handles click events for the current selected UI element
-    private void HandleElementClick(GameObject uiElement)
-    {
-        Debug.Log("HandleElementClick");
-        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable)
-        {
-            Debug.Log("HandleElementClick -> EnsureActivePanelSelection will be called.");
-            EnsureActivePanelSelection();
-            return;
-        }
-
-        Debug.Log("HandleElementClick -> ExecuteElementEvent will be called.");
-        ExecuteElementEvent(uiElement);
-    }
-    */
-
-    // Kurzor belépése esemény, amely színt vált
-    private void HandlePointerEnter(GameObject uiElement)
-    {
-        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable) return;
-
-        currentSelectedObject = uiElement;
-        EventSystem.current.SetSelectedGameObject(uiElement);
-
-        if (uiElement.TryGetComponent(out Button button))
-        {
-            SetButtonTextColor(button, selectedColor);
-        }
-        else if (uiElement.TryGetComponent(out Slider slider))
-        {
-            SetSliderHandleColor(slider, selectedColor);
-        }
-        else if (uiElement.TryGetComponent(out TMP_Dropdown dropdown))
-        {
-            SetDropdownBackgroundColor(dropdown, selectedColor);
-        }
-        else if (uiElement.TryGetComponent(out Toggle toggle))
-        {
-            SetToggleBackgroundColor(toggle, selectedColor);
-        }
-        else
-        {
-            Debug.LogError("Unsupported UI element on PointerEnter.");
-        }
-    }
-    #endregion
-
-    #region UI objektum végrehajtása
     // Általános eseménykezelő minden UI elemhez
     private void ExecuteElementEvent(GameObject uiElement)
     {
@@ -268,39 +208,49 @@ public class HandleMainMenu : MonoBehaviour
             Debug.LogError("Unsupported UI element on PointerDown.");
         }
         isPointerDown = false;
-        /*
-                else if (uiElement.GetComponentInChildren<TMP_Dropdown>() is TMP_Dropdown childDropdown)
-                {
-                    Debug.Log("Dropdown child clicked: " + childDropdown.name);
-                    SetDropdownItemTextColor(childDropdown, clickedColor);
-                    childDropdown.onValueChanged.Invoke(childDropdown.value);
-                    SetDropdownItemTextColor(childDropdown, normalColor);
-                }
-        */
+    }
+
+    // Kurzor belépése esemény, amely színt vált
+    private void HandlePointerEnter(GameObject uiElement)
+    {
+        if (uiElement.TryGetComponent(out Selectable selectable) && !selectable.interactable) return;
+
+        currentSelectedObject = uiElement;
+        EventSystem.current.SetSelectedGameObject(uiElement);
+
+        if (uiElement.TryGetComponent(out Button button))
+        {
+            SetButtonTextColor(button, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out Slider slider))
+        {
+            SetSliderHandleColor(slider, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out TMP_Dropdown dropdown))
+        {
+            SetDropdownBackgroundColor(dropdown, selectedColor);
+        }
+        else if (uiElement.TryGetComponent(out Toggle toggle))
+        {
+            SetToggleBackgroundColor(toggle, selectedColor);
+        }
+        else
+        {
+            Debug.LogError("Unsupported UI element on PointerEnter.");
+        }
     }
     #endregion
 
-    #region Bemenetek ellenőrzése
+    #region Bemenetek Ellenőrzése
     //Ha kattintásra nincs kiválasztva gomb, slider vagy dropdown, akkor legyen kiválasztva.
     private void checkMouseInput()
     {
         if
         (
             (Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButton(2)) &&
-            //?. - ha a currentSelectedGameObject null, akkor nem hajtódik végre a GetComponent<___>().
             (EventSystem.current.currentSelectedGameObject?.GetComponent<Button>() == null &&
             EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>() == null &&
             EventSystem.current.currentSelectedGameObject?.GetComponent<TMP_Dropdown>() == null)
-
-            //&& EventSystem.current.currentSelectedGameObject?.GetComponent<Toggle>() == null)
-
-            /*
-            EventSystem.current.currentSelectedGameObject?.GetComponent<Button>() == null ||
-            EventSystem.current.currentSelectedGameObject?.GetComponent<Slider>() == null ||
-            EventSystem.current.currentSelectedGameObject?.GetComponent<TMP_Dropdown>() == null
-            // || EventSystem.current.currentSelectedGameObject.GetComponent<Toggle>() == null
-            */
-
         )
         {
             EnsureActivePanelSelection();
@@ -327,6 +277,7 @@ public class HandleMainMenu : MonoBehaviour
         }
     }
 
+    // TMP_Dropdown esetén a nyilak használatakor a Scrollbar pozícióját frissíteni kell.
     private void checkArrowsInput()
     {
         if
@@ -349,7 +300,7 @@ public class HandleMainMenu : MonoBehaviour
     }
     #endregion
 
-    #region Legördülő menü kezelése
+    #region Legördülő menü Kezelése
     private void AdjustDropdownScroll(GameObject selectedItem)
     {
         // Keressük meg a TMP_Dropdown komponenst a teljes szülői hierarchiában
@@ -370,30 +321,6 @@ public class HandleMainMenu : MonoBehaviour
             currentScrollbar.value = 1 - (step * (selectedIndex-2));
         }
     }
-
-/*
-void AdjustDropdownScroll(TMP_Dropdown dropdown)
-{
-    // Keressük meg a Scrollbar komponenst a Dropdown hierarchy-jában
-    Scrollbar scrollbar = dropdown.GetComponentInChildren<Scrollbar>();
-    if (scrollbar == null)
-    {
-        Debug.LogWarning("No scrollbar found in dropdown.");
-        return;
-    }
-
-    // Eseménykezelő a Dropdown kiválasztott indexének figyelésére
-    dropdown.onValueChanged.AddListener((value) =>
-    {
-        int totalOptions = dropdown.options.Count;
-        int visibleItems = Mathf.Min(4, totalOptions); // Példa szerint 4 látható elem egy időben
-        float scrollValue = (float)value / (totalOptions - visibleItems);
-
-        // Állítsuk be a scrollbar pozícióját
-        scrollbar.value = 1 - scrollValue;
-    });
-}
-*/
     #endregion
 
     #region Festések
@@ -422,7 +349,6 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
     {
         if (dropdown != null)
         {
-            //Image background = dropdown.transform.Find("Template/Viewport/Content").GetComponent<Image>();
             Image background = dropdown.GetComponent<Image>();
             if (background != null)
             {
@@ -471,42 +397,6 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
         foreach(Transform uiElementTransform in activePanel.GetComponentsInChildren<Transform>())
         {
             GameObject uiElement = uiElementTransform.gameObject;
-            /*
-            switch (uiElement.tag)
-            {
-                case "Button":
-                    Debug.Log("======Button: " + uiElement.name);
-                    if(uiElement.GetComponent<Button>().interactable == false)
-                    {
-                        SetButtonTextColor(uiElement.GetComponent<Button>(), disabledColor);
-                    }
-                    else if (uiElement.GetComponent<Button>() != currentSelectedGameObject)
-                    {
-                        SetButtonTextColor(uiElement.GetComponent<Button>(), normalColor);
-                    }
-                    break;
-                case "Slider":
-                    if (uiElement.GetComponent<Slider>().interactable == false)
-                    {
-                        SetSliderHandleColor(uiElement.GetComponent<Slider>(), disabledColor);
-                    }
-                    break;
-                case "Dropdown":
-                    if (uiElement.GetComponent<TMP_Dropdown>().interactable == false)
-                    {
-                        SetDropdownBackgroundColor(uiElement.GetComponent<TMP_Dropdown>(), disabledColor);
-                    }
-                    break;
-                case "Toggle":
-                    if (uiElement.GetComponent<Toggle>().interactable == false)
-                    {
-                        SetToggleBackgroundColor(uiElement.GetComponent<Toggle>(), disabledColor);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            */
             Graphic relevantGraphic = GetRelevantGraphic(uiElement);
         
             if (relevantGraphic == null) continue;
@@ -532,8 +422,8 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
     // Update colors based on selection
     void UpdateUIElementColors()
     {
-        currentSelectedPanel = GetActivePanel();
-        SetDisabledColor(currentSelectedPanel);
+        currentActivePanel = GetActivePanel();
+        SetDisabledColor(currentActivePanel);
         if (EventSystem.current.currentSelectedGameObject != null)
         {
             currentSelectedObject = EventSystem.current.currentSelectedGameObject;
@@ -609,34 +499,38 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
     void EnsureActivePanelSelection()
     {
         // Az aktív panel lekérdezése
-        currentSelectedPanel = GetActivePanel();
-        if (currentSelectedPanel != null)
+        currentActivePanel = GetActivePanel();
+        if (currentActivePanel != null)
         {
             // Kiválasztott UI elem lekérdezése
             currentSelectedObject = EventSystem.current.currentSelectedGameObject;
 
             // Ha nincs kijelölve elem, a panel első interaktív UI eleme legyen az aktív
-            if (currentSelectedObject == null || !currentSelectedObject.transform.IsChildOf(currentSelectedPanel.transform))
+            if (currentSelectedObject == null || !currentSelectedObject.transform.IsChildOf(currentActivePanel.transform))
             {
                 // Keresés a panel gyermekeiben
-                foreach (var selectable in currentSelectedPanel.GetComponentsInChildren<Selectable>(true))
+                foreach (var selectable in currentActivePanel.GetComponentsInChildren<Selectable>(true))
                 {
                     if (selectable.interactable)
                     {
-                        // Kiválasztjuk az első interaktív elemet
                         EventSystem.current.SetSelectedGameObject(selectable.gameObject);
-                        SetElementColor(selectable); // Az elem színének beállítása
-                        return; // Kilépünk, ha megtaláltuk az első interaktív elemet
+                        SetElementColor(selectable);
+                        return;
                     }
                 }
 
                 Debug.LogError("No selectable UI elements found in the active panel!");
             }
         }
+        /*
         else
         {
-            Debug.LogError("No active panel found!");
+            if(isGamePaused)
+            {
+                Debug.LogError("No active panel found! The game is paused!\t Time.timeScale: " + Time.timeScale + "\t isGamePaused: " + isGamePaused);
+            }
         }
+        */
     }
 
     // Get the currently active panel
@@ -652,6 +546,40 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
             }
         }
         return null;
+    }
+    #endregion
+
+    #region Játék Szüneteltetése és Folytatása
+    public void PauseGame()
+    {
+        if(panelPauseMenu == null || pauseMenuBackground == null)
+        {
+            Debug.LogError("Failed to pause the game. PanelPauseMenu or PauseMenuBackground is not set in the inspector!");
+            return;
+        }
+
+        isGamePaused = true;
+        Time.timeScale = 0;
+
+        pauseMenuBackground.SetActive(true);
+        panelPauseMenu.SetActive(true);
+
+        EnsureActivePanelSelection();
+    }
+    public void ResumeGame()
+    {
+        //Furcsa eset, ha úgy próbáljuk folytatni a játékot, hogy nincs beállítva a szüneteltetéshez a canvas és a panel.
+        if(panelPauseMenu == null || pauseMenuBackground == null)
+        {
+            Debug.LogError("Failed to resume the game. PanelPauseMenu or PauseMenuBackground is not set in the inspector!");
+            return;
+        }
+
+        isGamePaused = false;
+        Time.timeScale = 1;
+
+        pauseMenuBackground.SetActive(false);
+        currentActivePanel.SetActive(false);
     }
     #endregion
 
@@ -672,7 +600,8 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
 
             //debugText += "\n";
 
-            debugText += "Time.timeScale: " + (Time.timeScale == 0 ? ColoredString("0", Color.red) : ColoredString("1", Color.green)) + "\n";
+            debugText += "Time.timeScale: " + (Time.timeScale == 0 ? ColoredString("0", Color.red) : ColoredString("1", Color.green))
+                        + "\t isGamePaused: " + (isGamePaused ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green)) + "\n";
 
             GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             List<GameObject> gameObjectsPanels = new List<GameObject>();
@@ -745,7 +674,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
                     debugText += "    " + button.name
                     + ": \t" + (button.interactable? ColoredString("Interactable", Color.green) : ColoredString("Not interactable", Color.red))
                     + " \t"  + (EventSystem.current.currentSelectedGameObject == button.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
-                    + "\n    " + ColorToString(text.color) + "\n";
+                    + "\t" + ColorToString(text.color) + "\n";
                 }
                 foreach (Toggle toggle in panelToggles)
                 {
@@ -757,7 +686,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
                         {
                             debugText += "    " + toggle.name
                                 + ": \t" + (EventSystem.current.currentSelectedGameObject == toggle.gameObject ? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
-                                + "\n    " + ColorToString(background.color) + "\n";
+                                + "\t" + ColorToString(background.color) + "\n";
                         }
                         else
                         {
@@ -775,7 +704,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
 
                     debugText += "    " + slider.name
                     + ": \t" + (EventSystem.current.currentSelectedGameObject == slider.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
-                    + "\n    " + ColorToString(handle.color) + "\n";
+                    + "\t" + ColorToString(handle.color) + "\n";
                 }
                 foreach (TMP_Dropdown dropdown in panelDropdowns)
                 {
@@ -786,15 +715,15 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
 
                         debugText += "    " + dropdown.name
                         + ": \t" + (EventSystem.current.currentSelectedGameObject == dropdown.gameObject? ColoredString("Selected", Color.green) : ColoredString("Not Selected", Color.blue))
-                        + "\n    " + ColorToString(background.color) + "\n";
+                        + "\t" + ColorToString(background.color) + "\n";
                     }
                 }
 
-                debugText += "\n";
+                //debugText += "\n";
             }
-            debugText += currentSelectedPanel  != null? "Current Selected Panel: "      + currentSelectedPanel.name  + "\n": "Current Selected Panel: null\n";
-            debugText += currentSelectedObject != null? "Current Selected GameObject: " + currentSelectedObject.name + "\n": "Current Selected Gameobject: null\n";
-            debugText += lastSelectedObject    != null? "Last Selected GameObject: "    + lastSelectedObject.name    + "\n": "Last Selected Gameobject: null\n";
+            debugText += currentActivePanel  != null? "Current Active Panel: "      + currentActivePanel.name  + "\t": "Current Active Panel: null\t";
+            debugText += currentSelectedObject != null? "Current Selected GameObject: " + currentSelectedObject.name + "\t": "Current Selected Gameobject: null\t";
+            debugText += lastSelectedObject    != null? "Last Selected GameObject: "    + lastSelectedObject.name    + "\t": "Last Selected Gameobject: null\t";
             debugText += "ispointerDown: " + (isPointerDown ? ColoredString("Yes", Color.green) : ColoredString("No", Color.red)) + "\n";
             debugOutput.text = debugText;
         }
