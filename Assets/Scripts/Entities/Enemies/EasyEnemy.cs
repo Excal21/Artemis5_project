@@ -29,6 +29,8 @@ public class EasyEnemy : MonoBehaviour
     private float projectileOffset = -1f;
     [SerializeField]
     private List<Sprite> enemySprites = new List<Sprite>();
+    [SerializeField]
+    private GameObject explosionPrefab;
     #endregion
 
     #region Getterek/Setterek
@@ -115,6 +117,7 @@ public class EasyEnemy : MonoBehaviour
     {
         if (hasEnteredPlayArea && other.tag == "PlayerProjectile" || other.tag == "Border")
         {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
     }
