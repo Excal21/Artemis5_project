@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class handleSettings : MonoBehaviour
 {
+    [Header("Settings UI Elements")]
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private TextMeshProUGUI volumeText;
     [SerializeField] private Button applyButton;
@@ -12,6 +13,7 @@ public class handleSettings : MonoBehaviour
     [SerializeField] private Toggle vsyncToggle;
 
     [Header("Resolution Dropdowns")]
+    //FIXME: Lehetne privát és SerializeField?
     public TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions;
 
