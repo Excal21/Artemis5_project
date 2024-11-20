@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 68ce2d9b96079694f9f85e1eb768294a
+guid: 6ef076cd9f98be045878ef490ef0a152
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2587111685077928371
-    second: MissingTextureBackground_0
+      213: 1126223667556966277
+    second: CheckBox_512_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,9 +46,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MissingTextureBackground_0
+      name: CheckBox_512_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d46faa821abb81cd0800000000000000
-      internalID: -2587111685077928371
+      spriteID: 58fde5a657621af00800000000000000
+      internalID: 1126223667556966277
       vertices: []
       indices: 
       edges: []
@@ -125,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      MissingTextureBackground_0: -2587111685077928371
+      CheckBox_512_0: 1126223667556966277
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
