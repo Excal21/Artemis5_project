@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject projectilePrefab;
     [SerializeField]
+    private GameObject explosion;
+    [SerializeField]
     private float jetPropOffset = 0.1f;
     [SerializeField]
     private float fireRate = 3;
@@ -222,6 +224,8 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        GameObject explosionInstance = Instantiate(explosion, this.transform.position, Quaternion.identity);
+
         if (collision != null)
         {
             Destroy(collision.gameObject);

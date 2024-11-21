@@ -79,8 +79,17 @@ public class DuoFighters : MonoBehaviour
                         else if (fighter1 != null) fighterX = fighter1.transform.position.x;
                         else fighterX = fighter2.transform.position.x;
 
-                        if (player != null && fighterX > player.transform.position.x) state = 1;
-                        else state = 2;
+                        if(hasEnteredPlayArea){
+
+                            if (player != null && fighterX > player.transform.position.x){
+                            state = 1;
+                            } else if(player == null)
+                            {
+                                state = 0;
+                                
+                            }    
+                            else state = 2;
+                        }
                     }
                     break;
                 case 1: // Mozgás balra
