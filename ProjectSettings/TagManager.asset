@@ -8,6 +8,13 @@ TagManager:
   - HealthIndicator
   - Border
   - PlayerProjectile
+  - Panel
+  - Button
+  - Toggle
+  - Dropdown
+  - Slider
+  - DropdownItem
+  - Enemy
   layers:
   - Default
   - TransparentFX

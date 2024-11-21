@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        AudioManager.instance.PlayShootSound();
         //Ha el kell forgatni 90 fokkal később
         //transform.Rotate(0, 0, 90);
     }
