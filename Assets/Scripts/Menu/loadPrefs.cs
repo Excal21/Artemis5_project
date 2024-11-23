@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
-public class loadPrefs : MonoBehaviour
+public class LoadPrefs : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private bool canUse = false;
-    [SerializeField] private handleSettings settings;
+    [SerializeField] private HandleSettings settings;
 
     [SerializeField] private TMP_Text volumeText = null;
     [SerializeField] private Slider volumeSlider = null;
@@ -40,8 +40,8 @@ public class loadPrefs : MonoBehaviour
         {
             float localVolume = PlayerPrefs.GetFloat("masterVolume");
 
-            volumeText.text = Mathf.RoundToInt(localVolume).ToString();
-            volumeSlider.value = localVolume;
+            volumeText.text = Mathf.RoundToInt(localVolume * 100).ToString();
+            volumeSlider.value = localVolume * 100;
             AudioListener.volume = localVolume;
         }
         else
@@ -76,9 +76,18 @@ public class loadPrefs : MonoBehaviour
         if (PlayerPrefs.HasKey("resolution"))
         {
             int localResolution = PlayerPrefs.GetInt("resolution");
-            resolutionDropdown.value = localResolution < resolutionDropdown.options.Count ? localResolution : 0;
+            //resolutionDropdown.value = localResolution < resolutionDropdown.options.Count ? localResolution : 0;
+            if (localResolution >= 0 && localResolution < resolutionDropdown.options.Count)
+            {
+                resolutionDropdown.value = localResolution;
+            }
+            else
+            {
+                resolutionDropdown.value = 0;
+            }
 
-            resolutionDropdown.captionText.GetComponent<TMP_Text>().text = resolutionDropdown.options[resolutionDropdown.value].text;
+            //resolutionDropdown.captionText.GetComponent<TMP_Text>().text = resolutionDropdown.options[resolutionDropdown.value].text;
+            resolutionDropdown.RefreshShownValue();
         }
         else
         {
