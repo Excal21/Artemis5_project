@@ -29,9 +29,15 @@ public class BuildNumber : MonoBehaviour
     private void Start()
     {
         // Display the build number at runtime
+        #if UNITY_EDITOR
+        string buildVersion = PlayerSettings.bundleVersion;
+        #else
+        string buildVersion = Application.version;
+        #endif
+
         if (buildNumberTMP != null)
         {
-            buildNumberTMP.text = $"(build {PlayerSettings.bundleVersion})";
+            buildNumberTMP.text = $"(build {buildVersion})";
         }
         else
         {
