@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class handleSettings : MonoBehaviour
+public class HandleSettings : MonoBehaviour
 {
     [Header("Settings UI Elements")]
     [SerializeField] private Slider volumeSlider;
@@ -28,7 +28,7 @@ public class handleSettings : MonoBehaviour
         applyButton.interactable = false;
         
         // Load initial settings
-        tempVolume = PlayerPrefs.GetFloat("masterVolume", 1f);
+        tempVolume = PlayerPrefs.GetFloat("masterVolume", 1f) * 100;
         tempIsFullscreen = PlayerPrefs.GetInt("fullscreen", 1) == 1;
         tempVsyncCount = PlayerPrefs.GetInt("vsync", 1);
         
@@ -38,6 +38,12 @@ public class handleSettings : MonoBehaviour
 
         // Initialize resolution dropdown
         resolutions = Screen.resolutions;
+
+        // Filter out duplicate resolutions
+        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(resolutions);
+        resolutions = new Resolution[uniqueResolutions.Count];
+        uniqueResolutions.CopyTo(resolutions);
+        
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
@@ -73,7 +79,8 @@ public class handleSettings : MonoBehaviour
     public void setVolume(float volume)
     {
         tempVolume = volume;
-        volumeText.text = Mathf.RoundToInt(volume).ToString();
+        AudioListener.volume = tempVolume / 100; // Scale volume to 0-1
+        volumeText.text = Mathf.RoundToInt(tempVolume).ToString();
         setApplyButton();
     }
 
@@ -96,8 +103,8 @@ public class handleSettings : MonoBehaviour
 
     public void applySettings()
     {
-        AudioListener.volume = tempVolume;
-        PlayerPrefs.SetFloat("masterVolume", tempVolume);
+        AudioListener.volume = tempVolume / 100;
+        PlayerPrefs.SetFloat("masterVolume", tempVolume / 100);
 
         Resolution resolution = resolutions[tempResolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, tempIsFullscreen);
@@ -134,7 +141,7 @@ public class handleSettings : MonoBehaviour
         QualitySettings.vSyncCount = tempVsyncCount;
 
         // PlayerPrefs mentése, hogy az értékek tartósak legyenek
-        PlayerPrefs.SetFloat("masterVolume", tempVolume);
+        PlayerPrefs.SetFloat("masterVolume", tempVolume / 100);
         PlayerPrefs.SetInt("resolution", tempResolutionIndex);
         PlayerPrefs.SetInt("fullscreen", tempIsFullscreen ? 1 : 0);
         PlayerPrefs.SetInt("vsync", tempVsyncCount);

@@ -46,4 +46,9 @@ public class HandleScenes : MonoBehaviour
         }
         return false;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }

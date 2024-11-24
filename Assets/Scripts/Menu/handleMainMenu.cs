@@ -11,9 +11,6 @@ public class HandleMainMenu : MonoBehaviour
     #region Változók
     private List<GameObject> uIElements = new List<GameObject>();      // Reference to the array of UI elements in the menu
     
-    [Header("Build Number")]
-    [SerializeField] private TextMeshProUGUI buildNumberTMP = null;                     // Reference to the TextMeshProUGUI component that displays the build number
-    
     private Color normalColor = Color.white;
     private Color clickedColor = new Color(128f / 255f, 0f / 255f, 255f / 255f);        // Lila
     private Color selectedColor = Color.yellow;
@@ -31,34 +28,11 @@ public class HandleMainMenu : MonoBehaviour
     public TextMeshProUGUI debugOutput = null;
     #endregion
 
-    #region Építési szám kiszámítása 2024. szeptember 8. óta
-    private void SetBuildNumber()
-    {
-        // Calculate the number of days since September 8, 2024
-        DateTime startDate = new DateTime(2024, 9, 8);
-        TimeSpan elapsedTime = DateTime.Now - startDate;
-        int elapsedDays = (int)elapsedTime.TotalDays;
-
-        // Set the build number text
-        if (buildNumberTMP != null)
-        {
-            buildNumberTMP.text = $"(build {elapsedDays})";
-        }
-        else
-        {
-            buildNumberTMP.text = "(build -1)";
-            Debug.LogError("Build number TMP is not assigned in the inspector.");
-        }
-    }
-    #endregion
-
     #region Start és Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Time.timeScale = 1;
-
-        SetBuildNumber();
 
         //Find all UI elements in the scene and add them to the list.
         GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
