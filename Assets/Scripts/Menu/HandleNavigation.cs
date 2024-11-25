@@ -59,11 +59,13 @@ public class HandleNavigation : MonoBehaviour
 
         //Induláskor legyen egy elem kiválasztva.
         //EnsureActivePanelSelection();
+        Debug.Log("HandleNavigation started!");
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Update called!");
         //DEBUG_CheckUIElementsStates();
 
         //Escape-re vagy a P billentyűre szüneteltetjük a játékot.
