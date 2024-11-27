@@ -16,10 +16,19 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Dialogue")]
     [SerializeField] private GameObject dialoguePanel;
-    [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private Image actorImage;
-    [SerializeField] private TextMeshProUGUI actorNameTMP;
-    [SerializeField] private TextMeshProUGUI messageTMP;
+    [Header("Centered dialogue box")]
+    [SerializeField] private GameObject centerDialogueBox;
+    [SerializeField] private TextMeshProUGUI centerMessageTMP;
+    [Header("Left sided dialogue box")]
+    [SerializeField] private GameObject leftDialogueBox;
+    [SerializeField] private Image leftActorImage;
+    [SerializeField] private TextMeshProUGUI leftActorNameTMP;
+    [SerializeField] private TextMeshProUGUI leftMessageTMP;
+    [Header("Right sided dialogue box")]
+    [SerializeField] private GameObject rightDialogueBox;
+    [SerializeField] private Image rightActorImage;
+    [SerializeField] private TextMeshProUGUI rightActorNameTMP;
+    [SerializeField] private TextMeshProUGUI rightMessageTMP;
 
     [Header("Buttons")]
     [SerializeField] GameObject buttonMainMenu;
@@ -31,7 +40,9 @@ public class DialogueManager : MonoBehaviour
     private bool skipTyping = false;
     private bool isDialogueFinished = false;
 
-    private Vector2 originalDialogueBoxSize;
+    private Vector2 originalLeftDialogueBoxSize;
+    private Vector2 originalRightDialogueBoxSize;
+    private Vector2 originalCenterDialogueBoxSize;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,7 +54,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if(openingPanel == null || openingTMP == null || dialoguePanel == null || dialogueBox == null || actorImage == null || actorNameTMP == null || messageTMP == null)
+        if(openingPanel == null || openingTMP == null || dialoguePanel == null || centerDialogueBox == null || centerMessageTMP == null || leftDialogueBox == null || leftActorImage == null || leftActorNameTMP == null || leftMessageTMP == null || rightDialogueBox == null || rightActorImage == null || rightActorNameTMP == null || rightMessageTMP == null || buttonMainMenu == null || buttonStartSector == null || pressAnyKeyToContinueTMP == null)
         {
             Debug.LogError("Nem minden szükséges elem lett hozzárendelve a Unity Inspectorban!");
             return;
@@ -57,8 +68,14 @@ public class DialogueManager : MonoBehaviour
         buttonStartSector.SetActive(false);
         pressAnyKeyToContinueTMP.gameObject.SetActive(false);
 
-        originalDialogueBoxSize = dialogueBox.GetComponent<RectTransform>().sizeDelta;
-        dialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalDialogueBoxSize.x, 0);
+        originalLeftDialogueBoxSize = leftDialogueBox.GetComponent<RectTransform>().sizeDelta;
+        leftDialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalLeftDialogueBoxSize.x, 0);
+
+        originalRightDialogueBoxSize = rightDialogueBox.GetComponent<RectTransform>().sizeDelta;
+        rightDialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalRightDialogueBoxSize.x, 0);
+        
+        originalCenterDialogueBoxSize = centerDialogueBox.GetComponent<RectTransform>().sizeDelta;
+        centerDialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalCenterDialogueBoxSize.x, 0);
 
         StartCoroutine(StartWithDelay());
     }
@@ -132,18 +149,24 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator ExpandDialogueBox(System.Action onComplete)
     {
-        RectTransform rectTransform = dialogueBox.GetComponent<RectTransform>();
+        RectTransform leftRectTransform = leftDialogueBox.GetComponent<RectTransform>();
+        RectTransform rightRectTransform = rightDialogueBox.GetComponent<RectTransform>();
+        RectTransform centerRectTransform = centerDialogueBox.GetComponent<RectTransform>();
         float elapsedTime = 0f;
         float duration = 0.25f; // default - 0.5f
 
         while (elapsedTime < duration)
         {
-            rectTransform.sizeDelta = new Vector2(originalDialogueBoxSize.x, Mathf.Lerp(0, originalDialogueBoxSize.y, elapsedTime / duration));
+            leftRectTransform.sizeDelta = new Vector2(originalLeftDialogueBoxSize.x, Mathf.Lerp(0, originalLeftDialogueBoxSize.y, elapsedTime / duration));
+            rightRectTransform.sizeDelta = new Vector2(originalRightDialogueBoxSize.x, Mathf.Lerp(0, originalRightDialogueBoxSize.y, elapsedTime / duration));
+            centerRectTransform.sizeDelta = new Vector2(originalCenterDialogueBoxSize.x, Mathf.Lerp(0, originalCenterDialogueBoxSize.y, elapsedTime / duration));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        rectTransform.sizeDelta = originalDialogueBoxSize;
+        leftRectTransform.sizeDelta = originalLeftDialogueBoxSize;
+        rightRectTransform.sizeDelta = originalRightDialogueBoxSize;
+        centerRectTransform.sizeDelta = originalCenterDialogueBoxSize;
         onComplete?.Invoke();
     }
 
@@ -153,10 +176,34 @@ public class DialogueManager : MonoBehaviour
         {
             Dialogue dialogue = dialogues[currentDialogueIndex];
 
-            actorNameTMP.text = dialogue.characterName;
-            actorImage.sprite = dialogueLoader.GetCharacterSprite(dialogue.characterAvatar);
+            if (dialogue.side == "left")
+            {
+                leftDialogueBox.SetActive(true);
+                rightDialogueBox.SetActive(false);
+                centerDialogueBox.SetActive(false);
 
-            yield return StartCoroutine(TypeText(messageTMP, dialogue.text, null));
+                leftActorNameTMP.text = dialogue.characterName;
+                leftActorImage.sprite = dialogueLoader.GetCharacterSprite(dialogue.characterAvatar);
+                yield return StartCoroutine(TypeText(leftMessageTMP, dialogue.text, null));
+            }
+            else if (dialogue.side == "right")
+            {
+                leftDialogueBox.SetActive(false);
+                rightDialogueBox.SetActive(true);
+                centerDialogueBox.SetActive(false);
+
+                rightActorNameTMP.text = dialogue.characterName;
+                rightActorImage.sprite = dialogueLoader.GetCharacterSprite(dialogue.characterAvatar);
+                yield return StartCoroutine(TypeText(rightMessageTMP, dialogue.text, null));
+            }
+            else if (dialogue.side == "center" || string.IsNullOrEmpty(dialogue.characterName))
+            {
+                leftDialogueBox.SetActive(false);
+                rightDialogueBox.SetActive(false);
+                centerDialogueBox.SetActive(true);
+
+                yield return StartCoroutine(TypeText(centerMessageTMP, dialogue.text, null));
+            }
         }
         else
         {

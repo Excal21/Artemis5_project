@@ -56,19 +56,19 @@ public class DialogueLoader : MonoBehaviour
         characterSprites = new Dictionary<string, Sprite>();
 
         // Extract character names from dialogues
-        HashSet<string> characterNames = new HashSet<string>();
+        HashSet<string> characterAvatars = new HashSet<string>();
         foreach (var dialogue in dialogueData.dialogues)
         {
             if (!string.IsNullOrEmpty(dialogue.characterAvatar))
             {
-                characterNames.Add(dialogue.characterAvatar);
+                characterAvatars.Add(dialogue.characterAvatar);
             }
         }
 
         // Load sprites for the extracted character names
-        foreach (string characterName in characterNames)
+        foreach (string characterName in characterAvatars)
         {
-            if (characterName == "none")
+            if (characterName == "")
             {
                 characterSprites.Add(characterName, defaultSprite);
             }
@@ -81,7 +81,7 @@ public class DialogueLoader : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"Sprite not found for character: {characterName}");
+                    Debug.LogWarning($" LoadCharacterSprites() -> Sprite not found for character: {characterName}");
                 }
             }
         }
@@ -100,7 +100,7 @@ public class DialogueLoader : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Sprite not found for character: {characterAvatar} - Using default sprite instead.");
+            Debug.LogWarning($"GetDefaultSprite() -> Sprite not found for character: {characterAvatar} - Using default sprite instead.");
             
             return defaultSprite;
         }

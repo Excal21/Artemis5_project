@@ -8,6 +8,7 @@ public class Dialogue
     public string characterName;
     public string text;
     public string characterAvatar;
+    public string side;
 }
 
 [Serializable]

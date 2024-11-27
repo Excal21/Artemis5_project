@@ -2,54 +2,64 @@
   "opening": "Lieutenant Zeron is a soldier of the Xervadon Empire, serving as a pilot in its space force for nearly 8 years. He is stationed on one of the Xervadon space stations, overseeing spaceship inspections with his unit when Colonel Margord approaches him.",
   "dialogues": [
     {
-      "characterName": "Margord",
+      "characterName": "Colonel Margord",
       "characterAvatar": "Margord_Avatar.png",
-      "text": "Lieutenant Zeron!"
+      "text": "Lieutenant Zeron!",
+      "side": "right"
     },
     {
-      "characterName": "Zeron",
+      "characterName": "Lieutenant Zeron",
       "characterAvatar": "Zeron_Avatar.png",
-      "text": "<saluting> Yes, Colonel Margord!"
+      "text": "<saluting> Yes, Colonel Margord!",
+      "side": "left"
     },
     {
-      "characterName": "Margord",
+      "characterName": "Colonel Margord",
       "characterAvatar": "Margord_Avatar.png",
-      "text": "At ease, soldier! I have a mission for you."
+      "text": "At ease, soldier! I have a mission for you.",
+      "side": "right"
     },
     {
-      "characterName": "Zeron",
+      "characterName": "Lieutenant Zeron",
       "characterAvatar": "Zeron_Avatar.png",
-      "text": "How can I assist, Colonel?"
+      "text": "How can I assist, Colonel?",
+      "side": "left"
     },
     {
-      "characterName": "Margord",
+      "characterName": "Colonel Margord",
       "characterAvatar": "Margord_Avatar.png",
-      "text": "The Vorroths have detected unknown signals from a small moon, but they cannot interpret them and have requested our help. Assemble a squad of five and fly to the moon to investigate. I will provide the ship and necessary equipment. Will you take the mission?"
+      "text": "The Vorroths have detected unknown signals from a small moon, but they cannot interpret them and have requested our help. Assemble a squad of five and fly to the moon to investigate. I will provide the ship and necessary equipment. Will you take the mission?",
+      "side": "right"
     },
     {
-      "characterName": "Zeron",
+      "characterName": "Lieutenant Zeron",
       "characterAvatar": "Zeron_Avatar.png",
-      "text": "Of course, Colonel Margord!"
+      "text": "Of course, Colonel Margord!",
+      "side": "left"
     },
     {
-      "characterName": "Margord",
+      "characterName": "Colonel Margord",
       "characterAvatar": "Margord_Avatar.png",
-      "text": "I knew I could count on you! Everything you need will be in the hangar in three days. Good luck!"
+      "text": "I knew I could count on you! Everything you need will be in the hangar in three days. Good luck!",
+      "side": "right"
     },
     {
-      "characterName": "Zeron",
+      "characterName": "Lieutenant Zeron",
       "characterAvatar": "Zeron_Avatar.png",
-      "text": "Thank you, Sir!"
+      "text": "Thank you, Sir!",
+      "side": "left"
     },
     {
-      "characterName": "none",
-      "characterAvatar": "none",
-      "text": "< Colonel Margord leaves >"
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "< Colonel Margord leaves >",
+      "side": "center"
     },
     {
-      "characterName": "none",
-      "characterAvatar": "none",
-      "text": "< Lieutenant Zeron appoints soldiers from his unit to form the squad >"
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "< Lieutenant Zeron appoints soldiers from his unit to form the squad >",
+      "side": "center"
     }
   ]
 }
