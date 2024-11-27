@@ -1,0 +1,55 @@
+{
+  "opening": "Lieutenant Zeron is a soldier of the Xervadon Empire, serving as a pilot in its space force for nearly 8 years. He is stationed on one of the Xervadon space stations, overseeing spaceship inspections with his unit when Colonel Margord approaches him.",
+  "dialogues": [
+    {
+      "characterName": "Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "Lieutenant Zeron!"
+    },
+    {
+      "characterName": "Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "<saluting> Yes, Colonel Margord!"
+    },
+    {
+      "characterName": "Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "At ease, soldier! I have a mission for you."
+    },
+    {
+      "characterName": "Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "How can I assist, Colonel?"
+    },
+    {
+      "characterName": "Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "The Vorroths have detected unknown signals from a small moon, but they cannot interpret them and have requested our help. Assemble a squad of five and fly to the moon to investigate. I will provide the ship and necessary equipment. Will you take the mission?"
+    },
+    {
+      "characterName": "Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Of course, Colonel Margord!"
+    },
+    {
+      "characterName": "Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "I knew I could count on you! Everything you need will be in the hangar in three days. Good luck!"
+    },
+    {
+      "characterName": "Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Thank you, Sir!"
+    },
+    {
+      "characterName": "none",
+      "characterAvatar": "none",
+      "text": "< Colonel Margord leaves >"
+    },
+    {
+      "characterName": "none",
+      "characterAvatar": "none",
+      "text": "< Lieutenant Zeron appoints soldiers from his unit to form the squad >"
+    }
+  ]
+}

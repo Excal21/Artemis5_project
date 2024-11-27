@@ -22,7 +22,7 @@ public class BuildNumber : MonoBehaviour
 
         // Set the build number in PlayerSettings
         PlayerSettings.bundleVersion = $"{elapsedDays}";
-        Debug.Log($"Build number set to {elapsedDays}");
+        //Debug.Log($"Build number set to {elapsedDays}");
     }
     #endif
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class HandleNavigation : MonoBehaviour
@@ -31,8 +32,16 @@ public class HandleNavigation : MonoBehaviour
     [Space(10)]
     [Header("Pause Menu Panel")]
     [SerializeField] private GameObject panelPauseMenu;
-    public static bool isGamePaused = false;
     #endregion
+
+    #region Cutscene Buttons
+    [Header("Cutscene Buttons")]
+    [SerializeField] private GameObject buttonMainMenu;
+    [SerializeField] private GameObject buttonStartSector;
+    #endregion
+
+    public  static bool isGamePaused = false;
+    private        bool isCutscene   = false;
 
     #region Start és Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,6 +49,8 @@ public class HandleNavigation : MonoBehaviour
     {
         Time.timeScale = 1;
         isGamePaused = false;
+
+        isCutscene = DetermineIfCutscene();
 
         //Find all UI elements in the scene and add them to the list.
         GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
@@ -59,29 +70,35 @@ public class HandleNavigation : MonoBehaviour
 
         //Induláskor legyen egy elem kiválasztva.
         //EnsureActivePanelSelection();
-        Debug.Log("HandleNavigation started!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Update called!");
         //DEBUG_CheckUIElementsStates();
 
-        //Escape-re vagy a P billentyűre szüneteltetjük a játékot.
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        //Ha nincs cutscene, akkor a szünetmenü kezelése.
+        if(!isCutscene)
         {
-            if(isGamePaused)
+            //Escape-re vagy a P billentyűre szüneteltetjük a játékot.
+            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
             {
-                ResumeGame();
+                if(isGamePaused)
+                {
+                    ResumeGame();
+                }
+                else
+                {
+                    PauseGame();
+                }
             }
-            else
-            {
-                PauseGame();
-            }
-        }
 
-        if(!isGamePaused) return;
+            if(!isGamePaused) return;
+        }
+        else if(!(buttonMainMenu.activeSelf || buttonStartSector.activeSelf))
+        {
+            return;
+        }
 
         //...mert EventTrigger nincs Enterre és NumPad Enterre.
         checkEnterPressed();
@@ -94,6 +111,14 @@ public class HandleNavigation : MonoBehaviour
 
         // UIElemek színének frissítése a kiválasztás alapján
         UpdateUIElementColors();
+    }
+    #endregion
+
+    #region Cutscene Ellenőrzése
+    private bool DetermineIfCutscene()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        return sceneName.Contains("Cutscene");
     }
     #endregion
 
@@ -603,7 +628,9 @@ public class HandleNavigation : MonoBehaviour
             //debugText += "\n";
 
             debugText += "Time.timeScale: " + (Time.timeScale == 0 ? ColoredString("0", Color.red) : ColoredString("1", Color.green))
-                        + "\t isGamePaused: " + (isGamePaused ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green)) + "\n";
+                        + "\t isGamePaused: " + (isGamePaused ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green))
+                        + "\t isCutscene: " + (isCutscene ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green))
+                        + "\n";
 
             GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             List<GameObject> gameObjectsPanels = new List<GameObject>();
