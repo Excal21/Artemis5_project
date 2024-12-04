@@ -2,6 +2,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
 public class HandleSettings : MonoBehaviour
 {
@@ -37,13 +39,16 @@ public class HandleSettings : MonoBehaviour
         setVolume(tempVolume);
 
         // Initialize resolution dropdown
-        resolutions = Screen.resolutions;
+        //resolutions = Screen.resolutions;
 
         // Filter out duplicate resolutions
-        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(resolutions);
-        resolutions = new Resolution[uniqueResolutions.Count];
-        uniqueResolutions.CopyTo(resolutions);
+        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(Screen.resolutions.Where(i => i.refreshRateRatio.value >= 59).ToHashSet());
+        //resolutions = new Resolution[uniqueResolutions.Count];
+        //resolutions.ToList().ForEach(i => uniqueResolutions.Add(i));
         
+        //resolutions = new Resolution[uniqueResolutions.Count];
+        resolutions = uniqueResolutions.ToArray<Resolution>();
+
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
@@ -51,7 +56,7 @@ public class HandleSettings : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
+           string option = string.Format("{0} x {1}", resolutions[i].width, resolutions[i].height);
             options.Add(option);
 
             if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
