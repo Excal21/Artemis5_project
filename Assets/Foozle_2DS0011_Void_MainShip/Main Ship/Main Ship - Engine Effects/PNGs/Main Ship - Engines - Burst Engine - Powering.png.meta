@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 5e4d114695312c84ba35bb499dd6087e
+guid: 7c55919e61ebccd4d9e0cc89f99fb550
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8964348670299197311
-    second: spaceships_0
+      213: 7446537014931516024
+    second: Main Ship - Engines - Burst Engine - Powering_0
   - first:
-      213: -9062304531134733656
-    second: spaceships_1
+      213: 7753904914036356148
+    second: Main Ship - Engines - Burst Engine - Powering_1
   - first:
-      213: 1132676901880397304
-    second: spaceships_2
+      213: -9115631305814461377
+    second: Main Ship - Engines - Burst Engine - Powering_2
   - first:
-      213: 7730256063860039076
-    second: spaceships_3
+      213: -5713399940096785578
+    second: Main Ship - Engines - Burst Engine - Powering_3
+  - first:
+      213: -4811300140507816980
+    second: Main Ship - Engines - Burst Engine - Powering_4
+  - first:
+      213: -1378071314483872847
+    second: Main Ship - Engines - Burst Engine - Powering_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spaceships_0
+      name: Main Ship - Engines - Burst Engine - Powering_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 50
-        width: 48
-        height: 45
+        x: 18
+        y: 7
+        width: 12
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7fcde7de93c76c70800000000000000
-      internalID: 8964348670299197311
+      spriteID: 87a6acd26f9675760800000000000000
+      internalID: 7446537014931516024
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceships_1
+      name: Main Ship - Engines - Burst Engine - Powering_1
       rect:
         serializedVersion: 2
-        x: 50
-        y: 47
-        width: 44
-        height: 49
+        x: 66
+        y: 7
+        width: 12
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a22d470b0a3c3280800000000000000
-      internalID: -9062304531134733656
+      spriteID: 434fa47ff676b9b60800000000000000
+      internalID: 7753904914036356148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceships_2
+      name: Main Ship - Engines - Burst Engine - Powering_2
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 46
-        height: 48
+        x: 114
+        y: 7
+        width: 12
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8fdfedd14a318bf00800000000000000
-      internalID: 1132676901880397304
+      spriteID: f34bf71cf95ce7180800000000000000
+      internalID: -9115631305814461377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceships_3
+      name: Main Ship - Engines - Burst Engine - Powering_3
       rect:
         serializedVersion: 2
-        x: 47
-        y: 0
-        width: 49
-        height: 47
+        x: 162
+        y: 7
+        width: 12
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +209,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4addf25fee2674b60800000000000000
-      internalID: 7730256063860039076
+      spriteID: 6530bce760de5b0b0800000000000000
+      internalID: -5713399940096785578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Burst Engine - Powering_4
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 7
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb9e397304da3db0800000000000000
+      internalID: -4811300140507816980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Burst Engine - Powering_5
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 7
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bb7809d07b10ece0800000000000000
+      internalID: -1378071314483872847
       vertices: []
       indices: 
       edges: []
@@ -222,11 +272,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      spaceships_0: 8964348670299197311
-      spaceships_1: -9062304531134733656
-      spaceships_2: 1132676901880397304
-      spaceships_3: 7730256063860039076
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 5e4d114695312c84ba35bb499dd6087e
+guid: 743b5423338064b43b9c3b0bf504a460
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8964348670299197311
-    second: spaceships_0
+      213: 2869836826937132121
+    second: Main Ship - Engines - Base Engine - Idle_0
   - first:
-      213: -9062304531134733656
-    second: spaceships_1
+      213: -3642214747636528
+    second: Main Ship - Engines - Base Engine - Idle_1
   - first:
-      213: 1132676901880397304
-    second: spaceships_2
+      213: -5619748045472601254
+    second: Main Ship - Engines - Base Engine - Idle_2
   - first:
-      213: 7730256063860039076
-    second: spaceships_3
+      213: -4267442292630722726
+    second: Main Ship - Engines - Base Engine - Idle_3
+  - first:
+      213: 2712709625665527618
+    second: Main Ship - Engines - Base Engine - Idle_4
+  - first:
+      213: 551752801442154573
+    second: Main Ship - Engines - Base Engine - Idle_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spaceships_0
+      name: Main Ship - Engines - Base Engine - Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 50
-        width: 48
-        height: 45
+        x: 13
+        y: 11
+        width: 7
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7fcde7de93c76c70800000000000000
-      internalID: 8964348670299197311
+      spriteID: 9540ce89365b3d720800000000000000
+      internalID: 2869836826937132121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceships_1
+      name: Main Ship - Engines - Base Engine - Idle_1
       rect:
         serializedVersion: 2
-        x: 50
-        y: 47
-        width: 44
-        height: 49
+        x: 28
+        y: 11
+        width: 7
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a22d470b0a3c3280800000000000000
-      internalID: -9062304531134733656
+      spriteID: 0dc75cbcc6f03fff0800000000000000
+      internalID: -3642214747636528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceships_2
+      name: Main Ship - Engines - Base Engine - Idle_2
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 46
-        height: 48
+        x: 61
+        y: 10
+        width: 7
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8fdfedd14a318bf00800000000000000
-      internalID: 1132676901880397304
+      spriteID: a5be8666de4a202b0800000000000000
+      internalID: -5619748045472601254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceships_3
+      name: Main Ship - Engines - Base Engine - Idle_3
       rect:
         serializedVersion: 2
-        x: 47
-        y: 0
-        width: 49
-        height: 47
+        x: 76
+        y: 10
+        width: 7
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +209,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4addf25fee2674b60800000000000000
-      internalID: 7730256063860039076
+      spriteID: a57644048dff6c4c0800000000000000
+      internalID: -4267442292630722726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Base Engine - Idle_4
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 11
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f9390380b75a520800000000000000
+      internalID: 2712709625665527618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main Ship - Engines - Base Engine - Idle_5
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 11
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4849c5ef3838a700800000000000000
+      internalID: 551752801442154573
       vertices: []
       indices: 
       edges: []
@@ -222,11 +272,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      spaceships_0: 8964348670299197311
-      spaceships_1: -9062304531134733656
-      spaceships_2: 1132676901880397304
-      spaceships_3: 7730256063860039076
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

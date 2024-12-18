@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 45f6f457915ba714198f557f7724f405
+guid: 67c5ef708b92fe54ba55c5469d7bf5ac
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3695450020079138224
-    second: fotor-ai-20241020103850_0
+      213: 2030580299708145595
+    second: Main ship weapon - Projectile - Rocket_0
+  - first:
+      213: -7594939969888058335
+    second: Main ship weapon - Projectile - Rocket_1
+  - first:
+      213: -6345550270201846964
+    second: Main ship weapon - Projectile - Rocket_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fotor-ai-20241020103850_0
+      name: Main ship weapon - Projectile - Rocket_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1344
-        height: 768
+        x: 12
+        y: 6
+        width: 7
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b5f604c630e84330800000000000000
-      internalID: 3695450020079138224
+      spriteID: bbf920c26021e2c10800000000000000
+      internalID: 2030580299708145595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Rocket_1
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 4
+        width: 7
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 124086c465a599690800000000000000
+      internalID: -7594939969888058335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main ship weapon - Projectile - Rocket_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 3
+        width: 7
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c432c3046a310f7a0800000000000000
+      internalID: -6345550270201846964
       vertices: []
       indices: 
       edges: []
@@ -147,8 +197,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      fotor-ai-20241020103850_0: 3695450020079138224
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
