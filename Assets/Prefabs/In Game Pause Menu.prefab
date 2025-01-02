@@ -6266,7 +6266,7 @@ RectTransform:
   m_Father: {fileID: 5870167025474144848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.25}
   m_SizeDelta: {x: 20, y: 4.4999957}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16909,7 +16909,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294901888
+    rgba: 4278255360
   m_fontColor: {r: 0, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -19033,7 +19033,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &9138630825181718222
@@ -19080,7 +19080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444b7b0f0ed61d74eb79b92c850c85f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeInEffect: {fileID: 0}
+  fadeInEffect: {fileID: 4154601931749453818}
   fadeOutEffect: {fileID: 1158894645712485907}
   handleScenes: {fileID: 1184307199056195176}
 --- !u!1 &9165586290259901120

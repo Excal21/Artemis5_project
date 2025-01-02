@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1Spawner : MonoBehaviour
+public class Level2Spawner : MonoBehaviour
 {
     public GameObject EasyEnemyPrefab;
     public GameObject DuoFighterPrefab;
