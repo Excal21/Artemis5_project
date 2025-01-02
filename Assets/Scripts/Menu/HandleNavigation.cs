@@ -75,7 +75,7 @@ public class HandleNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //DEBUG_CheckUIElementsStates();
+        DEBUG_CheckUIElementsStates();
 
         //Ha nincs cutscene, akkor a szünetmenü kezelése.
         if(!isCutscene)
@@ -290,6 +290,8 @@ public class HandleNavigation : MonoBehaviour
         }
     }
 
+    // Enter vagy NumPad Enter lenyomásakor a kiválasztott elem eseményét hajtjuk végre.
+    // Az Event után biztosítjuk, hogy az aktív panelen legyen kiválasztva egy elem.
     private void checkEnterPressed()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
@@ -475,6 +477,10 @@ public class HandleNavigation : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            EnsureActivePanelSelection();
+        }
     }
 
     // Szín beállítása a kiválasztott UI elemhez
@@ -561,7 +567,7 @@ public class HandleNavigation : MonoBehaviour
     }
 
     // Get the currently active panel
-    GameObject GetActivePanel()
+    private GameObject GetActivePanel()
     {
         // Find all panels in the scene
         GameObject[] panels = GameObject.FindGameObjectsWithTag("Panel");

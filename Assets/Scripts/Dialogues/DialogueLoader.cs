@@ -74,14 +74,17 @@ public class DialogueLoader : MonoBehaviour
             }
             else
             {
-                Sprite sprite = Resources.Load<Sprite>($"Textures/Characters/{characterName}");
+                // Remove the .png extension if it exists
+                string theCharacterName = characterName.Replace(".png", "");
+                string spritePath = $"Textures/Characters/{theCharacterName}";
+                Sprite sprite = Resources.Load<Sprite>(spritePath);
                 if (sprite != null)
                 {
-                    characterSprites.Add(characterName, sprite);
+                    characterSprites.Add(theCharacterName, sprite);
                 }
                 else
                 {
-                    Debug.LogWarning($" LoadCharacterSprites() -> Sprite not found for character: {characterName}");
+                    Debug.LogWarning($"DialogueLoader -> LoadCharacterSprites() -> Sprite not found for character: \"{theCharacterName}\" at path: {spritePath}");
                 }
             }
         }
@@ -94,13 +97,14 @@ public class DialogueLoader : MonoBehaviour
 
     public Sprite GetCharacterSprite(string characterAvatar)
     {
-        if (characterSprites.TryGetValue(characterAvatar, out Sprite sprite))
+        string theCharacterName = characterAvatar.Replace(".png", "");
+        if (characterSprites.TryGetValue(theCharacterName, out Sprite sprite))
         {
             return sprite;
         }
         else
         {
-            Debug.LogWarning($"GetDefaultSprite() -> Sprite not found for character: {characterAvatar} - Using default sprite instead.");
+            Debug.LogWarning($"GetDefaultSprite() -> Sprite not found for character: {theCharacterName} - Using default sprite instead.");
             
             return defaultSprite;
         }
