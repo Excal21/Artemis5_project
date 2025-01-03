@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      piros_kicsi_1szarny_0: -6753309081407528804
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

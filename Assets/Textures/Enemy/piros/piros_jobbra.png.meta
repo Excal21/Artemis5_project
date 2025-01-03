@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      piros_jobbra_0: -4103557785526662432
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

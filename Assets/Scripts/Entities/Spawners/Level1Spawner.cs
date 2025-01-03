@@ -25,11 +25,27 @@ public class Level1Spawner : MonoBehaviour
     }
     void Update()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (finishable && enemies.Length == 0)
-        {
-            Debug.Log("Akkora győzelmet arattunk, hogy a holdról is látszik");
+        if(finishable){
+            Debug.Log("Finishable");
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length == 0)
+            {
+                Debug.Log("No more enemies");
+                StartCoroutine(FinishLevel());
+        
+            }
+
         }
+    }
+    private IEnumerator FinishLevel(){
+        Debug.Log("Level finished");
+        GameObject player = GameObject.FindWithTag("Player");
+        player.transform.position = new Vector3(0, -4.5f, 0);
+        yield return new WaitForSeconds(1);
+        GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+        pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
+        pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
     private IEnumerator SpawnEnemies()
     {
@@ -37,43 +53,43 @@ public class Level1Spawner : MonoBehaviour
 
         SpawnWave(numberOfEnemies);
 
-        yield return new WaitForSeconds(10);
-        Vector3 spawnPosition;
-        GameObject enemy;
+        // yield return new WaitForSeconds(10);
+        // Vector3 spawnPosition;
+        // GameObject enemy;
 
-        spawnPosition = new Vector3(0, Camera.main.orthographicSize + 2, 0);
-        enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
-        enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
+        // spawnPosition = new Vector3(0, Camera.main.orthographicSize + 2, 0);
+        // enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
+        // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
 
-        yield return new WaitForSeconds(10);
+        // yield return new WaitForSeconds(10);
 
-        SpawnWave(numberOfEnemiesSecondWave);
-        yield return new WaitForSeconds(10);
+        // SpawnWave(numberOfEnemiesSecondWave);
+        // yield return new WaitForSeconds(10);
 
-        spawnPosition = new Vector3(0, Camera.main.orthographicSize + 2, 0);
-        enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
-        enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
+        // spawnPosition = new Vector3(0, Camera.main.orthographicSize + 2, 0);
+        // enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
+        // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
 
-        yield return new WaitForSeconds(10);
-        SpawnWave(numberOfEnemiesThirdWave);
-        yield return new WaitForSeconds(10);
+        // yield return new WaitForSeconds(10);
+        // SpawnWave(numberOfEnemiesThirdWave);
+        // yield return new WaitForSeconds(10);
 
-        // Az első ellenség a képernyő bal oldalán spawnol
-        spawnPosition = new Vector3(-Camera.main.aspect * Camera.main.orthographicSize, Camera.main.orthographicSize + 2, 0);
-        enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
-        enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
-        enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
+        // // Az első ellenség a képernyő bal oldalán spawnol
+        // spawnPosition = new Vector3(-Camera.main.aspect * Camera.main.orthographicSize, Camera.main.orthographicSize + 2, 0);
+        // enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
+        // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
+        // enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
 
-        yield return new WaitForSeconds(4);
+        // yield return new WaitForSeconds(4);
 
-        // A második ellenség a képernyő jobb oldalán spawnol
-        spawnPosition = new Vector3(Camera.main.aspect * Camera.main.orthographicSize, Camera.main.orthographicSize + 2, 0);
-        enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
-        enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
-        enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
+        // // A második ellenség a képernyő jobb oldalán spawnol
+        // spawnPosition = new Vector3(Camera.main.aspect * Camera.main.orthographicSize, Camera.main.orthographicSize + 2, 0);
+        // enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
+        // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
+        // enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
 
         finishable = true;
-
+        yield return true;
     }
     private void SpawnWave(int enemyNumber)
     {

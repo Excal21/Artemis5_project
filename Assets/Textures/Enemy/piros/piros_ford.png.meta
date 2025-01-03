@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      piros_ford_0: -2161560708197953274
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

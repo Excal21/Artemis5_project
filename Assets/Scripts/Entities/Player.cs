@@ -118,6 +118,17 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+    
+    #region Események kezelői
+    public void DeathScreen()
+    {
+        GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+        pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
+        pauseMenu.transform.Find("Panel - YOU DIED").gameObject.SetActive(true);
+    }
+
+
+    #endregion
     public void Start()
     {
         prevYcord = transform.position.y;
@@ -232,7 +243,10 @@ public class Player : MonoBehaviour
         }
         if (health == 0)
         {
+            
             Destroy(this.gameObject);
+            DeathScreen();
+            
         }
         else
         {

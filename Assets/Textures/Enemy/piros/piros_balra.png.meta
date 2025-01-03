@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      piros_balra_0: 2761850506712983505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
