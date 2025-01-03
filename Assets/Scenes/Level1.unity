@@ -571,7 +571,9 @@ PrefabInstance:
       value: In Game Pause Menu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 697802875915074514, guid: a1aed226a937f2642830b5d15396f5ac, type: 3}
+    - {fileID: 2271101806845280789, guid: a1aed226a937f2642830b5d15396f5ac, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1aed226a937f2642830b5d15396f5ac, type: 3}
@@ -674,7 +676,7 @@ PrefabInstance:
     - target: {fileID: 2914283377988792980, guid: 2568ebce14b41c143b88d9b29844a9c3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 2914283377988792980, guid: 2568ebce14b41c143b88d9b29844a9c3,
         type: 3}

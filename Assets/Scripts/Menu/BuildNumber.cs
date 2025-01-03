@@ -22,7 +22,7 @@ public class BuildNumber : MonoBehaviour
 
         // Set the build number in PlayerSettings
         PlayerSettings.bundleVersion = $"{elapsedDays}";
-        Debug.Log($"Build number set to {elapsedDays}");
+        //Debug.Log($"Build number set to {elapsedDays}");
     }
     #endif
 
@@ -32,7 +32,7 @@ public class BuildNumber : MonoBehaviour
         #if UNITY_EDITOR
         string buildVersion = PlayerSettings.bundleVersion;
         #else
-        string buildVersion = Application.version;
+        string buildVersion = "GITHUB_BUILD! - APP_VER: " + Application.version;
         #endif
 
         if (buildNumberTMP != null)
