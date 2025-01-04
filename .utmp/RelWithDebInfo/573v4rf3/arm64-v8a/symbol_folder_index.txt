@@ -1,0 +1,1 @@
+C:\Users\szgyu\Desktop\Artemis5_project\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\573v4rf3\obj\arm64-v8a

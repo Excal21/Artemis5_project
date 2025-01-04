@@ -1,8 +1,6 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class Player : MonoBehaviour
     private Vector2 newPosition;
     private Vector2 actPosition;
     private bool invincible = false;
-
     #endregion
 
     #region Tulajdonságok private mezői
@@ -63,10 +60,8 @@ public class Player : MonoBehaviour
     public bool Invincible { get => invincible; set => invincible = value; }
     #endregion
 
-
-
     #region Mozgások metódusai
-    //Gombok megnyomásakor ezek a metódusok hívódnak meg az Update()-ben és ezeket hívják meg a tesztek is
+    // Eredeti mozgások
     public void Left()
     {
         actPosition = transform.position;
@@ -130,6 +125,33 @@ public class Player : MonoBehaviour
             newPosition = actPosition;
         }
     }
+
+    // Az új telefon döntögetős mozgás
+    public void MoveWithTilt()
+    {
+        actPosition = transform.position;
+        newPosition = transform.position;
+
+        // Az accelerometer értékeinek használata a telefon döntésének érzékelésére
+        Vector3 tilt = Input.acceleration;
+
+        // Az X tengely (bal-jobb) mozgás, ha a telefon jobbra vagy balra van döntve
+        newPosition += Vector2.right * tilt.x * Time.deltaTime * speed;
+
+        // Az Y tengely (fel-le) mozgás, ha a telefon fel-le van döntve
+        newPosition += Vector2.up * (tilt.y > 0 ? tilt.y + 0.7f : 0) * Time.deltaTime * speed;
+
+        // Képernyőhatárok figyelembevétele
+        if (newPosition.x >= screenLeft && newPosition.x <= screenRight)
+        {
+            transform.position = new Vector3(newPosition.x, transform.position.y, transform.position.z);
+        }
+
+        if (newPosition.y >= screenBottom && newPosition.y <= screenTop)
+        {
+            transform.position = new Vector3(transform.position.x, newPosition.y, transform.position.z);
+        }
+    }
     #endregion
 
     #region Események kezelői
@@ -142,44 +164,40 @@ public class Player : MonoBehaviour
 
     private IEnumerator MoveToStartPosition(float targetY)
     {
-        
         controllable = false;
         float gravity = this.gravity;
         this.gravity = 0;
         invincible = true;
-        while(transform.position.y < targetY){
-            transform.position += new Vector3(0, 0.01f, 0);
+        while (transform.position.y < targetY)
+        {
+            transform.position += new Vector3(0, 0.02f, 0);
             yield return new WaitForSeconds(0.005f);
         }
         invincible = false;
-        this.gravity = gravity/2;
+        this.gravity = gravity / 2;
         yield return new WaitForSeconds(1);
         this.gravity = gravity;
         controllable = true;
         GameObject.FindWithTag("HealthIndicator").GetComponent<HealtIndicator>().Show();
     }
-
-
     #endregion
+
     public void Start()
     {
         prevYcord = transform.position.y;
 
-
-        //Képernyő szélének meghatározása
+        // Képernyő szélének meghatározása
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         screenTop = screenBounds.y;
         screenBottom = -screenBounds.y + 0.5f;
         screenLeft = -screenBounds.x;
         screenRight = screenBounds.x;
 
-        //transform.position = new Vector3(0, -6f, 0);
         StartCoroutine(MoveToStartPosition(screenBottom + 0.5f));
     }
 
     public void Update()
     {
-
         // Adjuk hozzá a gravitáció hatását
         actPosition = transform.position;
         newPosition = transform.position;
@@ -194,12 +212,13 @@ public class Player : MonoBehaviour
             newPosition = actPosition;
         }
 
-
+        // Ha a játékos irányítható, akkor mozgás
         if (controllable)
         {
+            // Telefon döntögetésével történő mozgás
+            MoveWithTilt();
 
-
-            //Inputok lekezelése
+            // Inputok lekezelése
             if (Input.GetKey(KeyCode.W))
             {
                 Up();
@@ -216,9 +235,9 @@ public class Player : MonoBehaviour
             {
                 Right();
             }
-
         }
-        //Jet Propulsion
+
+        // Jet Propulsion
         if (prevYcord < transform.position.y)
         {
             jetProp.transform.position = new Vector3(transform.position.x, transform.position.y - jetPropOffset, 1);
@@ -230,25 +249,13 @@ public class Player : MonoBehaviour
         }
         prevYcord = transform.position.y;
 
-
-
-        if (Input.GetKey(KeyCode.Space) && Time.time > lastShotTime + 1 / fireRate)
+        // Lövés
+        if (Input.GetKey(KeyCode.Space) || Input.touchCount > 0 && Time.time > lastShotTime + 1 / fireRate)
         {
             Shoot();
             lastShotTime = Time.time;
         }
-
-        /*
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-        */
-
-
     }
-
-
 
     public void Damage()
     {
@@ -257,14 +264,12 @@ public class Player : MonoBehaviour
         GameObject.FindGameObjectWithTag("HealthIndicator").GetComponent<HealtIndicator>().UpdateHealth(health);
     }
 
-
-    public void Shoot() //Lövésért felelős metódus
+    public void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
         projectile.tag = "PlayerProjectile";
         projectile.GetComponent<Projectile>().speed = projectileSpeed;
     }
-
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -278,16 +283,13 @@ public class Player : MonoBehaviour
             }
             if (health == 0)
             {
-
                 Destroy(this.gameObject);
                 DeathScreen();
-
             }
             else
             {
                 Damage();
             }
         }
-        
     }
 }

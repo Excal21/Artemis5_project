@@ -46,17 +46,19 @@ public class DialogueManager : MonoBehaviour
     private Vector2 originalRightDialogueBoxSize;
     private Vector2 originalCenterDialogueBoxSize;
 
+    private float touchCooldown = 0.5f; // Half a second cooldown
+    private float lastTouchTime = 0f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         if (dialogueLoader == null)
         {
             Debug.LogError("Nem található a DialogueLoader script!");
             return;
         }
 
-        if(openingPanel == null || openingTMPBackground == null || openingTMP == null || dialoguePanel == null || centerDialogueBox == null || centerMessageTMP == null || leftDialogueBox == null || leftActorImage == null || leftActorNameTMP == null || leftMessageTMP == null || rightDialogueBox == null || rightActorImage == null || rightActorNameTMP == null || rightMessageTMP == null || buttonMainMenu == null || buttonStartSector == null || pressAnyKeyToContinueImage == null)
+        if (openingPanel == null || openingTMPBackground == null || openingTMP == null || dialoguePanel == null || centerDialogueBox == null || centerMessageTMP == null || leftDialogueBox == null || leftActorImage == null || leftActorNameTMP == null || leftMessageTMP == null || rightDialogueBox == null || rightActorImage == null || rightActorNameTMP == null || rightMessageTMP == null || buttonMainMenu == null || buttonStartSector == null || pressAnyKeyToContinueImage == null)
         {
             Debug.LogError("Nem minden szükséges elem lett hozzárendelve a Unity Inspectorban!");
             return;
@@ -68,7 +70,6 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         buttonMainMenu.SetActive(false);
         buttonStartSector.SetActive(false);
-        //pressAnyKeyToContinueImage.gameObject.SetActive(false);
 
         originalOpeningTMPBackgroundSize = openingTMPBackground.GetComponent<RectTransform>().sizeDelta;
         openingTMPBackground.GetComponent<RectTransform>().sizeDelta = new Vector2(originalOpeningTMPBackgroundSize.x, 0);
@@ -79,7 +80,7 @@ public class DialogueManager : MonoBehaviour
 
         originalRightDialogueBoxSize = rightDialogueBox.GetComponent<RectTransform>().sizeDelta;
         rightDialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalRightDialogueBoxSize.x, 0);
-        
+
         originalCenterDialogueBoxSize = centerDialogueBox.GetComponent<RectTransform>().sizeDelta;
         centerDialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalCenterDialogueBoxSize.x, 0);
 
@@ -91,8 +92,14 @@ public class DialogueManager : MonoBehaviour
     {
         if (isDialogueFinished) return;
 
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        // Check if enough time has passed since the last touch
+        if (Time.time - lastTouchTime < touchCooldown) return;
+
+        if (Input.touchCount > 0 || Input.GetKeyDown(KeyCode.Space))
         {
+            // Update the last touch time
+            lastTouchTime = Time.time;
+
             if (isTyping)
             {
                 skipTyping = true;
@@ -111,7 +118,6 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator StartWithDelay()
     {
-        // A FadeIn miatt kell a késleltetés
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(ExpandOpeningBackground(() =>
