@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     private float lastShotTime = 0;
     private Vector2 newPosition;
     private Vector2 actPosition;
+    private bool invincible = false;
+
     #endregion
 
     #region Tulajdonságok private mezői
@@ -56,6 +58,7 @@ public class Player : MonoBehaviour
     public List<Sprite> PlayerSprites { get => playerSprites; set => playerSprites = value; }
     public int Health { get => health; }
     public bool Controllable { set => controllable = value; }
+    public bool Invincible { get => invincible; set => invincible = value; }
     #endregion
 
 
@@ -90,17 +93,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Up()
+    public void Up(bool overridable = false)
     {
         actPosition = transform.position;
         newPosition += Vector2.up * Time.deltaTime * speed;
-        if (newPosition.y <= screenTop)
+        if (overridable)
         {
             transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
         }
         else
         {
-            newPosition = actPosition;
+
+            if (newPosition.y <= screenTop)
+            {
+                transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            }
+            else
+            {
+                newPosition = actPosition;
+            }
         }
     }
 
@@ -118,7 +129,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-    
+
     #region Események kezelői
     public void DeathScreen()
     {
@@ -153,14 +164,13 @@ public class Player : MonoBehaviour
         if (newPosition.y >= screenBottom)
         {
             transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            this.transform.position = newPosition;
         }
         else
         {
             newPosition = actPosition;
         }
 
-
-        if (newPosition.y >= screenBottom) this.transform.position = newPosition;
 
         if (controllable)
         {
@@ -235,23 +245,26 @@ public class Player : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject explosionInstance = Instantiate(explosion, this.transform.position, Quaternion.identity);
+        if (!invincible)
+        {
+            GameObject explosionInstance = Instantiate(explosion, this.transform.position, Quaternion.identity);
 
-        if (collision != null)
-        {
-            Destroy(collision.gameObject);
-        }
-        if (health == 0)
-        {
-            
-            Destroy(this.gameObject);
-            DeathScreen();
-            
-        }
-        else
-        {
-            Damage();
+            if (collision != null)
+            {
+                Destroy(collision.gameObject);
+            }
+            if (health == 0)
+            {
 
+                Destroy(this.gameObject);
+                DeathScreen();
+
+            }
+            else
+            {
+                Damage();
+            }
         }
+        
     }
 }

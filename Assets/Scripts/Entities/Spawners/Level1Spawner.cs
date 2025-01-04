@@ -40,7 +40,26 @@ public class Level1Spawner : MonoBehaviour
     private IEnumerator FinishLevel(){
         Debug.Log("Level finished");
         GameObject player = GameObject.FindWithTag("Player");
-        player.transform.position = new Vector3(0, -4.5f, 0);
+        player.GetComponent<Player>().Controllable = false;
+        player.GetComponent<Player>().Invincible = true;
+        player.GetComponent<Player>().Speed = 0.2f;
+        while(!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1)){
+            if(player.transform.position.x > 0){
+                player.GetComponent<Player>().Left();
+            }
+            else{
+                player.GetComponent<Player>().Right();
+            }
+            yield return new WaitForSeconds(0.05f);
+        }
+        player.GetComponent<Player>().Speed = 0.2f;
+        yield return new WaitForSeconds(1);
+        while(player.transform.position.y < 6)
+        {
+            player.transform.position += new Vector3(0, 0.005f, 0);
+            yield return new WaitForSeconds(0.016f);
+        }
+        //valami
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
@@ -51,7 +70,7 @@ public class Level1Spawner : MonoBehaviour
     {
         // Get the screen width in world units
 
-        SpawnWave(numberOfEnemies);
+        SpawnWave(1);
 
         // yield return new WaitForSeconds(10);
         // Vector3 spawnPosition;
