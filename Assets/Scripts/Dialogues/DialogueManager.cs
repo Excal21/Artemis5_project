@@ -11,8 +11,9 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Opening")]
     [SerializeField] private GameObject openingPanel;
+    [SerializeField] private GameObject openingTMPBackground;
     [SerializeField] private TextMeshProUGUI openingTMP;
-    [SerializeField] private TextMeshProUGUI pressAnyKeyToContinueTMP;
+    [SerializeField] private Image pressAnyKeyToContinueImage;
 
     [Header("Dialogue")]
     [SerializeField] private GameObject dialoguePanel;
@@ -40,6 +41,7 @@ public class DialogueManager : MonoBehaviour
     private bool skipTyping = false;
     private bool isDialogueFinished = false;
 
+    private Vector2 originalOpeningTMPBackgroundSize;
     private Vector2 originalLeftDialogueBoxSize;
     private Vector2 originalRightDialogueBoxSize;
     private Vector2 originalCenterDialogueBoxSize;
@@ -54,7 +56,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if(openingPanel == null || openingTMP == null || dialoguePanel == null || centerDialogueBox == null || centerMessageTMP == null || leftDialogueBox == null || leftActorImage == null || leftActorNameTMP == null || leftMessageTMP == null || rightDialogueBox == null || rightActorImage == null || rightActorNameTMP == null || rightMessageTMP == null || buttonMainMenu == null || buttonStartSector == null || pressAnyKeyToContinueTMP == null)
+        if(openingPanel == null || openingTMPBackground == null || openingTMP == null || dialoguePanel == null || centerDialogueBox == null || centerMessageTMP == null || leftDialogueBox == null || leftActorImage == null || leftActorNameTMP == null || leftMessageTMP == null || rightDialogueBox == null || rightActorImage == null || rightActorNameTMP == null || rightMessageTMP == null || buttonMainMenu == null || buttonStartSector == null || pressAnyKeyToContinueImage == null)
         {
             Debug.LogError("Nem minden szükséges elem lett hozzárendelve a Unity Inspectorban!");
             return;
@@ -66,7 +68,11 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         buttonMainMenu.SetActive(false);
         buttonStartSector.SetActive(false);
-        pressAnyKeyToContinueTMP.gameObject.SetActive(false);
+        //pressAnyKeyToContinueImage.gameObject.SetActive(false);
+
+        originalOpeningTMPBackgroundSize = openingTMPBackground.GetComponent<RectTransform>().sizeDelta;
+        openingTMPBackground.GetComponent<RectTransform>().sizeDelta = new Vector2(originalOpeningTMPBackgroundSize.x, 0);
+        openingTMPBackground.SetActive(true);
 
         originalLeftDialogueBoxSize = leftDialogueBox.GetComponent<RectTransform>().sizeDelta;
         leftDialogueBox.GetComponent<RectTransform>().sizeDelta = new Vector2(originalLeftDialogueBoxSize.x, 0);
@@ -91,9 +97,9 @@ public class DialogueManager : MonoBehaviour
             {
                 skipTyping = true;
             }
-            else if (pressAnyKeyToContinueTMP.gameObject.activeSelf)
+            else if (pressAnyKeyToContinueImage.gameObject.activeSelf)
             {
-                pressAnyKeyToContinueTMP.gameObject.SetActive(false);
+                pressAnyKeyToContinueImage.gameObject.SetActive(false);
                 StartCoroutine(SwitchToDialoguePanel());
             }
             else
@@ -108,10 +114,32 @@ public class DialogueManager : MonoBehaviour
         // A FadeIn miatt kell a késleltetés
         yield return new WaitForSeconds(1f);
 
-        StartCoroutine(TypeText(openingTMP, dialogueLoader.GetOpeningText(), () =>
+        StartCoroutine(ExpandOpeningBackground(() =>
         {
-            pressAnyKeyToContinueTMP.gameObject.SetActive(true);
+            StartCoroutine(TypeText(openingTMP, dialogueLoader.GetOpeningText(), () =>
+            {
+                pressAnyKeyToContinueImage.gameObject.SetActive(true);
+            }));
         }));
+    }
+
+    private IEnumerator ExpandOpeningBackground(System.Action onComplete)
+    {
+        RectTransform openingBackgroundRectTransform = openingTMPBackground.GetComponent<RectTransform>();
+
+        float elapsedTime = 0f;
+        float duration = 0.25f; // default - 0.5f
+        Vector2 originalSize = originalOpeningTMPBackgroundSize;
+
+        while (elapsedTime < duration)
+        {
+            openingBackgroundRectTransform.sizeDelta = new Vector2(originalSize.x, Mathf.Lerp(0, originalSize.y, elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        openingBackgroundRectTransform.sizeDelta = originalSize;
+        onComplete?.Invoke();
     }
 
     private IEnumerator SwitchToDialoguePanel()
