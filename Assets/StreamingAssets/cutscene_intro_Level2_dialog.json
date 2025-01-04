@@ -1,0 +1,17 @@
+{
+  "opening": "",
+  "dialogues": [
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "Lieutenant Zeron!",
+      "side": "right"
+    },
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "< Colonel Margord leaves >",
+      "side": "center"
+    }
+  ]
+}

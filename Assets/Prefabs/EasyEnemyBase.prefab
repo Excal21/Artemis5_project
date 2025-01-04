@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -846323963530862603}
   m_Layer: 0
   m_Name: EasyEnemyBase
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114,6 +114,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 59c4f299daa677b49961489737d8e038, type: 3}
   - {fileID: 21300000, guid: b6c07e0cf4ac95f4888f758a1cd8d8af, type: 3}
   - {fileID: 21300000, guid: c1e74a763b54aeb48b5559a4eda3dd1a, type: 3}
+  explosionPrefab: {fileID: 6299564314475547118, guid: 14298f3cf39b05a499953780a3662191,
+    type: 3}
 --- !u!61 &-846323963530862603
 BoxCollider2D:
   m_ObjectHideFlags: 0

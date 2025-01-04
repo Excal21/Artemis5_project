@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 2752344053890404567}
   m_Layer: 0
   m_Name: Fighter
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,6 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a15ac69eeec2f41a3739e116b9e717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 6299564314475547118, guid: 14298f3cf39b05a499953780a3662191,
+    type: 3}
 --- !u!1 &7077678182129880747
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +224,7 @@ GameObject:
   - component: {fileID: 7814486932152546961}
   m_Layer: 0
   m_Name: Fighter
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,3 +357,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a15ac69eeec2f41a3739e116b9e717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 6299564314475547118, guid: 14298f3cf39b05a499953780a3662191,
+    type: 3}
