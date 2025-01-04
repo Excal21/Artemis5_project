@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class HealtIndicator : MonoBehaviour
         for (int i = 0; i < miniatures.Count; i++)
         {
             miniatures[i].transform.position = new Vector3(worldPosition.x - 0.5f - i * 1f, worldPosition.y + 0.5f, transform.position.z);
+            miniatures[i].SetActive(false);
         }
     }
     public void UpdateHealth(int health)
@@ -30,5 +32,15 @@ public class HealtIndicator : MonoBehaviour
                 miniatures[i].SetActive(false);
             }
         }
+    }
+    private IEnumerator FadeIn(){
+        for (int i = 0; i < miniatures.Count; i++)
+        {
+            yield return new WaitForSeconds(0.3f);
+            miniatures[i].SetActive(true);
+        }
+    }
+    public void Show(){
+        StartCoroutine(FadeIn());
     }
 }

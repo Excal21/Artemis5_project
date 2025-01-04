@@ -21,6 +21,7 @@ public class Level1Spawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        AudioHandler.instance.PlayMusic(AudioHandler.Music.LEVEL1);
         StartCoroutine(SpawnEnemies());
     }
     void Update()
@@ -59,12 +60,10 @@ public class Level1Spawner : MonoBehaviour
             player.transform.position += new Vector3(0, 0.005f, 0);
             yield return new WaitForSeconds(0.016f);
         }
-        //valami
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
-        Time.timeScale = 0;
     }
     private IEnumerator SpawnEnemies()
     {

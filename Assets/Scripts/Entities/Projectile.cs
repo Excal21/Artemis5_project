@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        AudioManager.instance.PlayShootSound();
+        AudioHandler.instance.PlayShootSound();
         rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {

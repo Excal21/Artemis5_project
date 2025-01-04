@@ -590,6 +590,8 @@ public class HandleNavigation : MonoBehaviour
             Debug.LogError("Failed to pause the game. PanelPauseMenu or PauseMenuBackground is not set in the inspector!");
             return;
         }
+        
+        AudioHandler.instance.PauseMusic();
 
         isGamePaused = true;
         Time.timeScale = 0;
@@ -607,6 +609,8 @@ public class HandleNavigation : MonoBehaviour
             Debug.LogError("Failed to resume the game. PanelPauseMenu or PauseMenuBackground is not set in the inspector!");
             return;
         }
+
+        AudioHandler.instance.ResumeMusic();
 
         isGamePaused = false;
         Time.timeScale = 1;

@@ -32,6 +32,8 @@ public class HandleMainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        AudioHandler.instance.PlayMusic(AudioHandler.Music.MAINMENU);
+
         Time.timeScale = 1;
 
         //Find all UI elements in the scene and add them to the list.

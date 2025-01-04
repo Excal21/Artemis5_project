@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -138,11 +140,31 @@ public class Player : MonoBehaviour
         pauseMenu.transform.Find("Panel - YOU DIED").gameObject.SetActive(true);
     }
 
+    private IEnumerator MoveToStartPosition(float targetY)
+    {
+        
+        controllable = false;
+        float gravity = this.gravity;
+        this.gravity = 0;
+        invincible = true;
+        while(transform.position.y < targetY){
+            transform.position += new Vector3(0, 0.01f, 0);
+            yield return new WaitForSeconds(0.005f);
+        }
+        invincible = false;
+        this.gravity = gravity/2;
+        yield return new WaitForSeconds(1);
+        this.gravity = gravity;
+        controllable = true;
+        GameObject.FindWithTag("HealthIndicator").GetComponent<HealtIndicator>().Show();
+    }
+
 
     #endregion
     public void Start()
     {
         prevYcord = transform.position.y;
+
 
         //Képernyő szélének meghatározása
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -151,7 +173,8 @@ public class Player : MonoBehaviour
         screenLeft = -screenBounds.x;
         screenRight = screenBounds.x;
 
-        transform.position = new Vector3(0, -4.5f, 0);
+        //transform.position = new Vector3(0, -6f, 0);
+        StartCoroutine(MoveToStartPosition(screenBottom + 0.5f));
     }
 
     public void Update()
