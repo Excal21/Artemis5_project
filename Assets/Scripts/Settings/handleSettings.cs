@@ -32,7 +32,7 @@ public class HandleSettings : MonoBehaviour
         // Load initial settings
         tempVolume = PlayerPrefs.GetFloat("masterVolume", 1f) * 100;
         tempIsFullscreen = PlayerPrefs.GetInt("fullscreen", 1) == 1;
-        tempVsyncCount = PlayerPrefs.GetInt("vsync", 1);
+        tempVsyncCount = PlayerPrefs.GetInt("vsync", 0);
         
         // Initialize volume
         volumeSlider.value = tempVolume;
@@ -130,7 +130,7 @@ public class HandleSettings : MonoBehaviour
         tempVolume = 50f;
         tempResolutionIndex = resolutions.Length - 1; // (1920x1080 felbontás)
         tempIsFullscreen = true;
-        tempVsyncCount = 1;
+        tempVsyncCount = 0;
 
         volumeSlider.value = tempVolume;
         volumeText.text = Mathf.RoundToInt(tempVolume).ToString();

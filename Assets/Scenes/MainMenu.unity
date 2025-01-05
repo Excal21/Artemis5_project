@@ -3766,7 +3766,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 68ce2d9b96079694f9f85e1eb768294a, type: 3}
+  m_Sprite: {fileID: -6604892728595665732, guid: 6f4d23d8f1a30644fa6d247672768f1a,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3818,7 +3819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -69.99994}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 650, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &775400020
@@ -4423,7 +4424,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1366263727}
   m_HandleRect: {fileID: 1366263726}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4919,8 +4920,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 87.5, y: 24.99997}
-  m_SizeDelta: {x: 125, y: 75}
+  m_AnchoredPosition: {x: 150, y: 25}
+  m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1025142743
 GameObject:
@@ -6212,7 +6213,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1115.6, y: 550}
+  m_SizeDelta: {x: 1115.6, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1306593155
 MonoBehaviour:
@@ -6275,7 +6276,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 15
-  m_lineSpacing: 25
+  m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -6469,11 +6470,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1664410903}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1936122373}
+        m_TargetAssemblyTypeName: EffectHandler, Assembly-CSharp
+        m_MethodName: StartFadeOutAndLoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Cutscene_Intro_Level3
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1366824228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6782,7 +6795,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -2, y: 2}
-  m_SizeDelta: {x: 500, y: 75}
+  m_SizeDelta: {x: 640, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1415227514
 MonoBehaviour:
@@ -9001,11 +9014,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 499404336}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1936122373}
+        m_TargetAssemblyTypeName: EffectHandler, Assembly-CSharp
+        m_MethodName: StartFadeOutAndLoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Cutscene_Intro_Level2
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2042765754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9026,7 +9051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 68ce2d9b96079694f9f85e1eb768294a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5fe764b5b8ebc045b016e6b1256789f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
