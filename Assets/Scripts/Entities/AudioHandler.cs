@@ -13,9 +13,10 @@ public class AudioHandler : MonoBehaviour
     public AudioClip level3Music;
     public AudioClip mainMenuMusic;
 
-    private float soundCooldown = 0.2f; // Például fél másodperc
+    private float soundCooldown = 0.2f;
     private float lastPlayTime;
     private Coroutine fadeInCoroutine;
+    private Coroutine fadeOutCoroutine;
 
     public enum Music
     {
@@ -24,7 +25,6 @@ public class AudioHandler : MonoBehaviour
         LEVEL2,
         LEVEL3
     }
-
 
     void Awake()
     {
@@ -47,14 +47,22 @@ public class AudioHandler : MonoBehaviour
             lastPlayTime = Time.time;
         }
     }
+
     public void PlayMusic(Music music)
     {
+        // Ha van aktív fade-out, állítsuk le
+        if (fadeOutCoroutine != null)
+        {
+            StopCoroutine(fadeOutCoroutine);
+            fadeOutCoroutine = null;
+        }
+
         switch (music)
         {
             case Music.LEVEL1:
                 musicSource.clip = level1Music;
                 break;
- 
+
             case Music.MAINMENU:
                 musicSource.clip = mainMenuMusic;
                 break;
@@ -65,31 +73,36 @@ public class AudioHandler : MonoBehaviour
             musicSource.Stop();
         }
 
-        float targetVolume = musicSource.volume; // Eredeti hangerő az Inspectorban beállított érték
-        musicSource.volume = 0; // Kezdő hangerő 0
+        float targetVolume = 1f; // Maximum hangerő
+        musicSource.volume = 0;
         musicSource.loop = true;
         musicSource.Play();
 
-        // Indítsd el a fade-in-t
         if (fadeInCoroutine != null)
         {
             StopCoroutine(fadeInCoroutine);
         }
         fadeInCoroutine = StartCoroutine(FadeInMusic(5, targetVolume));
     }
+
     public void StopMusic()
     {
-        musicSource.Stop();
+        if (fadeOutCoroutine != null)
+        {
+            StopCoroutine(fadeOutCoroutine);
+        }
+        fadeOutCoroutine = StartCoroutine(FadeOutMusic(4)); // 4 másodperces fade-out
     }
+
     public void PauseMusic()
     {
         musicSource.Pause();
     }
+
     public void ResumeMusic()
     {
         musicSource.UnPause();
     }
-
 
     private IEnumerator FadeInMusic(float duration, float targetVolume)
     {
@@ -103,8 +116,22 @@ public class AudioHandler : MonoBehaviour
             yield return null;
         }
 
-        musicSource.volume = targetVolume-0.2f; // Biztosítsd, hogy pontosan a célhangerőt érje el
+        musicSource.volume = targetVolume;
     }
 
+    private IEnumerator FadeOutMusic(float duration)
+    {
+        float startVolume = musicSource.volume;
+        float elapsed = 0f;
 
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            musicSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / duration);
+            yield return null;
+        }
+
+        musicSource.volume = 0f;
+        musicSource.Stop(); // Leállítjuk a lejátszást a fade-out végén
+    }
 }
