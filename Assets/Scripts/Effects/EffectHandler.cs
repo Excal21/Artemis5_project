@@ -56,6 +56,32 @@ public class EffectHandler : MonoBehaviour
         });
     }
 
+    public void StartFadeWithActionAndDuration(Action onFadeComplete, float? customFadeDuration = null)
+    {
+        if (fadeOutEffect != null)
+        {
+            fadeOutEffect.OnFadeComplete += () =>
+            {
+                onFadeComplete?.Invoke();
+                fadeOutEffect.OnFadeComplete -= onFadeComplete;
+            };
+
+            fadeOutEffect.StartFadeOut(customFadeDuration);
+        }
+        else
+        {
+            Debug.LogError("FadeOutEffect nincs hozzárendelve!");
+        }
+    }
+
+    public void StartFadeOutWithDurationAndLoadScene(string sceneName, float? customFadeDuration = null)
+    {
+        StartFadeWithActionAndDuration(() =>
+        {
+            handleScenes.LoadScene(sceneName);
+        }, customFadeDuration);
+    }
+
     public void StartFadeOutAndReloadCurrentScene()
     {
         StartFadeWithAction(() =>
