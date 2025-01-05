@@ -103,6 +103,8 @@ public class EasyEnemy : MonoBehaviour
             hasEnteredPlayArea = true;
         }
 
+
+
         // Csak akkor lőjön, ha belépett a játéktérre
         if (hasEnteredPlayArea && Time.time - lastShotTime > 1 / fireRate)
         {

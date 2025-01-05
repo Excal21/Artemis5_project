@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7893400956667413084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5143118941939710932}
+  - component: {fileID: 1811680458989154717}
+  m_Layer: 0
+  m_Name: Level2Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5143118941939710932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893400956667413084}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.8219876, y: -0.009649623, z: 5.1314073}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1811680458989154717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893400956667413084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eed4544974acd44ca602826c85504a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EasyEnemyPrefab: {fileID: 723683433129449643, guid: 06d2076b4d1f1c445bf7ff8624977bf5,
+    type: 3}
+  DuoFighterPrefab: {fileID: 6544834851721876170, guid: 678e27ba0ed4add4ebbb9f546f053eb7,
+    type: 3}
+  easyEnemySprites:
+  - {fileID: 479058608414306296, guid: af4394b9f9894e24ea897300a22e3bba, type: 3}
+  - {fileID: 2761850506712983505, guid: f66dd7ec83e45c64c85e7b3dd547c847, type: 3}
+  - {fileID: -4103557785526662432, guid: 52d26219dddda594192dabb1a2b2c866, type: 3}
+  duoFighterSprites:
+  - {fileID: -2161560708197953274, guid: 4cb20955150af18469dd64c7079c9e9c, type: 3}
+  - {fileID: 2114388640664882159, guid: 8ed5d7e8c92a9e34fb66d2f85b4440a2, type: 3}
+  - {fileID: -768755143690955794, guid: 8d728bc4347041e4aa048a77c74fdcb2, type: 3}
+  numberOfEnemies: 3
+  numberOfEnemiesSecondWave: 5
+  numberOfEnemiesThirdWave: 7
+  spawnOffset: 0.5

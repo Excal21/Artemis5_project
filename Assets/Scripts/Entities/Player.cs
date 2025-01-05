@@ -158,6 +158,9 @@ public class Player : MonoBehaviour
     public void DeathScreen()
     {
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+        
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+        
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - YOU DIED").gameObject.SetActive(true);
     }

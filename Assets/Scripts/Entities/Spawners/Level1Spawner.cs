@@ -33,9 +33,8 @@ public class Level1Spawner : MonoBehaviour
             {
                 Debug.Log("No more enemies");
                 StartCoroutine(FinishLevel());
-        
+                finishable = false;
             }
-
         }
     }
     private IEnumerator FinishLevel(){
@@ -46,24 +45,27 @@ public class Level1Spawner : MonoBehaviour
         player.GetComponent<Player>().Speed = 0.2f;
         while(!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1)){
             if(player.transform.position.x > 0){
-                player.GetComponent<Player>().Left();
+                player.transform.position += new Vector3(-0.1f, 0, 0);
             }
             else{
-                player.GetComponent<Player>().Right();
+                player.transform.position += new Vector3(0.1f, 0, 0);
             }
             yield return new WaitForSeconds(0.05f);
         }
         player.GetComponent<Player>().Speed = 0.2f;
         yield return new WaitForSeconds(1);
-        while(player.transform.position.y < 6)
+        while(player.transform.position.y < 6f)
         {
-            player.transform.position += new Vector3(0, 0.005f, 0);
+            player.transform.position += new Vector3(0, 0.5f, 0);
             yield return new WaitForSeconds(0.016f);
         }
+        player.SetActive(false);
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
+        AudioHandler.instance.StopMusic();
+        finishable = false;
     }
     private IEnumerator SpawnEnemies()
     {
@@ -106,7 +108,7 @@ public class Level1Spawner : MonoBehaviour
         // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
         // enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
 
-        finishable = true;
+        if(GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;
     }
     private void SpawnWave(int enemyNumber)
