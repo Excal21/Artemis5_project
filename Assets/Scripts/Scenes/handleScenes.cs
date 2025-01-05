@@ -11,7 +11,8 @@ public class HandleScenes : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Scene not found in build settings: " + sceneName);
+            Debug.LogError($"Scene \"{sceneName}\" not found in build settings! Returning to Main Menu!");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
@@ -23,7 +24,8 @@ public class HandleScenes : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Scene index out of range: " + sceneIndex);
+            Debug.LogError($"Scene {sceneIndex} index out of range! Returning to Main Menu!");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

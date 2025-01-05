@@ -1,17 +1,59 @@
 {
-  "opening": "",
+  "opening": "The team successfully stopped the bandits and continued their journey. Zaelon managed to contact his people so they could land on their planet and prepare the spaceship. The Vorrothians welcomed them warmly. Their rest was interrupted by a renegade who hijacked a spaceship and destroyed several others. It turned out that a traitor among the Vorrothians was trying to seize power for political reasons. He was caught, and his plan failed, so he tried to escape with his followers.",
   "dialogues": [
     {
-      "characterName": "Colonel Margord",
-      "characterAvatar": "Margord_Avatar.png",
-      "text": "Lieutenant Zeron!",
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "What happened, Zaelon? What's all this commotion?",
+      "side": "left"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "There's a traitor among my people who tried to eliminate the other politicians and seize power but was exposed and is now trying to escape! Captain, we must help, or my people's empire could be in danger!",
       "side": "right"
     },
     {
-      "characterName": "",
-      "characterAvatar": "",
-      "text": "< Colonel Margord leaves >",
-      "side": "center"
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Then let's not waste time. Let's stop that traitor! Is the spaceship ready for the battle?",
+      "side": "left"
+    },
+    {
+      "characterName": "Kiendor Co-Pilot",
+      "characterAvatar": "Kiendor_Avatar.png",
+      "text": "Yes, Captain! The spaceship is ready for flight!",
+      "side": "right"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "Captain, weapons are ready to fire!",
+      "side": "right"
+    },
+    {
+      "characterName": "Ekronia Navigator",
+      "characterAvatar": "Ekronia_Avatar.png",
+      "text": "Navigation is operational too, Captain!",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Excellent! Everyone to the spaceship!",
+      "side": "left"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "Captain, I must warn you, the traitor is a skilled pilot! We have to be cautious!",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Then we can't make any mistakes. Our mission is still awaits!",
+      "side": "left"
     }
   ]
 }
