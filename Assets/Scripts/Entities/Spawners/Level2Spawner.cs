@@ -21,7 +21,7 @@ public class Level2Spawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        AudioHandler.instance.PlayMusic(AudioHandler.Music.LEVEL1);
+        AudioHandler.instance.PlayMusic(AudioHandler.Music.LEVEL2);
         StartCoroutine(SpawnEnemies());
     }
     void Update()
@@ -31,6 +31,12 @@ public class Level2Spawner : MonoBehaviour
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length == 0)
             {
+                GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Projectile");
+                foreach (GameObject projectile in projectiles)
+                {
+                    Destroy(projectile);
+                }
+
                 Debug.Log("No more enemies");
                 StartCoroutine(FinishLevel());
                 finishable = false;
@@ -42,7 +48,7 @@ public class Level2Spawner : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().Controllable = false;
         player.GetComponent<Player>().Invincible = true;
-        player.GetComponent<Player>().Speed = 6f;
+        player.GetComponent<Player>().Speed = 5f;
         while(!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1)){
             if(player.transform.position.x > 0){
                 player.GetComponent<Player>().Left();
@@ -50,7 +56,7 @@ public class Level2Spawner : MonoBehaviour
             else{
                 player.GetComponent<Player>().Right();
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.005f);
         }
         player.GetComponent<Player>().Speed = 10f;
         yield return new WaitForSeconds(1);
@@ -73,13 +79,15 @@ public class Level2Spawner : MonoBehaviour
 
         SpawnWave(1);
 
-        // yield return new WaitForSeconds(10);
-        // Vector3 spawnPosition;
-        // GameObject enemy;
+        yield return new WaitForSeconds(10);
+        Vector3 spawnPosition;
+        GameObject enemy;
 
-        // spawnPosition = new Vector3(0, Camera.main.orthographicSize + 2, 0);
-        // enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
-        // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
+        spawnPosition = new Vector3(0, Camera.main.orthographicSize + 2, 0);
+        enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
+        enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
+
+        
 
         // yield return new WaitForSeconds(10);
 
