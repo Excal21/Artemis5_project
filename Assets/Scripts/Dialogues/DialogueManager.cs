@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] GameObject buttonMainMenu;
     [SerializeField] GameObject buttonStartSector;
 
+    [Header("EffectHandler script")]
+    [SerializeField] private EffectHandler effectHandler;
+
     private List<Dialogue> dialogues;
     private int currentDialogueIndex = 0;
     private bool isTyping = false;
@@ -56,11 +60,13 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        /*
         if(openingPanel == null || openingTMPBackground == null || openingTMP == null || dialoguePanel == null || centerDialogueBox == null || centerMessageTMP == null || leftDialogueBox == null || leftActorImage == null || leftActorNameTMP == null || leftMessageTMP == null || rightDialogueBox == null || rightActorImage == null || rightActorNameTMP == null || rightMessageTMP == null || buttonMainMenu == null || buttonStartSector == null || pressAnyKeyToContinueImage == null)
         {
             Debug.LogError("Nem minden szükséges elem lett hozzárendelve a Unity Inspectorban!");
             return;
         }
+        */
 
         dialogueLoader.LoadDialogueFromJSON();
 
@@ -114,13 +120,20 @@ public class DialogueManager : MonoBehaviour
         // A FadeIn miatt kell a késleltetés
         yield return new WaitForSeconds(1f);
 
-        StartCoroutine(ExpandOpeningBackground(() =>
+        if(!(dialogueLoader.GetOpeningText() == ""))
         {
-            StartCoroutine(TypeText(openingTMP, dialogueLoader.GetOpeningText(), () =>
+            StartCoroutine(ExpandOpeningBackground(() =>
             {
-                pressAnyKeyToContinueImage.gameObject.SetActive(true);
+                StartCoroutine(TypeText(openingTMP, dialogueLoader.GetOpeningText(), () =>
+                {
+                    pressAnyKeyToContinueImage.gameObject.SetActive(true);
+                }));
             }));
-        }));
+        }
+        else
+        {
+            StartCoroutine(SwitchToDialoguePanel());
+        }
     }
 
     private IEnumerator ExpandOpeningBackground(System.Action onComplete)
@@ -239,8 +252,16 @@ public class DialogueManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
 
-            buttonMainMenu.SetActive(true);
-            buttonStartSector.SetActive(true);
+            //Ha a jelenet neve Cutscene_Ending, akkor lassan legyen FadeOut, majd térjen vissza a MainMenu-be.
+            if(SceneManager.GetActiveScene().name == "Cutscene_Ending")
+            {
+                effectHandler.StartFadeOutAndLoadScene("MainMenu");
+            }
+            else
+            {
+                buttonMainMenu.SetActive(true);
+                buttonStartSector.SetActive(true);
+            }
         }
     }
 

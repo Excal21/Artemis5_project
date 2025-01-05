@@ -1,5 +1,5 @@
 {
-  "opening": "The team successfully stopped the bandits and continued their journey. Zaelon managed to contact his people so they could land on their planet and prepare the spaceship. The Vorrothians welcomed them warmly. Their rest was interrupted by a renegade who hijacked a spaceship and destroyed several others. It turned out that a traitor among the Vorrothians was trying to seize power for political reasons. He was caught, and his plan failed, so he tried to escape with his followers.",
+  "opening": "The team stopped the bandits and continued their journey. Zaelon contacted his people to land and prepare the spaceship. The Vorrothians welcomed them, but disturbances arose during repairs.",
   "dialogues": [
     {
       "characterName": "Captain Zeron",
@@ -10,7 +10,7 @@
     {
       "characterName": "Zaelon Radio Operator",
       "characterAvatar": "Zaelon_Avatar.png",
-      "text": "There's a traitor among my people who tried to eliminate the other politicians and seize power but was exposed and is now trying to escape! Captain, we must help, or my people's empire could be in danger!",
+      "text": "There's a traitor among my people who tried to eliminate the other politicians and seize power but was exposed and is now trying to escape! Captain, we must help, or my people's empire could be in danger! He already destroyed a couple spaceships!",
       "side": "right"
     },
     {
