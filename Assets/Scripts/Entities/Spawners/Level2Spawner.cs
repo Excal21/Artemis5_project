@@ -119,7 +119,7 @@ public class Level2Spawner : MonoBehaviour
         yield return new WaitForSeconds(5);
 
 
-        finishable = true;
+        if(GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;
     }
     private void SpawnWave(int enemyNumber)

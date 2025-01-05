@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: 5091398421201204211, guid: 682eea3d0559cf44384f4fcd80d795f2, type: 3}
   - {fileID: 6372854951805474705, guid: dbb86782603522c448a6284ea236ee9e, type: 3}
   health: 3
-  speed: 6
+  speed: 6.5
   gravity: 1.5
   jetProp: {fileID: 1096514636564054564}
   projectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,

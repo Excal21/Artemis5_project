@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         newPosition += Vector2.right * tilt.x * Time.deltaTime * speed;
 
         // Az Y tengely (fel-le) mozgás, ha a telefon fel-le van döntve
-        newPosition += Vector2.up * (tilt.y > 0 ? tilt.y + 0.7f : 0) * Time.deltaTime * speed;
+        newPosition += Vector2.up * (tilt.y + 1f > 0.5? tilt.y + 1f : tilt.y + 0.7f) * Time.deltaTime * speed;
 
         // Képernyőhatárok figyelembevétele
         if (newPosition.x >= screenLeft && newPosition.x <= screenRight)
