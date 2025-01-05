@@ -28,7 +28,7 @@ public class Level2Spawner : MonoBehaviour
     void Update()
     {
         if(finishable){
-            Debug.Log("Finishable");
+            //Debug.Log("Finishable");
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length == 0)
             {
@@ -38,14 +38,14 @@ public class Level2Spawner : MonoBehaviour
                     Destroy(projectile);
                 }
 
-                Debug.Log("No more enemies");
+                //Debug.Log("No more enemies");
                 StartCoroutine(FinishLevel());
                 finishable = false;
             }
         }
     }
     private IEnumerator FinishLevel(){
-        Debug.Log("Level finished");
+        //Debug.Log("Level finished");
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().Controllable = false;
         player.GetComponent<Player>().Invincible = true;
@@ -69,6 +69,9 @@ public class Level2Spawner : MonoBehaviour
         player.SetActive(false);
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+        
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+        
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
         AudioHandler.instance.StopMusic();
