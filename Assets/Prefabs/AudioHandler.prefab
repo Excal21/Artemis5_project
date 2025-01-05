@@ -342,6 +342,6 @@ MonoBehaviour:
   musicSource: {fileID: 2489723422150483316}
   shootSound: {fileID: 8300000, guid: 6f0d49cda67ed144c8a1374a4eeadf48, type: 3}
   level1Music: {fileID: 8300000, guid: a77c711f51f65aa45ba160ec814f29cc, type: 3}
-  level2Music: {fileID: 0}
+  level2Music: {fileID: 8300000, guid: 70a450eabadd4a74d89c64b460267230, type: 3}
   level3Music: {fileID: 0}
   mainMenuMusic: {fileID: 8300000, guid: c2716762580e0cb4dafc51d153b766b5, type: 3}
