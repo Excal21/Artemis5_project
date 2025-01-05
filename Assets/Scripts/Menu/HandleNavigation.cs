@@ -40,8 +40,8 @@ public class HandleNavigation : MonoBehaviour
     [SerializeField] private GameObject buttonStartSector;
     #endregion
 
-    public  static bool isGamePaused = false;
-    private        bool isCutscene   = false;
+    public  bool isGamePaused = false;
+    private bool isCutscene   = false;
 
     #region Start és Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
