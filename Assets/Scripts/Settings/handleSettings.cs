@@ -130,7 +130,7 @@ public class HandleSettings : MonoBehaviour
         tempVolume = 50f;
         tempResolutionIndex = resolutions.Length - 1; // (1920x1080 felbontás)
         tempIsFullscreen = true;
-        tempVsyncCount = 1;
+        tempVsyncCount = 0;
 
         volumeSlider.value = tempVolume;
         volumeText.text = Mathf.RoundToInt(tempVolume).ToString();
