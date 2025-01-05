@@ -32,7 +32,7 @@ public class HandleSettings : MonoBehaviour
         // Load initial settings
         tempVolume = PlayerPrefs.GetFloat("masterVolume", 1f) * 100;
         tempIsFullscreen = PlayerPrefs.GetInt("fullscreen", 1) == 1;
-        tempVsyncCount = PlayerPrefs.GetInt("vsync", 1);
+        tempVsyncCount = PlayerPrefs.GetInt("vsync", 0);
         
         // Initialize volume
         volumeSlider.value = tempVolume;
