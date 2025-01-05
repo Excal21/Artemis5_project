@@ -228,6 +228,7 @@ MonoBehaviour:
   panelPauseMenu: {fileID: 0}
   buttonMainMenu: {fileID: 1863444064}
   buttonStartSector: {fileID: 976781062}
+  isGamePaused: 0
 --- !u!4 &135675381
 Transform:
   m_ObjectHideFlags: 0
@@ -1023,7 +1024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3480704841986331072, guid: 012edd7834b269b4287d90e98e235585,
+  m_Sprite: {fileID: 7690199702696991949, guid: f73822ed7346d864ab5143ae2e63fefb,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0

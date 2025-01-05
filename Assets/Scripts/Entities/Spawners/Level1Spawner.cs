@@ -108,7 +108,7 @@ public class Level1Spawner : MonoBehaviour
         // enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
         // enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
 
-        finishable = true;
+        if(GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;
     }
     private void SpawnWave(int enemyNumber)
