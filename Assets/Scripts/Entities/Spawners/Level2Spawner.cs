@@ -72,6 +72,8 @@ public class Level2Spawner : MonoBehaviour
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         
         GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+
+        GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
         
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);

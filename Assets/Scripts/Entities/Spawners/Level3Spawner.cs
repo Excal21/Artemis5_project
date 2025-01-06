@@ -67,6 +67,9 @@ public class Level3Spawner : MonoBehaviour
         player.SetActive(false);
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+
+        GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
+
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
         AudioHandler.instance.StopMusic();

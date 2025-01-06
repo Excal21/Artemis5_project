@@ -622,9 +622,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1be38e6eff5812747b8cf2693b196994, type: 3}
   - {fileID: 21300000, guid: 1037a14736b4e43428778cd73a1aa66e, type: 3}
   - {fileID: 21300000, guid: d0dd1f57c9bae2e40823ec4b584aa882, type: 3}
-  numberOfEnemies: 3
-  numberOfEnemiesSecondWave: 5
-  numberOfEnemiesThirdWave: 7
   spawnOffset: 0.5
 --- !u!4 &1570521984
 Transform:
@@ -833,7 +830,7 @@ PrefabInstance:
     - target: {fileID: 5568212184641439293, guid: a1aed226a937f2642830b5d15396f5ac,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6014088455041863439, guid: a1aed226a937f2642830b5d15396f5ac,
         type: 3}
@@ -902,7 +899,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: a1aed226a937f2642830b5d15396f5ac, type: 3}
 --- !u!1 &1942251886 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6877928073119083337, guid: a1aed226a937f2642830b5d15396f5ac,
+  m_CorrespondingSourceObject: {fileID: 2160668181075002197, guid: a1aed226a937f2642830b5d15396f5ac,
     type: 3}
   m_PrefabInstance: {fileID: 1942251885}
   m_PrefabAsset: {fileID: 0}

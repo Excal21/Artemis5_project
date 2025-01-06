@@ -698,7 +698,7 @@ public class HandleNavigation : MonoBehaviour
             foreach (GameObject panel in gameObjectsPanels)
             {
                 //SZŰRÉS: Ha a panel neve nem tartalmazza a "SECTOR" vagy a "YOU" szót, akkor ne írjuk ki.
-                if(!(panel.name.Contains("SECTOR") || panel.name.Contains("YOU")))
+                if(!(panel.name.Contains("SECTOR") || panel.name.Contains("YOU") || panel.name.Contains("Saving")))
                 {
                     break;
                 }

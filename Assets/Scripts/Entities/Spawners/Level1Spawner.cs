@@ -67,6 +67,8 @@ public class Level1Spawner : MonoBehaviour
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         
         GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+
+        GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
         
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
@@ -77,7 +79,7 @@ public class Level1Spawner : MonoBehaviour
     {
         // Get the screen width in world units
 
-        SpawnWave(1);
+        /*SpawnWave(1);
 
         yield return new WaitForSeconds(10);
         Vector3 spawnPosition;
@@ -112,7 +114,7 @@ public class Level1Spawner : MonoBehaviour
         spawnPosition = new Vector3(Camera.main.aspect * Camera.main.orthographicSize, Camera.main.orthographicSize + 2, 0);
         enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
         enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
-        enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
+        enemy.GetComponent<DuoFighters>().FireRate = 0.5f;*/
 
         if(GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;

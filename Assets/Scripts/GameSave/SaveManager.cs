@@ -32,14 +32,14 @@ public class SaveManager : MonoBehaviour
 
     void Awake()
     {
+        saveFolderPath = Path.Combine(Application.dataPath, "Savegame");
+
         //Ha MainMenu jelenetben vagyunk, akkor nézzük meg, hogy létezik-e a mappa.
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            saveFolderPath = Path.Combine(Application.dataPath, "Savegame");
             if (!Directory.Exists(saveFolderPath))
             {
                 Directory.CreateDirectory(saveFolderPath);
-                Debug.Log("Awake() -> Savegame mappa létrehozva az executeable mellé: " + saveFolderPath);
 
                 // Létrehozunk egy alapértelmezett mentést
                 CreateDefaultSave();
@@ -161,16 +161,18 @@ public class SaveManager : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName == "Level1")
         {
-            saveData.Level1 = 1;
+            saveData.Level2 = 1;
         }
         else if (currentSceneName == "Level2")
         {
-            saveData.Level2 = 1;
+            saveData.Level3 = 1;
         }
+        /*
         else if (currentSceneName == "Level3")
         {
             saveData.Level3 = 1;
         }
+        */
 
         string json = JsonUtility.ToJson(saveData);
         string saveFilePath = Path.Combine(saveFolderPath, saveFileName);
@@ -181,6 +183,7 @@ public class SaveManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
+            savingNotification.SetActive(false);
             Debug.LogError("Mentés sikertelen: " + e.Message);
         }
 
@@ -225,6 +228,7 @@ public class SaveManager : MonoBehaviour
         }
         catch (System.Exception e)
         {
+            savingNotification.SetActive(false);
             Debug.LogError("Mentés sikertelen: " + e.Message);
         }
 
