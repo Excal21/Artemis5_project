@@ -32,7 +32,7 @@ public class BuildNumber : MonoBehaviour
         #if UNITY_EDITOR
         string buildVersion = PlayerSettings.bundleVersion;
         #else
-        string buildVersion = $"(GITHUB BUILD! - APP_VER: {Application.version})";
+        string buildVersion = $"(ANDROID BUILD! - APP_VER: {Application.version})";
         #endif
 
         if (buildNumberTMP != null)
