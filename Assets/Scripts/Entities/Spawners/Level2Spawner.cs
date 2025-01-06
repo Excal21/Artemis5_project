@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Level2Spawner : MonoBehaviour
 {
-    public GameObject EasyEnemyPrefab;
-    public GameObject DuoFighterPrefab;
-    public GameObject MiniBossPrefab;
+    #region Level2 Spawner beállításai
+    [SerializeField] private GameObject EasyEnemyPrefab;
+    [SerializeField] private GameObject DuoFighterPrefab;
+    [SerializeField] private GameObject MiniBossPrefab;
 
-    public List<Sprite> easyEnemySprites;
-    public List<Sprite> duoFighterSprites;
+    [SerializeField] private List<Sprite> easyEnemySprites;
+    [SerializeField] private List<Sprite> duoFighterSprites;
 
-    public int numberOfEnemies = 3;
-    public int numberOfEnemiesSecondWave = 5;
-    public int numberOfEnemiesThirdWave = 7;
-    public float spawnOffset = 0.5f; // Offset to ensure enemies don't move off the screen
-    //public List<Sprite> enemySprites = new List<Sprite>();
+    [SerializeField] private int numberOfEnemiesSecondWave = 5;
+    [SerializeField] private float spawnOffset = 0.5f;
+#endregion
 
     private bool finishable = false;
 
@@ -44,6 +43,8 @@ public class Level2Spawner : MonoBehaviour
             }
         }
     }
+
+    #region Level2 Spawner metódusai
     private IEnumerator FinishLevel(){
         //Debug.Log("Level finished");
         GameObject player = GameObject.FindWithTag("Player");
@@ -147,3 +148,4 @@ public class Level2Spawner : MonoBehaviour
     }
 }
 
+#endregion

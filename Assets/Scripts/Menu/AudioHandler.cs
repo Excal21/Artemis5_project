@@ -5,18 +5,29 @@ public class AudioHandler : MonoBehaviour
 {
     public static AudioHandler instance;
 
-    public AudioSource audioSource;
-    public AudioSource musicSource;
-    public AudioClip shootSound;
-    public AudioClip level1Music;
-    public AudioClip level2Music;
-    public AudioClip level3Music;
-    public AudioClip mainMenuMusic;
-
+    #region AudiHandler munkaváltozói
     private float soundCooldown = 0.2f;
     private float lastPlayTime;
+    private float lastDialogBeepTime;
     private Coroutine fadeInCoroutine;
     private Coroutine fadeOutCoroutine;
+    #endregion
+
+    #region AudiHandler beállításai
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource beepSource;
+
+    [SerializeField] private AudioClip shootSound;
+    [SerializeField] private AudioClip level1Music;
+    [SerializeField] private AudioClip level2Music;
+    [SerializeField] private AudioClip level3Music;
+    [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private AudioClip menuBeep;
+    [SerializeField] private AudioClip dialogBeep;
+    #endregion
+
+
 
     public enum Music
     {
@@ -38,7 +49,7 @@ public class AudioHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+#region Rövid hangok metódusai
     public void PlayShootSound()
     {
         if (Time.time >= lastPlayTime + soundCooldown)
@@ -48,9 +59,28 @@ public class AudioHandler : MonoBehaviour
         }
     }
 
+    public void PlayMenuBeep()
+    {
+        if (menuBeep != null)
+        {
+            beepSource.PlayOneShot(menuBeep);
+        }
+    }
+
+    public void PlayDialogBeep()
+    {
+        if (dialogBeep != null && Time.time >= lastDialogBeepTime + 0.1f)
+        {
+            beepSource.PlayOneShot(dialogBeep);
+            lastDialogBeepTime = Time.time;
+        }
+    }
+
+#endregion 
+
+#region Zenelejátszás metódusai
     public void PlayMusic(Music music)
     {
-        // Ha van aktív fade-out, állítsuk le
         if (fadeOutCoroutine != null)
         {
             StopCoroutine(fadeOutCoroutine);
@@ -78,7 +108,7 @@ public class AudioHandler : MonoBehaviour
             musicSource.Stop();
         }
 
-        float targetVolume = 1f; // Maximum hangerő
+        float targetVolume = 1f; 
         musicSource.volume = 0;
         musicSource.loop = true;
         musicSource.Play();
@@ -96,7 +126,7 @@ public class AudioHandler : MonoBehaviour
         {
             StopCoroutine(fadeOutCoroutine);
         }
-        fadeOutCoroutine = StartCoroutine(FadeOutMusic(4)); // 4 másodperces fade-out
+        fadeOutCoroutine = StartCoroutine(FadeOutMusic(4));
     }
 
     public void PauseMusic()
@@ -137,6 +167,7 @@ public class AudioHandler : MonoBehaviour
         }
 
         musicSource.volume = 0f;
-        musicSource.Stop(); // Leállítjuk a lejátszást a fade-out végén
+        musicSource.Stop();
     }
 }
+#endregion

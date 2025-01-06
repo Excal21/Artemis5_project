@@ -87,17 +87,17 @@ public class Level3Boss : MonoBehaviour
     public void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(-1f, projectileOffset), Quaternion.identity);
-        projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile.GetComponent<Projectile>().ProjectileVector = new Vector2(-0.7f, -1);
         projectile.transform.Rotate(0, 0, 150);
 
         GameObject projectile2 = Instantiate(projectilePrefab, transform.position + new Vector3(0f, projectileOffset + 0.3f), Quaternion.identity);
-        projectile2.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile2.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile2.GetComponent<Projectile>().ProjectileVector = new Vector2(0f, -1);
         projectile2.transform.Rotate(0, 0, 180);
 
         GameObject projectile3 = Instantiate(projectilePrefab, transform.position + new Vector3(+1f, projectileOffset), Quaternion.identity);
-        projectile3.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile3.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile3.GetComponent<Projectile>().ProjectileVector = new Vector2(0.7f, -1);
         projectile3.transform.Rotate(0, 0, 210);
     }
