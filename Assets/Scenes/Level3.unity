@@ -785,11 +785,56 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 186590154473430277, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692381926787387971, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: effectHandler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692381926787387971, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: savingNotification
+      value: 
+      objectReference: {fileID: 1942251886}
+    - target: {fileID: 2000155505858325068, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_text
+      value: Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922130787817665752, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2922130787817665752, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937697912082093204, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768184551673742771, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5550521528426041907, guid: a1aed226a937f2642830b5d15396f5ac,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1043508054}
+    - target: {fileID: 5568212184641439293, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6014088455041863439, guid: a1aed226a937f2642830b5d15396f5ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -845,11 +890,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: In Game Pause Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 8470404277697776773, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Cutscene_Cleared_Level3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1aed226a937f2642830b5d15396f5ac, type: 3}
+--- !u!1 &1942251886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6877928073119083337, guid: a1aed226a937f2642830b5d15396f5ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942251885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

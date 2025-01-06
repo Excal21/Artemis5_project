@@ -443,6 +443,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1692381926787387971, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: effectHandler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692381926787387971, guid: a1aed226a937f2642830b5d15396f5ac,
+        type: 3}
+      propertyPath: savingNotification
+      value: 
+      objectReference: {fileID: 1010519142}
     - target: {fileID: 6014088455041863439, guid: a1aed226a937f2642830b5d15396f5ac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -503,6 +513,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1aed226a937f2642830b5d15396f5ac, type: 3}
+--- !u!1 &1010519142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6877928073119083337, guid: a1aed226a937f2642830b5d15396f5ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1010519140}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1451145588
 PrefabInstance:
   m_ObjectHideFlags: 0
