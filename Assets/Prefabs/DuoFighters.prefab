@@ -54,7 +54,7 @@ MonoBehaviour:
   speed: 2
   verticalMoveDistance: 0.5
   horizontalMoveDistance: 3
-  projectileSpeed: 5
+  projectileSpeed: 7
   fireRate: 1.5
   projectileOffset: -1
   enemySprites:
