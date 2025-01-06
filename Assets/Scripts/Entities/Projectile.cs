@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public Vector2 ProjectileVector = new Vector2(0, 1);
-    public float speed = 0.5f;
+    #region Lövedék beállításai
+    [SerializeField] private Vector2 projectileVector = new Vector2(0, 1);
+    [SerializeField] private float speed = 0.5f;
+    #endregion
     private Rigidbody2D rb;
+
+    public Vector2 ProjectileVector { get => projectileVector; set => projectileVector = value; }
+    public float Speed { get => speed; set => speed = value; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,7 +18,7 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.linearVelocity = ProjectileVector * speed;
+            rb.linearVelocity = ProjectileVector * Speed;
         }
         //Ha el kell forgatni 90 fokkal később
         //transform.Rotate(0, 0, 90);

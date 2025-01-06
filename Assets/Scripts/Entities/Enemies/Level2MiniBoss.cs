@@ -62,22 +62,22 @@ public class Level2MiniBoss : MonoBehaviour
     public void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(-1.2f, projectileOffset), Quaternion.identity);
-        projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile.GetComponent<Projectile>().ProjectileVector = new Vector2(-0.7f, -1);
         projectile.transform.Rotate(0, 0, 150);
 
         GameObject projectile2 = Instantiate(projectilePrefab, transform.position + new Vector3(-1.2f, projectileOffset), Quaternion.identity);
-        projectile2.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile2.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile2.GetComponent<Projectile>().ProjectileVector = new Vector2(0.7f, -1);
         projectile2.transform.Rotate(0, 0, 210);
 
         GameObject projectile3 = Instantiate(projectilePrefab, transform.position + new Vector3(+1.2f, projectileOffset), Quaternion.identity);
-        projectile3.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile3.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile3.GetComponent<Projectile>().ProjectileVector = new Vector2(-0.7f, -1);
         projectile3.transform.Rotate(0, 0, 150);
 
         GameObject projectile4 = Instantiate(projectilePrefab, transform.position + new Vector3(+1.2f, projectileOffset), Quaternion.identity);
-        projectile4.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile4.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile4.GetComponent<Projectile>().ProjectileVector = new Vector2(0.7f, -1);
         projectile4.transform.Rotate(0, 0, 210);
 

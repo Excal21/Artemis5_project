@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6880099459239398639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1173008085603578576}
+  - component: {fileID: 1316077478847690477}
+  m_Layer: 0
+  m_Name: Level3Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1173008085603578576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880099459239398639}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.478914, y: 1.4627482, z: 1.7042062}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316077478847690477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880099459239398639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50607173856d47a409bd50e061a0b5c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EasyEnemyPrefab: {fileID: 723683433129449643, guid: 06d2076b4d1f1c445bf7ff8624977bf5,
+    type: 3}
+  DuoFighterPrefab: {fileID: 6544834851721876170, guid: 678e27ba0ed4add4ebbb9f546f053eb7,
+    type: 3}
+  BossPrefab: {fileID: 7445733277116340680, guid: 4ae936a2b5e6b654183ca4623691b457,
+    type: 3}
+  easyEnemySprites:
+  - {fileID: 21300000, guid: 27ea1a6a93bb60847a3b1f014d8619d6, type: 3}
+  - {fileID: 21300000, guid: 8ddea1179c2591f4cbc108b03d9330a9, type: 3}
+  - {fileID: 21300000, guid: 2f672c480736d7f4dab7dcc91701c390, type: 3}
+  duoFighterSprites:
+  - {fileID: 21300000, guid: 1be38e6eff5812747b8cf2693b196994, type: 3}
+  - {fileID: 21300000, guid: 1037a14736b4e43428778cd73a1aa66e, type: 3}
+  - {fileID: 21300000, guid: d0dd1f57c9bae2e40823ec4b584aa882, type: 3}
+  spawnOffset: 0.5

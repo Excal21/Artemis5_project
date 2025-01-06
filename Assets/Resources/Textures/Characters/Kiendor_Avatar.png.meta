@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 09283d52e993b2d4f8e32b4deefc0d24
+guid: 22e5ce28fce24d84fb34bf1f84a4a0ee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6138565049038905078
-    second: Kiendor_Avatar_0
+      213: -1692032414664231794
+    second: Kiendor_Avatar 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Kiendor_Avatar_0
+      name: Kiendor_Avatar 1_0
       rect:
         serializedVersion: 2
         x: 110
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6fe979a7360903550800000000000000
-      internalID: 6138565049038905078
+      spriteID: e84fd7fcb71b488e0800000000000000
+      internalID: -1692032414664231794
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Kiendor_Avatar_0: 6138565049038905078
+      Kiendor_Avatar 1_0: -1692032414664231794
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

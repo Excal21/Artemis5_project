@@ -149,7 +149,7 @@ public class DuoFighters : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, fighter.transform.position + new Vector3(0, projectileOffset), Quaternion.identity);
         projectile.GetComponent<Projectile>().ProjectileVector = projectileDirection;
-        projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile.transform.Rotate(0, 0, 180);
     }
 
