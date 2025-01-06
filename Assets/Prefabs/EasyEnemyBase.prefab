@@ -106,7 +106,7 @@ MonoBehaviour:
   horizontalMoveDistance: 2
   projectilePrefab: {fileID: 3893381052564452044, guid: 908cc05faa4ca94409432f759219ad31,
     type: 3}
-  projectileSpeed: 2
+  projectileSpeed: 7
   fireRate: 0.8
   projectileDirection: {x: 0, y: -1, z: 0}
   projectileOffset: -1
