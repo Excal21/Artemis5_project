@@ -1,0 +1,131 @@
+{
+  "opening": "",
+  "dialogues": [
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "Lieutenant Zeron!",
+      "side": "right"
+    },
+    {
+      "characterName": "Lieutenant Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "<saluting> Colonel Margord!",
+      "side": "left"
+    },
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "Team!",
+      "side": "right"
+    },
+    {
+      "characterName": "Kiendor Co-Pilot",
+      "characterAvatar": "Kiendor_Avatar.png",
+      "text": "Yes, Colonel Margord!",
+      "side": "left"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "Yes, Colonel Margord!",
+      "side": "left"
+    },
+    {
+      "characterName": "Ekronia Navigator",
+      "characterAvatar": "Ekronia_Avatar.png",
+      "text": "Yes, Colonel Margord!",
+      "side": "left"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "Yes, Colonel Margord!",
+      "side": "left"
+    },
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "I'm glad you've returned safely! I hear some petty bandits stood in your way, and there was some chaos among the Vorrothians!",
+      "side": "right"
+    },
+    {
+      "characterName": "Lieutenant Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Yes, Sir, but nothing could stop us from completing our mission!",
+      "side": "left"
+    },
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "I’m proud of all of you! You will all receive medals and great recognition! Now go and rest, you deserve it! Later, return to the lieutenant’s unit.",
+      "side": "right"
+    },
+    {
+      "characterName": "Lieutenant Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "With all due respect, I would like to ask you something, Colonel Margord!",
+      "side": "left"
+    },
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "What is it, Lieutenant Zeron?",
+      "side": "right"
+    },
+    {
+      "characterName": "Lieutenant Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "I would like to keep this small team together to take on more missions and protect the galaxy!",
+      "side": "left"
+    },
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "Well, such a ready and fearless team is indeed needed. I approve the formation of your squad!",
+      "side": "right"
+    },
+    {
+      "characterName": "Lieutenant Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Thank you, Sir! If you would allow me, I would like to name my team.",
+      "side": "left"
+    },
+    {
+      "characterName": "Colonel Margord",
+      "characterAvatar": "Margord_Avatar.png",
+      "text": "What would it be, Lieutenant?",
+      "side": "right"
+    },
+    {
+      "characterName": "Kiendor Co-Pilot",
+      "characterAvatar": "Kiendor_Avatar.png",
+      "text": "<looks at Captain Zeron>",
+      "side": "left"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "<looks at Captain Zeron>",
+      "side": "left"
+    },
+    {
+      "characterName": "Ekronia Navigator",
+      "characterAvatar": "Ekronia_Avatar.png",
+      "text": "<looks at Captain Zeron>",
+      "side": "left"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "<looks at Captain Zeron>",
+      "side": "left"
+    },
+    {
+      "characterName": "Lieutenant Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Artemis5!",
+      "side": "left"
+    }
+  ]
+}

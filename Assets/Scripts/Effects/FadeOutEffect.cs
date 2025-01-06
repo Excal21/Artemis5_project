@@ -18,13 +18,13 @@ public class FadeOutEffect : MonoBehaviour
         fadeImage.color = new Color(0, 0, 0, 0);
     }
 
-    public void StartFadeOut()
+    public void StartFadeOut(float? customFadeDuration = null)
     {
         fadeImage.enabled = true;
-        StartCoroutine(FadeOut());
+        StartCoroutine(FadeOut(customFadeDuration));
     }
 
-    private IEnumerator FadeOut()
+    private IEnumerator FadeOut(float? customFadeDuration)
     {
         if (fadeImage == null)
         {
@@ -32,23 +32,19 @@ public class FadeOutEffect : MonoBehaviour
             yield break;
         }
 
+        float duration = customFadeDuration ?? fadeDuration;
         float elapsedTime = 0f;
-
-        float stepDuration = fadeDuration / steps;
-
+        float stepDuration = duration / steps;
 
         for (int i = 0; i < steps; i++)
         {
             elapsedTime += stepDuration;
-            float alpha = Mathf.Lerp(0, 1, elapsedTime / fadeDuration);
+            float alpha = Mathf.Lerp(0, 1, elapsedTime / duration);
             fadeImage.color = new Color(0, 0, 0, alpha);
             yield return new WaitForSecondsRealtime(stepDuration); //WaitForSeconds helyett WaitForSecondsRealtime kell, hogy a Time.timeScale ne befolyásolja
         }
 
         fadeImage.color = new Color(0, 0, 0, 1);
-        
-        //fadeImage.enabled = false;
-
         OnFadeComplete?.Invoke();
     }
 }
