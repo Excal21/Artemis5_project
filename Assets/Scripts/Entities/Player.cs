@@ -20,30 +20,18 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Tulajdonságok private mezői
-    [SerializeField]
-    private List<Sprite> playerSprites;
-    [SerializeField]
-    private int health = 4;
-    [SerializeField]
-    private float speed = 5f;
-    [SerializeField]
-    private float gravity = 0.2f;
-    [SerializeField]
-    private GameObject jetProp;
-    [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private GameObject explosion;
-    [SerializeField]
-    private float jetPropOffset = 0.1f;
-    [SerializeField]
-    private float fireRate = 3;
-    [SerializeField]
-    private float projectileOffset = 1f;
-    [SerializeField]
-    private float projectileSpeed = 5f;
-    [SerializeField]
-    private bool controllable = true;
+    [SerializeField] private List<Sprite> playerSprites;
+    [SerializeField] private int health = 4;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float gravity = 0.2f;
+    [SerializeField] private GameObject jetProp;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private float jetPropOffset = 0.1f;
+    [SerializeField] private float fireRate = 3;
+    [SerializeField] private float projectileOffset = 1f;
+    [SerializeField] private float projectileSpeed = 5f;
+    [SerializeField] private bool controllable = true;
     #endregion
 
     #region Getterek/Setterek
@@ -157,6 +145,7 @@ public class Player : MonoBehaviour
     #region Események kezelői
     public void DeathScreen()
     {
+        AudioHandler.instance.StopMusic();
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         
         GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
@@ -271,7 +260,7 @@ public class Player : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
         projectile.tag = "PlayerProjectile";
-        projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.GetComponent<Projectile>().Speed = projectileSpeed;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

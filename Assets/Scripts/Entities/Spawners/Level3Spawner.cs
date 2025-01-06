@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class Level3Spawner : MonoBehaviour
 {
-    public GameObject EasyEnemyPrefab;
-    public GameObject DuoFighterPrefab;
-    public GameObject BossPrefab;
+    #region Level3 Spawner beállításai
+    [SerializeField] private GameObject EasyEnemyPrefab;
+    [SerializeField] private GameObject DuoFighterPrefab;
+    [SerializeField] private GameObject BossPrefab;
 
-    public List<Sprite> easyEnemySprites;
-    public List<Sprite> duoFighterSprites;
-
-    public int numberOfEnemies = 3;
-    public int numberOfEnemiesSecondWave = 5;
-    public int numberOfEnemiesThirdWave = 7;
-    public float spawnOffset = 0.5f; // Offset to ensure enemies don't move off the screen
-    //public List<Sprite> enemySprites = new List<Sprite>();
-
+    [SerializeField] private List<Sprite> easyEnemySprites;
+    [SerializeField] private List<Sprite> duoFighterSprites;
+    [SerializeField] private float spawnOffset = 0.5f;
+    #endregion
     private bool finishable = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,6 +40,8 @@ public class Level3Spawner : MonoBehaviour
             }
         }
     }
+
+    #region Level3 Spawner metódusai
     private IEnumerator FinishLevel(){
         //Debug.Log("Level finished");
         GameObject player = GameObject.FindWithTag("Player");
@@ -69,6 +67,9 @@ public class Level3Spawner : MonoBehaviour
         player.SetActive(false);
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+
+        GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
+
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
         AudioHandler.instance.StopMusic();
@@ -155,3 +156,4 @@ public class Level3Spawner : MonoBehaviour
     }
 }
 
+#endregion

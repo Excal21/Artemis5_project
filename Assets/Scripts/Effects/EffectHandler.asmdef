@@ -1,0 +1,16 @@
+{
+    "name": "EffectHandler",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ac5007bd31aa7b844960ba874dace697"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

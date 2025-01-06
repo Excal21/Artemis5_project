@@ -340,8 +340,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 8953002454960410539}
   musicSource: {fileID: 2489723422150483316}
+  beepSource: {fileID: 8987926799255012193}
   shootSound: {fileID: 8300000, guid: 6f0d49cda67ed144c8a1374a4eeadf48, type: 3}
   level1Music: {fileID: 8300000, guid: a77c711f51f65aa45ba160ec814f29cc, type: 3}
   level2Music: {fileID: 8300000, guid: 70a450eabadd4a74d89c64b460267230, type: 3}
   level3Music: {fileID: 8300000, guid: 0d4f11d175ff28e4692931ffbaf5414a, type: 3}
   mainMenuMusic: {fileID: 8300000, guid: c2716762580e0cb4dafc51d153b766b5, type: 3}
+  menuBeep: {fileID: 8300000, guid: 2dee4b0080e38c948b0e87f6b2d053d9, type: 3}
+  dialogBeep: {fileID: 8300000, guid: 0e0b52150763eb44c9666ffdb6a0907c, type: 3}

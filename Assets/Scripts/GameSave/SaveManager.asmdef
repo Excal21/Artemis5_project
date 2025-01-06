@@ -1,0 +1,16 @@
+{
+    "name": "SaveManager",
+    "rootNamespace": "",
+    "references": [
+        "EffectHandler"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
