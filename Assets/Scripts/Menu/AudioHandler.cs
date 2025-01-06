@@ -65,6 +65,9 @@ public class AudioHandler : MonoBehaviour
             case Music.LEVEL2:
                 musicSource.clip = level2Music;
                 break;
+            case Music.LEVEL3:
+                musicSource.clip = level3Music;
+                break;
             case Music.MAINMENU:
                 musicSource.clip = mainMenuMusic;
                 break;

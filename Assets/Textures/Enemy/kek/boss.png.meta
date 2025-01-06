@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 663e397ffbf96214586246b932ae94f4
+guid: c7153b24ded6b894299c4143fb562ee0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7361800253784443764
-    second: lvl3_0
+      213: -9132502200897908760
+    second: "haj\xF31k\xE9k (2)_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lvl3_0
+      name: "haj\xF31k\xE9k (2)_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 704
-        height: 384
+        x: 16
+        y: 82
+        width: 265
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 47bc33a835e5a2660800000000000000
-      internalID: 7361800253784443764
+      spriteID: 8efc10562a5d24180800000000000000
+      internalID: -9132502200897908760
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      lvl3_0: 7361800253784443764
+      "haj\xF31k\xE9k (2)_0": -9132502200897908760
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

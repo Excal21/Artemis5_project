@@ -5,7 +5,9 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     [SerializeField]
-    List<Sprite> sprites;
+    private List<Sprite> sprites;
+
+    public List<Sprite> Sprites {set => sprites = value; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

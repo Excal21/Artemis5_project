@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag != "Projectile" && collision.name != "Level2MiniBoss(Clone)"){
+        if(collision.tag != "Projectile" && collision.name != "Level2MiniBoss(Clone)" && collision.name != "Boss(Clone)"){
            Destroy(this.gameObject);
         }
     }
