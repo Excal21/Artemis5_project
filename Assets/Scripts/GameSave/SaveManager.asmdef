@@ -1,11 +1,8 @@
 {
-    "name": "Spawners",
+    "name": "SaveManager",
     "rootNamespace": "",
     "references": [
-        "GUID:1594f8f9ef974e7418604bed9061c3e4",
-        "GUID:231b02e0fa66d9b4fa483404a6cf972f",
-        "GUID:b01bbfce60dda1f4abd6f857b7089d3b",
-        "GUID:1a51cd8249b62764bb6669e04bf37062"
+        "EffectHandler"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
