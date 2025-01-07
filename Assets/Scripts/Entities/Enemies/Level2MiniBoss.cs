@@ -1,32 +1,28 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level2MiniBoss : MonoBehaviour
 {
-#region Level2MiniBoss munkaváltozói
+    public GameObject shield;
+    public GameObject projectilePrefab;
+    public GameObject explosion;
+
+
+    public float projectileSpeed = 2f;
+    public float projectileOffset = -1f;
+    public float fireRate = 3;
+
+    public float speed = 5f; // Mozgás sebessége
+    public float stopDuration = 2f; // Mennyi ideig áll meg
+    public float rightLimit = 5f; // Jobb oldali határ
+    public float leftLimit = -5f; // Bal oldali határ
+    public int health = 3;
+
     private Vector3 targetPosition;
     private bool movingRight = true;
     private float stopTimer = 0f;
     private float lastShotTime = 0;
     private bool hasEnteredPlayArea = false;
-#endregion
 
-#region Level2MiniBoss beállításai
-    [SerializeField] private GameObject shield;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private GameObject explosion;
-
-    [SerializeField] private List<Sprite> shieldHitSprites;
-
-    [SerializeField] private float projectileSpeed = 2f;
-    [SerializeField] private float projectileOffset = -1f;
-    [SerializeField] private float fireRate = 3;
-
-    [SerializeField] private float stopDuration = 2f; // Mennyi ideig áll meg
-    [SerializeField] private float rightLimit = 5f; // Jobb oldali határ
-    [SerializeField] private float leftLimit = -5f; // Bal oldali határ
-    [SerializeField] private int health = 3;
-#endregion
 
     void Start()
     {
@@ -63,8 +59,6 @@ public class Level2MiniBoss : MonoBehaviour
             lastShotTime = Time.time;
         }
     }
-
-#region Level2Miniboss metódusai
     public void Shoot()
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(-1.2f, projectileOffset), Quaternion.identity);
@@ -124,13 +118,11 @@ public class Level2MiniBoss : MonoBehaviour
             Destroy(other.gameObject); // Töröljük a lövedéket
             health--; // Csökkentsük az életerejét
             if(health > 1){
-                GameObject explosionInstance = Instantiate(explosion, new Vector3(other.transform.position.x, transform.position.y), Quaternion.identity);
-                explosionInstance.GetComponent<Explosion>().Sprites = shieldHitSprites;
-                explosionInstance.transform.localScale = new Vector3(8f, 8f);
+
+                Instantiate(explosion, transform.position + new Vector3(0f, -0.5f, 0), Quaternion.identity); // Részecskerendszer az animációhoz
             }
             else{
-                GameObject explosionInstance = Instantiate(explosion, new Vector3(other.transform.position.x, transform.position.y), Quaternion.identity);
-                explosionInstance.transform.localScale = new Vector3(8f, 8f);
+                Instantiate(explosion, transform.position, Quaternion.identity); // Részecskerendszer az animációhoz
             }
             if(health == 1){
 
@@ -144,4 +136,3 @@ public class Level2MiniBoss : MonoBehaviour
     }
 
 }
-#endregion

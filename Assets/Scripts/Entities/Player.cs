@@ -122,8 +122,6 @@ public class Player : MonoBehaviour
     public void DeathScreen()
     {
         AudioHandler.instance.StopMusic();
-          GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
-
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         
         GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
