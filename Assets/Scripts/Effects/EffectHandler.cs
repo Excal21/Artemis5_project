@@ -56,7 +56,7 @@ public class EffectHandler : MonoBehaviour
         });
     }
 
-    public void StartFadeWithActionAndDuration(Action onFadeComplete, float? customFadeDuration = null)
+    public void StartFadeWithActionAndDuration(Action onFadeComplete, float? customFadeDuration = null, int? customSteps = null)
     {
         if (fadeOutEffect != null)
         {
@@ -66,7 +66,7 @@ public class EffectHandler : MonoBehaviour
                 fadeOutEffect.OnFadeComplete -= onFadeComplete;
             };
 
-            fadeOutEffect.StartFadeOut(customFadeDuration);
+            fadeOutEffect.StartFadeOut(customFadeDuration, customSteps);
         }
         else
         {
@@ -74,12 +74,12 @@ public class EffectHandler : MonoBehaviour
         }
     }
 
-    public void StartFadeOutWithDurationAndLoadScene(string sceneName, float? customFadeDuration = null)
+    public void StartFadeOutWithDurationAndLoadScene(string sceneName, float? customFadeDuration = null, int? customSteps = null)
     {
         StartFadeWithActionAndDuration(() =>
         {
             handleScenes.LoadScene(sceneName);
-        }, customFadeDuration);
+        }, customFadeDuration, customSteps);
     }
 
     public void StartFadeOutAndReloadCurrentScene()
