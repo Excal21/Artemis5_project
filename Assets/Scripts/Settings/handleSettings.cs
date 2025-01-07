@@ -111,14 +111,16 @@ public class HandleSettings : MonoBehaviour
         AudioListener.volume = tempVolume / 100;
         PlayerPrefs.SetFloat("masterVolume", tempVolume / 100);
 
+        #if !UNITY_ANDROID
         Resolution resolution = resolutions[tempResolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, tempIsFullscreen);
+        PlayerPrefs.SetInt("resolution", tempResolutionIndex);
+        #endif
+
         PlayerPrefs.SetInt("fullscreen", tempIsFullscreen ? 1 : 0);
 
         QualitySettings.vSyncCount = tempVsyncCount;
         PlayerPrefs.SetInt("vsync", tempVsyncCount);
-
-        PlayerPrefs.SetInt("resolution", tempResolutionIndex);
 
         PlayerPrefs.Save();
 
@@ -142,17 +144,19 @@ public class HandleSettings : MonoBehaviour
         vsyncToggle.isOn = tempVsyncCount == 1;
 
         AudioListener.volume = tempVolume / 100;
+
+        #if !UNITY_ANDROID
         Screen.SetResolution(resolutions[tempResolutionIndex].width, resolutions[tempResolutionIndex].height, tempIsFullscreen);
+        #endif
+
         QualitySettings.vSyncCount = tempVsyncCount;
 
-        // PlayerPrefs mentése, hogy az értékek tartósak legyenek
         PlayerPrefs.SetFloat("masterVolume", tempVolume / 100);
         PlayerPrefs.SetInt("resolution", tempResolutionIndex);
         PlayerPrefs.SetInt("fullscreen", tempIsFullscreen ? 1 : 0);
         PlayerPrefs.SetInt("vsync", tempVsyncCount);
         PlayerPrefs.Save();
 
-        // Apply gomb inaktiválása, mivel nincs alkalmazandó változtatás
         applyButton.interactable = false;
     }
 }

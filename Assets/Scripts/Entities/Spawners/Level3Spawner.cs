@@ -23,7 +23,8 @@ public class Level3Spawner : MonoBehaviour
     }
     void Update()
     {
-        if(finishable){
+        if (finishable)
+        {
             Debug.Log("Finishable");
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length == 0)
@@ -42,38 +43,46 @@ public class Level3Spawner : MonoBehaviour
     }
 
     #region Level3 Spawner metódusai
-    private IEnumerator FinishLevel(){
+    private IEnumerator FinishLevel()
+    {
         //Debug.Log("Level finished");
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
         GameObject player = GameObject.FindWithTag("Player");
-        player.GetComponent<Player>().Controllable = false;
-        player.GetComponent<Player>().Invincible = true;
-        player.GetComponent<Player>().Speed = 5f;
-        while(!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1)){
-            if(player.transform.position.x > 0){
-                player.GetComponent<Player>().Left();
-            }
-            else{
-                player.GetComponent<Player>().Right();
-            }
-            yield return new WaitForSeconds(0.005f);
-        }
-        player.GetComponent<Player>().Speed = 10f;
-        yield return new WaitForSeconds(1);
-        while(player.transform.position.y < 6f)
+        if (player != null)
         {
-            player.GetComponent<Player>().Up(true);
-            yield return new WaitForSeconds(0.005f);
+            player.GetComponent<Player>().Controllable = false;
+            player.GetComponent<Player>().Invincible = true;
+            player.GetComponent<Player>().Speed = 5f;
+            while (!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1))
+            {
+                if (player.transform.position.x > 0)
+                {
+                    player.GetComponent<Player>().Left();
+                }
+                else
+                {
+                    player.GetComponent<Player>().Right();
+                }
+                yield return new WaitForSeconds(0.005f);
+            }
+            player.GetComponent<Player>().Speed = 10f;
+            yield return new WaitForSeconds(1);
+            while (player.transform.position.y < 6f)
+            {
+                player.GetComponent<Player>().Up(true);
+                yield return new WaitForSeconds(0.005f);
+            }
+            player.SetActive(false);
+            yield return new WaitForSeconds(1);
+            GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+
+            GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
+
+            pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
+            pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
+            AudioHandler.instance.StopMusic();
+            finishable = false;
         }
-        player.SetActive(false);
-        yield return new WaitForSeconds(1);
-        GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
-
-        GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
-
-        pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
-        pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
-        AudioHandler.instance.StopMusic();
-        finishable = false;
     }
     private IEnumerator SpawnEnemies()
     {
@@ -82,12 +91,12 @@ public class Level3Spawner : MonoBehaviour
         Vector3 spawnPosition;
         GameObject enemy;
 
-        
+
         yield return new WaitForSeconds(3.5f);
 
 
         // Az első ellenség a képernyő bal oldalán spawnol
-        spawnPosition = new Vector3(-Camera.main.aspect * Camera.main.orthographicSize+1f, Camera.main.orthographicSize + 2, 0);
+        spawnPosition = new Vector3(-Camera.main.aspect * Camera.main.orthographicSize + 1f, Camera.main.orthographicSize + 2, 0);
         enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
         enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
         enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
@@ -98,7 +107,7 @@ public class Level3Spawner : MonoBehaviour
 
 
         // A második ellenség a képernyő jobb oldalán spawnol
-        spawnPosition = new Vector3(Camera.main.aspect * Camera.main.orthographicSize-2f, Camera.main.orthographicSize + 2, 0);
+        spawnPosition = new Vector3(Camera.main.aspect * Camera.main.orthographicSize - 2f, Camera.main.orthographicSize + 2, 0);
         enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
         enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
         enemy.GetComponent<DuoFighters>().FireRate = 0.5f;

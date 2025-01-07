@@ -259,7 +259,7 @@ public class DialogueManager : MonoBehaviour
             //Ha a jelenet neve Cutscene_Ending, akkor lassan legyen FadeOut, majd térjen vissza a MainMenu-be.
             if(SceneManager.GetActiveScene().name == "Cutscene_Ending")
             {
-                effectHandler.StartFadeOutWithDurationAndLoadScene("MainMenu", 3.5f); // Lassabb fadeout effect
+                effectHandler.StartFadeOutWithDurationAndLoadScene("MainMenu", 1.5f, 150);
             }
             else
             {

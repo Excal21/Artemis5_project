@@ -27,7 +27,8 @@ public class Level1Spawner : MonoBehaviour
     }
     void Update()
     {
-        if(finishable){
+        if (finishable)
+        {
             //Debug.Log("Finishable");
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
             if (enemies.Length == 0)
@@ -39,41 +40,52 @@ public class Level1Spawner : MonoBehaviour
         }
     }
 
-#region Level1 Spawner metódusai
-    private IEnumerator FinishLevel(){
+    #region Level1 Spawner metódusai
+    private IEnumerator FinishLevel()
+    {
         //Debug.Log("Level finished");
-        GameObject player = GameObject.FindWithTag("Player");
-        player.GetComponent<Player>().Controllable = false;
-        player.GetComponent<Player>().Invincible = true;
-        player.GetComponent<Player>().Speed = 0.2f;
-        while(!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1)){
-            if(player.transform.position.x > 0){
-                player.transform.position += new Vector3(-0.1f, 0, 0);
-            }
-            else{
-                player.transform.position += new Vector3(0.1f, 0, 0);
-            }
-            yield return new WaitForSeconds(0.005f);
-        }
-        player.GetComponent<Player>().Speed = 10f;
-        yield return new WaitForSeconds(1);
-        while(player.transform.position.y < 6f)
-        {
-            player.transform.position += new Vector3(0, 0.5f, 0);
-            yield return new WaitForSeconds(0.005f);
-        }
-        player.SetActive(false);
-        yield return new WaitForSeconds(1);
-        GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
-        
-        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
 
-        GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
-        
-        pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
-        pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
-        AudioHandler.instance.StopMusic();
-        finishable = false;
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+
+
+            player.GetComponent<Player>().Controllable = false;
+            player.GetComponent<Player>().Invincible = true;
+            player.GetComponent<Player>().Speed = 5f;
+            while (!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1))
+            {
+                if (player.transform.position.x > 0)
+                {
+                    player.GetComponent<Player>().Left();
+                }
+                else
+                {
+                    player.GetComponent<Player>().Right();
+                }
+                yield return new WaitForSeconds(0.005f);
+            }
+            player.GetComponent<Player>().Speed = 10f;
+            yield return new WaitForSeconds(1);
+            while (player.transform.position.y < 6f)
+            {
+                player.GetComponent<Player>().Up(true);
+                yield return new WaitForSeconds(0.005f);
+            }
+            player.SetActive(false);
+            yield return new WaitForSeconds(1);
+            GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+
+            GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+
+            GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();
+
+            pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
+            pauseMenu.transform.Find("Panel - SECTOR CLEARED").gameObject.SetActive(true);
+            AudioHandler.instance.StopMusic();
+            finishable = false;
+        }
     }
     private IEnumerator SpawnEnemies()
     {
@@ -116,7 +128,7 @@ public class Level1Spawner : MonoBehaviour
         enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
         enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
 
-        if(GameObject.FindWithTag("Player") != null) finishable = true;
+        if (GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;
     }
     private void SpawnWave(int enemyNumber)

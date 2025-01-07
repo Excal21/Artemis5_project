@@ -9,6 +9,7 @@ public class AudioHandler : MonoBehaviour
     private float soundCooldown = 0.2f;
     private float lastPlayTime;
     private float lastDialogBeepTime;
+    private float lastMenuBeepTime;
     private Coroutine fadeInCoroutine;
     private Coroutine fadeOutCoroutine;
     #endregion
@@ -25,9 +26,10 @@ public class AudioHandler : MonoBehaviour
     [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip menuBeep;
     [SerializeField] private AudioClip dialogBeep;
+
     #endregion
 
-
+    public AudioSource BeepSource { get => beepSource; }
 
     public enum Music
     {
@@ -49,36 +51,44 @@ public class AudioHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-#region Rövid hangok metódusai
+
+    #region Rövid hangok metódusai
     public void PlayShootSound()
     {
-        if (Time.time >= lastPlayTime + soundCooldown)
+        float currentTime = Time.realtimeSinceStartup;
+        if (currentTime >= lastPlayTime + soundCooldown)
         {
             audioSource.PlayOneShot(shootSound);
-            lastPlayTime = Time.time;
+            lastPlayTime = currentTime;
         }
     }
 
     public void PlayMenuBeep()
     {
-        if (menuBeep != null)
+        float menuBeepCooldown = 0.2f; // Egyedi időzítő a menuBeep-hez
+        float currentTime = Time.realtimeSinceStartup; // Valós idejű idő lekérése
+
+        if (menuBeep != null && currentTime >= lastMenuBeepTime + menuBeepCooldown)
         {
             beepSource.PlayOneShot(menuBeep);
+            lastMenuBeepTime = currentTime; // Frissítjük az utolsó menuBeep lejátszás idejét
         }
     }
 
     public void PlayDialogBeep()
     {
-        if (dialogBeep != null && Time.time >= lastDialogBeepTime + 0.1f)
+        float dialogBeepCooldown = 0.1f; // Egyedi időzítő a dialogBeep-hez
+        float currentTime = Time.realtimeSinceStartup; // Valós idejű idő lekérése
+
+        if (dialogBeep != null && currentTime >= lastDialogBeepTime + dialogBeepCooldown)
         {
             beepSource.PlayOneShot(dialogBeep);
-            lastDialogBeepTime = Time.time;
+            lastDialogBeepTime = currentTime;
         }
     }
+    #endregion 
 
-#endregion 
-
-#region Zenelejátszás metódusai
+    #region Zenelejátszás metódusai
     public void PlayMusic(Music music)
     {
         if (fadeOutCoroutine != null)
@@ -169,5 +179,5 @@ public class AudioHandler : MonoBehaviour
         musicSource.volume = 0f;
         musicSource.Stop();
     }
+    #endregion
 }
-#endregion
