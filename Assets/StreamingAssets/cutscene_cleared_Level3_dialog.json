@@ -1,0 +1,113 @@
+{
+  "opening": "The squad fought valiantly. The massive spaceship crashed onto the moon, and the team landed nearby to examine the wreckage. The monster met its final punishment. The team eventually resumed their search for the strange signals until they stumbled upon tiny, glowing creatures.",
+  "dialogues": [
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "Thank you, brave space soldiers, for saving us!",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "We saved you? Who might you be, tiny ones?",
+      "side": "left"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "We lived peacefully on this little moon when this stranger attacked us. He threatened to blow up our moon unless we mined crystals for it.",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "What did they need the crystals for? What makes them so unique?",
+      "side": "left"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "With the crystals, we can communicate with other worlds. But the stranger wanted to take so many from us. When we begged him to leave us alone, saying we had gathered enough crystals for him, he just kept demanding more. We don’t know what his true intentions were...",
+      "side": "right"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "I think it wanted to sell them to other empires, maybe to develop weapons. Its spaceship was heavily armed.",
+      "side": "left"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "That sounds horrible. We kept hoping that the stranger would eventually leave us in peace. Eventually, we managed to send a distress signal into space with the crystals.",
+      "side": "right"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "Yes, my kind live near your moon. They detected the signals but couldn’t decode them, so they asked for support from other allies.",
+      "side": "left"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "That’s unbelievable! We are so grateful that you finally came! How can we ever repay you?",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "There’s no need for repayment. It’s our job to protect the galaxy. We’re glad we could help! We’ll set up a radio station so you can contact us if you ever need anything.",
+      "side": "left"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "We will never forget your brave deeds! What are your names, our heroic saviors?",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "We don’t really have a name. I just assembled my team for this mission.",
+      "side": "left"
+    },
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "< The tiny creatures whisper quietly among themselves >",
+      "side": "center"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "We’d like to name you after a legendary figure from another world, often called the protector of the moon!",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "What would that be?",
+      "side": "left"
+    },
+    {
+      "characterName": "Tiny Creatures",
+      "characterAvatar": "TinyCreature_Avatar.png",
+      "text": "Artemis.",
+      "side": "right"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Thank you, tiny ones! We’ll wear the name with pride!",
+      "side": "left"
+    },
+	{
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "< The team bid farewell to the tiny creatures and began their way home. They successfully completed the mission. >",
+      "side": "center"
+    }
+  ]
+}

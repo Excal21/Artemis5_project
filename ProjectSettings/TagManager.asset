@@ -15,6 +15,8 @@ TagManager:
   - Slider
   - DropdownItem
   - Enemy
+  - PauseMenu
+  - Boss
   layers:
   - Default
   - TransparentFX

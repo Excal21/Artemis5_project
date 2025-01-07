@@ -19,6 +19,7 @@ public class HandleMainMenu : MonoBehaviour
     private GameObject currentSelectedPanel;
     private GameObject currentSelectedObject;
     private GameObject lastSelectedObject;
+    private float originalBeepVolume;
 
     private bool isPointerDown = false;
 
@@ -32,6 +33,11 @@ public class HandleMainMenu : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        originalBeepVolume = AudioHandler.instance.BeepSource.volume;
+        AudioHandler.instance.BeepSource.volume = 0;
+
+        AudioHandler.instance.PlayMusic(AudioHandler.Music.MAINMENU);
+
         Time.timeScale = 1;
 
         //Find all UI elements in the scene and add them to the list.
@@ -190,6 +196,8 @@ public class HandleMainMenu : MonoBehaviour
         if (uiElement.TryGetComponent(out Button button))
         {
             SetButtonTextColor(button, clickedColor);
+            AudioHandler.instance.PlayMenuBeep();
+            AudioHandler.instance.BeepSource.volume = originalBeepVolume;
             button.onClick.Invoke();
             SetButtonTextColor(button, normalColor);
         }
@@ -197,6 +205,8 @@ public class HandleMainMenu : MonoBehaviour
         {
             isPointerDown = true;
             SetSliderHandleColor(slider, clickedColor);
+            AudioHandler.instance.PlayMenuBeep();
+            AudioHandler.instance.BeepSource.volume = originalBeepVolume;
             slider.onValueChanged.Invoke(slider.value);
             SetSliderHandleColor(slider, normalColor);
         }
@@ -206,6 +216,8 @@ public class HandleMainMenu : MonoBehaviour
             dropdown.onValueChanged.AddListener((value) =>
             {
                 SetDropdownBackgroundColor(dropdown, selectedColor);
+                AudioHandler.instance.PlayMenuBeep();
+                AudioHandler.instance.BeepSource.volume = originalBeepVolume;
                 currentSelectedObject = dropdown.gameObject;
                 EventSystem.current.SetSelectedGameObject(dropdown.gameObject);
             });
@@ -233,6 +245,8 @@ public class HandleMainMenu : MonoBehaviour
             {
                 // Normál Toggle
                 SetToggleBackgroundColor(toggle, clickedColor);
+                AudioHandler.instance.PlayMenuBeep();
+                AudioHandler.instance.BeepSource.volume = originalBeepVolume;
                 toggle.onValueChanged.Invoke(toggle.isOn);
                 SetToggleBackgroundColor(toggle, normalColor);
             }
@@ -529,6 +543,9 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
                 {
                     selectedGraphic.color = selectedColor;
                     lastSelectedObject = currentSelectedObject;
+
+                    AudioHandler.instance.PlayMenuBeep();
+                    AudioHandler.instance.BeepSource.volume = originalBeepVolume;
                 }
             }
         }

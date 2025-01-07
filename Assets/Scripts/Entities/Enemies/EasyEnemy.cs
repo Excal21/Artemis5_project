@@ -13,24 +13,15 @@ public class EasyEnemy : MonoBehaviour
 
     #region Tulajdonságok privát mezői
     //A távolságok egységben unity képernyőegységben értendők
-    [SerializeField]
-    private float verticalMoveDistance = 1.0f;
-    [SerializeField]
-    private float horizontalMoveDistance = 2.0f;
-    [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private float projectileSpeed = 5.0f;
-    [SerializeField]
-    private float fireRate = 2.0f;
-    [SerializeField]
-    private Vector3 projectileDirection = Vector2.down;
-    [SerializeField]
-    private float projectileOffset = -1f;
-    [SerializeField]
-    private List<Sprite> enemySprites = new List<Sprite>();
-    [SerializeField]
-    private GameObject explosionPrefab;
+    [SerializeField] private float verticalMoveDistance = 1.0f;
+    [SerializeField] private float horizontalMoveDistance = 2.0f;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private float projectileSpeed = 5.0f;
+    [SerializeField] private float fireRate = 2.0f;
+    [SerializeField] private Vector3 projectileDirection = Vector2.down;
+    [SerializeField] private float projectileOffset = -1f;
+    [SerializeField] private List<Sprite> enemySprites = new List<Sprite>();
+    [SerializeField] private GameObject explosionPrefab;
     #endregion
 
     #region Getterek/Setterek
@@ -103,6 +94,8 @@ public class EasyEnemy : MonoBehaviour
             hasEnteredPlayArea = true;
         }
 
+
+
         // Csak akkor lőjön, ha belépett a játéktérre
         if (hasEnteredPlayArea && Time.time - lastShotTime > 1 / fireRate)
         {
@@ -125,7 +118,7 @@ public class EasyEnemy : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(0, projectileOffset), Quaternion.identity);
         projectile.GetComponent<Projectile>().ProjectileVector = projectileDirection;
-        projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.GetComponent<Projectile>().Speed = projectileSpeed;
         projectile.transform.Rotate(0, 0, 180);
     }
 

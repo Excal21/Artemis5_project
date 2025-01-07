@@ -1,0 +1,119 @@
+{
+  "opening": "The team successfully stopped the rebels. The Vorrothians expressed their gratitude to the squad and wished them luck in uncovering the moon's secret. As they approached the moon, they began pinpointing the source of the mysterious signals.",
+  "dialogues": [
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "..- -. -.- -. --- .-- -. / ... .. --. -. .- .-.. ... / ..-. .-. --- -- / -- --- --- -.",
+      "side": "center"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "The unknown signals are getting stronger.",
+      "side": "left"
+    },
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "-.. .- -. --. . .-.",
+      "side": "center"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Can we pinpoint the exact location of the sender?",
+      "side": "right"
+    },
+    {
+      "characterName": "Ekronia Navigator",
+      "characterAvatar": "Ekronia_Avatar.png",
+      "text": "We're working on it, Captain.",
+      "side": "left"
+    },
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "....................................................................................",
+      "side": "center"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "Something is interfering and disrupting the signals!",
+      "side": "right"
+    },
+    {
+      "characterName": "Ekronia Navigator",
+      "characterAvatar": "Ekronia_Avatar.png",
+      "text": "I need more signals; otherwise or I can't pinpoint the source.",
+      "side": "left"
+    },
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "...",
+      "side": "center"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "I've lost the signals...",
+      "side": "right"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "I have a bad feeling about this...",
+      "side": "left"
+    },
+    {
+      "characterName": "Kiendor Co-Pilot",
+      "characterAvatar": "Kiendor_Avatar.png",
+      "text": "Everyone, hold on tight!",
+      "side": "right"
+    },
+    {
+      "characterName": "",
+      "characterAvatar": "",
+      "text": "< Kiendor successfully dodges a projectile >",
+      "side": "center"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "What was that?",
+      "side": "left"
+    },
+    {
+      "characterName": "Kiendor Co-Pilot",
+      "characterAvatar": "Kiendor_Avatar.png",
+      "text": "It was a projectile, Sir!",
+      "side": "right"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "Captain! Smaller ships are approaching! One of them just shot at us...",
+      "side": "left"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Lamarih, lock onto them!",
+      "side": "right"
+    },
+    {
+      "characterName": "Lamarih Gunner",
+      "characterAvatar": "Lamarih_Avatar.png",
+      "text": "Roger that, Captain!",
+      "side": "left"
+    },
+    {
+      "characterName": "Ekronia Navigator",
+      "characterAvatar": "Ekronia_Avatar.png",
+      "text": "I fear I see something else in the distance...something big...",
+      "side": "right"
+    }
+  ]
+}

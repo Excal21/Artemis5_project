@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -16,33 +18,23 @@ public class Player : MonoBehaviour
     private float lastShotTime = 0;
     private Vector2 newPosition;
     private Vector2 actPosition;
+    private bool invincible = false;
+
     #endregion
 
     #region Tulajdonságok private mezői
-    [SerializeField]
-    private List<Sprite> playerSprites;
-    [SerializeField]
-    private int health = 4;
-    [SerializeField]
-    private float speed = 5f;
-    [SerializeField]
-    private float gravity = 0.2f;
-    [SerializeField]
-    private GameObject jetProp;
-    [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private GameObject explosion;
-    [SerializeField]
-    private float jetPropOffset = 0.1f;
-    [SerializeField]
-    private float fireRate = 3;
-    [SerializeField]
-    private float projectileOffset = 1f;
-    [SerializeField]
-    private float projectileSpeed = 5f;
-    [SerializeField]
-    private bool controllable = true;
+    [SerializeField] private List<Sprite> playerSprites;
+    [SerializeField] private int health = 4;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float gravity = 0.2f;
+    [SerializeField] private GameObject jetProp;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private float jetPropOffset = 0.1f;
+    [SerializeField] private float fireRate = 3;
+    [SerializeField] private float projectileOffset = 1f;
+    [SerializeField] private float projectileSpeed = 5f;
+    [SerializeField] private bool controllable = true;
     #endregion
 
     #region Getterek/Setterek
@@ -56,9 +48,8 @@ public class Player : MonoBehaviour
     public List<Sprite> PlayerSprites { get => playerSprites; set => playerSprites = value; }
     public int Health { get => health; }
     public bool Controllable { set => controllable = value; }
+    public bool Invincible { get => invincible; set => invincible = value; }
     #endregion
-
-
 
     #region Mozgások metódusai
     //Gombok megnyomásakor ezek a metódusok hívódnak meg az Update()-ben és ezeket hívják meg a tesztek is
@@ -90,17 +81,25 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Up()
+    public void Up(bool overridable = false)
     {
         actPosition = transform.position;
         newPosition += Vector2.up * Time.deltaTime * speed;
-        if (newPosition.y <= screenTop)
+        if (overridable)
         {
             transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
         }
         else
         {
-            newPosition = actPosition;
+
+            if (newPosition.y <= screenTop)
+            {
+                transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            }
+            else
+            {
+                newPosition = actPosition;
+            }
         }
     }
 
@@ -118,9 +117,46 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
+    #region Események kezelői
+    public void DeathScreen()
+    {
+        AudioHandler.instance.StopMusic();
+          GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
+
+        GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
+        
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+        
+        pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
+        pauseMenu.transform.Find("Panel - YOU DIED").gameObject.SetActive(true);
+    }
+
+    private IEnumerator MoveToStartPosition(float targetY)
+    {
+        
+        controllable = false;
+        float gravity = this.gravity;
+        this.gravity = 0;
+        invincible = true;
+        while(transform.position.y < targetY){
+            transform.position += new Vector3(0, 0.01f, 0);
+            yield return new WaitForSeconds(0.005f);
+        }
+        invincible = false;
+        this.gravity = gravity/2;
+        yield return new WaitForSeconds(1);
+        this.gravity = gravity;
+        controllable = true;
+        GameObject.FindWithTag("HealthIndicator").GetComponent<HealtIndicator>().Show();
+    }
+
+
+    #endregion
     public void Start()
     {
         prevYcord = transform.position.y;
+
 
         //Képernyő szélének meghatározása
         Vector3 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
@@ -129,7 +165,8 @@ public class Player : MonoBehaviour
         screenLeft = -screenBounds.x;
         screenRight = screenBounds.x;
 
-        transform.position = new Vector3(0, -4.5f, 0);
+        //transform.position = new Vector3(0, -6f, 0);
+        StartCoroutine(MoveToStartPosition(screenBottom + 0.5f));
     }
 
     public void Update()
@@ -142,14 +179,13 @@ public class Player : MonoBehaviour
         if (newPosition.y >= screenBottom)
         {
             transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
+            this.transform.position = newPosition;
         }
         else
         {
             newPosition = actPosition;
         }
 
-
-        if (newPosition.y >= screenBottom) this.transform.position = newPosition;
 
         if (controllable)
         {
@@ -218,26 +254,32 @@ public class Player : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, new Vector3(this.transform.position.x, this.transform.position.y + projectileOffset, 0), Quaternion.identity);
         projectile.tag = "PlayerProjectile";
-        projectile.GetComponent<Projectile>().speed = projectileSpeed;
+        projectile.GetComponent<Projectile>().Speed = projectileSpeed;
     }
 
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject explosionInstance = Instantiate(explosion, this.transform.position, Quaternion.identity);
+        if (!invincible)
+        {
+            GameObject explosionInstance = Instantiate(explosion, this.transform.position, Quaternion.identity);
 
-        if (collision != null)
-        {
-            Destroy(collision.gameObject);
-        }
-        if (health == 0)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            Damage();
+            if (collision != null)
+            {
+                Destroy(collision.gameObject);
+            }
+            if (health == 0)
+            {
 
+                Destroy(this.gameObject);
+                DeathScreen();
+
+            }
+            else
+            {
+                Damage();
+            }
         }
+        
     }
 }
