@@ -29,6 +29,26 @@ public class BuildNumber : MonoBehaviour
     private void Start()
     {
         // Display the build number at runtime
+        string buildVersion;
+
+        #if UNITY_EDITOR
+        buildVersion = $"(Editor - build {Application.version})";
+        #elif UNITY_ANDROID
+        buildVersion = $"(Android - build {Application.version})";
+        #else
+        buildVersion = $"(build {Application.version})";
+        #endif
+
+        if (buildNumberTMP != null)
+        {
+            buildNumberTMP.text = buildVersion;
+        }
+        else
+        {
+            Debug.LogError("Build number TMP is not assigned in the inspector.");
+        }
+
+        /*  
         #if UNITY_EDITOR
         string buildVersion = PlayerSettings.bundleVersion;
         #else
@@ -43,5 +63,6 @@ public class BuildNumber : MonoBehaviour
         {
             Debug.LogError("Build number TMP is not assigned in the inspector.");
         }
+        */
     }
 }

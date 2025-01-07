@@ -1024,7 +1024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3480704841986331072, guid: 012edd7834b269b4287d90e98e235585,
+  m_Sprite: {fileID: -6604892728595665732, guid: 6f4d23d8f1a30644fa6d247672768f1a,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -2254,7 +2254,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Cutscene_Intro_Level1
+          m_StringArgument: Level1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &976781066
@@ -2673,7 +2673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Continue
+  m_text: Start Sector
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dadb4503a137d3f4898bd6c857080c78, type: 2}
   m_sharedMaterial: {fileID: 4918664118078145053, guid: dadb4503a137d3f4898bd6c857080c78,
@@ -4163,7 +4163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbaa7a1e417c234fa6e9220ff4b72eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFileName: cutscene_intro_dialog.json
+  jsonFileName: cutscene_intro_Level1_dialog.json
 --- !u!1001 &8566940087666216649
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,0 +1,65 @@
+{
+  "opening": "The team set out to investigate the unknown signals. Their journey first led them through the Ordeis Empire. The Ordeis have a good relationship with Lieutenant Zeron and offered to have a few guards escort the squad through their territory.",
+  "dialogues": [
+    {
+	  "characterName": "Ekronia Navigator",
+	  "characterAvatar": "Ekronia_Avatar.png",
+	  "text": "Captain, I detect spaceships approaching.",
+	  "side": "left"
+	},
+	{
+	  "characterName": "Captain Zeron",
+	  "characterAvatar": "Zeron_Avatar.png",
+	  "text": "It's probably the Ordeis guards.",
+	  "side": "left"
+	},
+	{
+	  "characterName": "Ekronia Navigator",
+	  "characterAvatar": "Ekronia_Avatar.png",
+	  "text": "I think I see more spaceships in the distance.",
+	  "side": "left"
+	},
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Strange, I thought only a few ships would escort us.",
+      "side": "left"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "Captain, I’m receiving threatening messages!",
+      "side": "left"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "Threatening?! What is the meaning of this?",
+      "side": "left"
+    },
+    {
+      "characterName": "Bandits",
+      "characterAvatar": "Bandits_Avatar.png",
+      "text": "Surrender now! We demand your cargo! If you cooperate, we might let you live!",
+      "side": "right"
+    },
+    {
+      "characterName": "Zaelon Radio Operator",
+      "characterAvatar": "Zaelon_Avatar.png",
+      "text": "Sir, these are bandits!",
+      "side": "left"
+    },
+    {
+      "characterName": "Captain Zeron",
+      "characterAvatar": "Zeron_Avatar.png",
+      "text": "This is Captain Zeron of the Xervadon! Cease your threats and turn back immediately, or you will regret it!",
+      "side": "left"
+    },
+    {
+      "characterName": "Bandits",
+      "characterAvatar": "Bandits_Avatar.png",
+      "text": "THEN YOU WILL DIE!",
+      "side": "right"
+    }
+  ]
+}

@@ -192,6 +192,7 @@ public class HandleMainMenu : MonoBehaviour
         if (uiElement.TryGetComponent(out Button button))
         {
             SetButtonTextColor(button, clickedColor);
+            AudioHandler.instance.PlayMenuBeep();
             button.onClick.Invoke();
             SetButtonTextColor(button, normalColor);
         }
@@ -199,6 +200,7 @@ public class HandleMainMenu : MonoBehaviour
         {
             isPointerDown = true;
             SetSliderHandleColor(slider, clickedColor);
+            AudioHandler.instance.PlayMenuBeep();
             slider.onValueChanged.Invoke(slider.value);
             SetSliderHandleColor(slider, normalColor);
         }
@@ -208,6 +210,7 @@ public class HandleMainMenu : MonoBehaviour
             dropdown.onValueChanged.AddListener((value) =>
             {
                 SetDropdownBackgroundColor(dropdown, selectedColor);
+                AudioHandler.instance.PlayMenuBeep();
                 currentSelectedObject = dropdown.gameObject;
                 EventSystem.current.SetSelectedGameObject(dropdown.gameObject);
             });
@@ -235,6 +238,7 @@ public class HandleMainMenu : MonoBehaviour
             {
                 // Normál Toggle
                 SetToggleBackgroundColor(toggle, clickedColor);
+                AudioHandler.instance.PlayMenuBeep();
                 toggle.onValueChanged.Invoke(toggle.isOn);
                 SetToggleBackgroundColor(toggle, normalColor);
             }
@@ -531,6 +535,8 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
                 {
                     selectedGraphic.color = selectedColor;
                     lastSelectedObject = currentSelectedObject;
+
+                    AudioHandler.instance.PlayMenuBeep();
                 }
             }
         }
