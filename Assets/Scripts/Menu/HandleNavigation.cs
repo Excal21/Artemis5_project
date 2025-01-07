@@ -43,6 +43,12 @@ public class HandleNavigation : MonoBehaviour
     public  bool isGamePaused = false;
     private bool isCutscene   = false;
 
+    private bool isPlayerDeadOrCleared = false;
+
+    public bool IsPlayerDeadOrCleared {set => isPlayerDeadOrCleared = value; }
+
+
+
     #region Start és Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -81,19 +87,22 @@ public class HandleNavigation : MonoBehaviour
         if(!isCutscene)
         {
             //Escape-re vagy a P billentyűre szüneteltetjük a játékot.
-            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+            if(!isPlayerDeadOrCleared)
             {
-                if(isGamePaused)
+                if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
                 {
-                    ResumeGame();
+                    if(isGamePaused)
+                    {
+                        ResumeGame();
+                    }
+                    else
+                    {
+                        PauseGame();
+                    }
                 }
-                else
-                {
-                    PauseGame();
-                }
-            }
 
-            if(!isGamePaused) return;
+                if(!isGamePaused) return;
+            }
         }
         else if(!(buttonMainMenu.activeSelf || buttonStartSector.activeSelf))
         {

@@ -55,29 +55,35 @@ public class AudioHandler : MonoBehaviour
     #region Rövid hangok metódusai
     public void PlayShootSound()
     {
-        if (Time.time >= lastPlayTime + soundCooldown)
+        float currentTime = Time.realtimeSinceStartup;
+        if (currentTime >= lastPlayTime + soundCooldown)
         {
             audioSource.PlayOneShot(shootSound);
-            lastPlayTime = Time.time;
+            lastPlayTime = currentTime;
         }
     }
 
     public void PlayMenuBeep()
     {
         float menuBeepCooldown = 0.3f; // Egyedi időzítő a menuBeep-hez
-        if (menuBeep != null && Time.time >= lastMenuBeepTime + menuBeepCooldown)
+        float currentTime = Time.realtimeSinceStartup; // Valós idejű idő lekérése
+
+        if (menuBeep != null && currentTime >= lastMenuBeepTime + menuBeepCooldown)
         {
             beepSource.PlayOneShot(menuBeep);
-            lastMenuBeepTime = Time.time; // Frissítjük az utolsó menuBeep lejátszás idejét
+            lastMenuBeepTime = currentTime; // Frissítjük az utolsó menuBeep lejátszás idejét
         }
     }
 
     public void PlayDialogBeep()
     {
-        if (dialogBeep != null && Time.time >= lastDialogBeepTime + 0.1f)
+        float dialogBeepCooldown = 0.1f; // Egyedi időzítő a dialogBeep-hez
+        float currentTime = Time.realtimeSinceStartup; // Valós idejű idő lekérése
+
+        if (dialogBeep != null && currentTime >= lastDialogBeepTime + dialogBeepCooldown)
         {
             beepSource.PlayOneShot(dialogBeep);
-            lastDialogBeepTime = Time.time;
+            lastDialogBeepTime = currentTime;
         }
     }
     #endregion 

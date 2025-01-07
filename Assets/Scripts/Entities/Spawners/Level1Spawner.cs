@@ -42,6 +42,8 @@ public class Level1Spawner : MonoBehaviour
 #region Level1 Spawner metódusai
     private IEnumerator FinishLevel(){
         //Debug.Log("Level finished");
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
+
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().Controllable = false;
         player.GetComponent<Player>().Invincible = true;
@@ -65,7 +67,7 @@ public class Level1Spawner : MonoBehaviour
         player.SetActive(false);
         yield return new WaitForSeconds(1);
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
-        
+
         GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
 
         GameObject.Find("SaveManager").GetComponent<SaveManager>().SaveGame();

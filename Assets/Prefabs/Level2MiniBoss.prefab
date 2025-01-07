@@ -108,10 +108,14 @@ MonoBehaviour:
     type: 3}
   explosion: {fileID: 6299564314475547118, guid: 14298f3cf39b05a499953780a3662191,
     type: 3}
+  shieldHitSprites:
+  - {fileID: 21300000, guid: 1224a81f941e6dc4698321404af86adf, type: 3}
+  - {fileID: 21300000, guid: e5d93489c3729a1469d6398ac04f5cb1, type: 3}
+  - {fileID: 21300000, guid: 5b55484930438734b8b30d0a7e6476b6, type: 3}
+  - {fileID: 21300000, guid: 8623e6abfa0b68a4bb37b29cec7749b9, type: 3}
   projectileSpeed: 2
   projectileOffset: -0.7
   fireRate: 1
-  speed: 5
   stopDuration: 2
   rightLimit: 5
   leftLimit: -5

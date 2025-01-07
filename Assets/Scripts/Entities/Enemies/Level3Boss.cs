@@ -155,12 +155,14 @@ public class Level3Boss : MonoBehaviour
             health--;
             if (health > 1)
             {
-                GameObject explosionInstance = Instantiate(explosion, transform.position + new Vector3(0f, -0.5f, 0), Quaternion.identity);
+                GameObject explosionInstance = Instantiate(explosion, new Vector3(other.transform.position.x, transform.position.y, 0), Quaternion.identity);
                 explosionInstance.GetComponent<Explosion>().Sprites = shieldHitSprites;
+                explosionInstance.transform.localScale = new Vector3(8f, 8f);
             }
             else
             {
-                Instantiate(explosion, transform.position, Quaternion.identity);
+                GameObject explosionInstance = Instantiate(explosion, new Vector3(other.transform.position.x, transform.position.y), Quaternion.identity);
+                explosionInstance.transform.localScale = new Vector3(8f, 8f);
             }
             if (health == 1)
             {

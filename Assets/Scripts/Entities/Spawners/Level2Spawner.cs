@@ -47,6 +47,7 @@ public class Level2Spawner : MonoBehaviour
     #region Level2 Spawner metódusai
     private IEnumerator FinishLevel(){
         //Debug.Log("Level finished");
+        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
         GameObject player = GameObject.FindWithTag("Player");
         player.GetComponent<Player>().Controllable = false;
         player.GetComponent<Player>().Invincible = true;
