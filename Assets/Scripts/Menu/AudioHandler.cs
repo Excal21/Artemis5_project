@@ -120,13 +120,13 @@ public class AudioHandler : MonoBehaviour
         fadeInCoroutine = StartCoroutine(FadeInMusic(5, targetVolume));
     }
 
-    public void StopMusic()
+    public void StopMusic(float duration = 4)
     {
         if (fadeOutCoroutine != null)
         {
             StopCoroutine(fadeOutCoroutine);
         }
-        fadeOutCoroutine = StartCoroutine(FadeOutMusic(4));
+        fadeOutCoroutine = StartCoroutine(FadeOutMusic(duration));
     }
 
     public void PauseMusic()

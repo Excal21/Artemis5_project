@@ -51,6 +51,9 @@ public class DialogueManager : MonoBehaviour
     private Vector2 originalCenterDialogueBoxSize;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake(){
+        AudioHandler.instance.StopMusic(1);
+    }
     void Start()
     {
 
@@ -181,6 +184,7 @@ public class DialogueManager : MonoBehaviour
                 break;
             }
             textComponent.text += letter;
+            AudioHandler.instance.PlayDialogBeep();
             yield return new WaitForSeconds(0.01f);
         }
         isTyping = false;

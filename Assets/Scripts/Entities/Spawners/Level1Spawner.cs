@@ -79,7 +79,7 @@ public class Level1Spawner : MonoBehaviour
     {
         // Get the screen width in world units
 
-        SpawnWave(1);
+        SpawnWave(4);
 
         yield return new WaitForSeconds(10);
         Vector3 spawnPosition;

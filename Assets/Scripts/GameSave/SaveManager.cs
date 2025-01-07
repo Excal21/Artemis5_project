@@ -32,7 +32,7 @@ public class SaveManager : MonoBehaviour
 
     void Awake()
     {
-        saveFolderPath = Path.Combine(Application.dataPath, "Savegame");
+        saveFolderPath = Path.Combine(Application.persistentDataPath, "Savegame");
 
         //Ha MainMenu jelenetben vagyunk, akkor nézzük meg, hogy létezik-e a mappa.
         if (SceneManager.GetActiveScene().name == "MainMenu")
