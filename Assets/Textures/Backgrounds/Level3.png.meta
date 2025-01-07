@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Textures/Backgrounds/photo2pixel_download (1).png.meta
 guid: 8564aa8d66d71d64b80f9742c4422e67
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1784168968448400905
-    second: photo2pixel_download (1)_0
-========
-guid: a1de956196b05cb44b6f590920a5d25b
-TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -6488138127148529851
-    second: pixelcut-export_0
->>>>>>>> Player:Assets/Textures/Backgrounds/pixelcut-export.jpeg.meta
+      213: 7605422557452617252
+    second: Level3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -135,22 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-<<<<<<<< HEAD:Assets/Textures/Backgrounds/photo2pixel_download (1).png.meta
-      name: photo2pixel_download (1)_0
-========
-      name: pixelcut-export_0
->>>>>>>> Player:Assets/Textures/Backgrounds/pixelcut-export.jpeg.meta
+      name: Level3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-<<<<<<<< HEAD:Assets/Textures/Backgrounds/photo2pixel_download (1).png.meta
         width: 2010
         height: 1098
-========
-        width: 5632
-        height: 3072
->>>>>>>> Player:Assets/Textures/Backgrounds/pixelcut-export.jpeg.meta
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,13 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-<<<<<<<< HEAD:Assets/Textures/Backgrounds/photo2pixel_download (1).png.meta
-      spriteID: 90e54af4934a2c810800000000000000
-      internalID: 1784168968448400905
-========
-      spriteID: 547c4adbfb085f5a0800000000000000
-      internalID: -6488138127148529851
->>>>>>>> Player:Assets/Textures/Backgrounds/pixelcut-export.jpeg.meta
+      spriteID: 426c4bf4583eb8960800000000000000
+      internalID: 7605422557452617252
       vertices: []
       indices: 
       edges: []
@@ -184,11 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-<<<<<<<< HEAD:Assets/Textures/Backgrounds/photo2pixel_download (1).png.meta
-      photo2pixel_download (1)_0: 1784168968448400905
-========
-      pixelcut-export_0: -6488138127148529851
->>>>>>>> Player:Assets/Textures/Backgrounds/pixelcut-export.jpeg.meta
+      Level3_0: 7605422557452617252
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

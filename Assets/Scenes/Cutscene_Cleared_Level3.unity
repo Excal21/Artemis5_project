@@ -1025,7 +1025,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1784168968448400905, guid: 8564aa8d66d71d64b80f9742c4422e67,
+  m_Sprite: {fileID: 7605422557452617252, guid: 8564aa8d66d71d64b80f9742c4422e67,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -2353,7 +2353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press space or left mouse button to continue
+  m_text: Touch to continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dadb4503a137d3f4898bd6c857080c78, type: 2}
   m_sharedMaterial: {fileID: 4918664118078145053, guid: dadb4503a137d3f4898bd6c857080c78,

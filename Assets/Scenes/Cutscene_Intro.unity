@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press space or left mouse button to continue
+  m_text: Touch to continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dadb4503a137d3f4898bd6c857080c78, type: 2}
   m_sharedMaterial: {fileID: 4918664118078145053, guid: dadb4503a137d3f4898bd6c857080c78,
