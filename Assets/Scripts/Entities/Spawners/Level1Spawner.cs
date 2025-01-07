@@ -48,10 +48,10 @@ public class Level1Spawner : MonoBehaviour
         player.GetComponent<Player>().Speed = 0.2f;
         while(!(player.transform.position.x < 0.1 && player.transform.position.x > -0.1)){
             if(player.transform.position.x > 0){
-                player.transform.position += new Vector3(-0.1f, 0, 0);
+                player.GetComponent<Player>().Left();
             }
             else{
-                player.transform.position += new Vector3(0.1f, 0, 0);
+                player.GetComponent<Player>().Right();
             }
             yield return new WaitForSeconds(0.005f);
         }
@@ -59,7 +59,7 @@ public class Level1Spawner : MonoBehaviour
         yield return new WaitForSeconds(1);
         while(player.transform.position.y < 6f)
         {
-            player.transform.position += new Vector3(0, 0.5f, 0);
+            player.GetComponent<Player>().Up(true);
             yield return new WaitForSeconds(0.005f);
         }
         player.SetActive(false);

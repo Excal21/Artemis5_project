@@ -9,6 +9,7 @@ public class AudioHandler : MonoBehaviour
     private float soundCooldown = 0.2f;
     private float lastPlayTime;
     private float lastDialogBeepTime;
+    private float lastMenuBeepTime;
     private Coroutine fadeInCoroutine;
     private Coroutine fadeOutCoroutine;
     #endregion
@@ -25,9 +26,10 @@ public class AudioHandler : MonoBehaviour
     [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip menuBeep;
     [SerializeField] private AudioClip dialogBeep;
+
     #endregion
 
-
+    public AudioSource BeepSource { get => beepSource; }
 
     public enum Music
     {
@@ -49,7 +51,8 @@ public class AudioHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-#region Rövid hangok metódusai
+
+    #region Rövid hangok metódusai
     public void PlayShootSound()
     {
         if (Time.time >= lastPlayTime + soundCooldown)
@@ -61,9 +64,11 @@ public class AudioHandler : MonoBehaviour
 
     public void PlayMenuBeep()
     {
-        if (menuBeep != null)
+        float menuBeepCooldown = 0.3f; // Egyedi időzítő a menuBeep-hez
+        if (menuBeep != null && Time.time >= lastMenuBeepTime + menuBeepCooldown)
         {
             beepSource.PlayOneShot(menuBeep);
+            lastMenuBeepTime = Time.time; // Frissítjük az utolsó menuBeep lejátszás idejét
         }
     }
 
@@ -75,10 +80,9 @@ public class AudioHandler : MonoBehaviour
             lastDialogBeepTime = Time.time;
         }
     }
+    #endregion 
 
-#endregion 
-
-#region Zenelejátszás metódusai
+    #region Zenelejátszás metódusai
     public void PlayMusic(Music music)
     {
         if (fadeOutCoroutine != null)
@@ -169,5 +173,5 @@ public class AudioHandler : MonoBehaviour
         musicSource.volume = 0f;
         musicSource.Stop();
     }
+    #endregion
 }
-#endregion
