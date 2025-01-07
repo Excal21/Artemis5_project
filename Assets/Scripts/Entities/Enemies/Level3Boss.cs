@@ -3,21 +3,7 @@ using UnityEngine;
 
 public class Level3Boss : MonoBehaviour
 {
-    public GameObject shield;
-    public GameObject projectilePrefab;
-    public GameObject explosion;
-
-    public List<Sprite> shieldHitSprites;
-
-    public float projectileSpeed = 3f;
-    public float projectileOffset = -1f;
-
-    public float speed = 5f; // Mozgás sebessége
-    public float stopDuration = 2f; // Mennyi ideig áll meg
-    public float rightLimit = 5f; // Jobb oldali határ
-    public float leftLimit = -5f; // Bal oldali határ
-    public int health = 6;
-
+#region Level3Boss munkaváltozói
     private Vector3 targetPosition;
     private bool movingRight = true;
     private float stopTimer = 0f;
@@ -26,6 +12,21 @@ public class Level3Boss : MonoBehaviour
     private float shootCycleTimer = 0f;
     private int shootCount = 0;
     private bool isShooting = true; // Jelzi, hogy lövési fázisban van-e
+#endregion
+
+#region Level3Boss beállításai
+    [SerializeField] private GameObject shield;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private List<Sprite> shieldHitSprites;
+    [SerializeField] private float projectileSpeed = 3f;
+    [SerializeField] private float projectileOffset = -1f;
+    [SerializeField] private float stopDuration = 2f; // Mennyi ideig áll meg
+    [SerializeField] private float rightLimit = 5f; // Jobb oldali határ
+    [SerializeField] private float leftLimit = -5f; // Bal oldali határ
+    [SerializeField] private int health = 6;
+#endregion
+
 
     void Start()
     {
@@ -54,6 +55,8 @@ public class Level3Boss : MonoBehaviour
         }
     }
 
+
+#region Level3Boss metódusai
     void HandleShooting()
     {
         shootCycleTimer += Time.deltaTime;
@@ -170,3 +173,5 @@ public class Level3Boss : MonoBehaviour
         }
     }
 }
+
+#endregion

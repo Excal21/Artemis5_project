@@ -788,7 +788,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1215,7 +1215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100.000015}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 1720, y: 275}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &703715570
@@ -1288,8 +1288,8 @@ RectTransform:
   - {fileID: 1972759807}
   - {fileID: 217064475}
   - {fileID: 155509751}
-  - {fileID: 1863444065}
   - {fileID: 976781063}
+  - {fileID: 1863444065}
   m_Father: {fileID: 204769163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -3282,6 +3282,7 @@ MonoBehaviour:
   rightMessageTMP: {fileID: 479459710}
   buttonMainMenu: {fileID: 1863444064}
   buttonStartSector: {fileID: 976781062}
+  effectHandler: {fileID: 0}
 --- !u!1 &1804528762
 GameObject:
   m_ObjectHideFlags: 0

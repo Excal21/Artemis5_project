@@ -33,6 +33,11 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         saveFolderPath = Path.Combine(Application.dataPath, "Savegame");
+        #if UNITY_ANDROID
+            saveFolderPath = Path.Combine(Application.persistentDataPath, "Savegame");
+        #else
+            saveFolderPath = Path.Combine(Application.dataPath, "Savegame");
+        #endif
 
         //Ha MainMenu jelenetben vagyunk, akkor nézzük meg, hogy létezik-e a mappa.
         if (SceneManager.GetActiveScene().name == "MainMenu")
@@ -54,25 +59,18 @@ public class SaveManager : MonoBehaviour
 
     private void CheckSaveFile()
     {
-        Debug.Log("CheckSaveFile() -> Mentés fájl ellenőrzése...");
-
         string saveFilePath = Path.Combine(saveFolderPath, saveFileName);
         if (File.Exists(saveFilePath))
         {
             string json = File.ReadAllText(saveFilePath);
             SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
-            Debug.Log("CheckSaveFile() -> Mentés fájl beolvasva.");
-
             if (IsValidSaveData(saveData))
             {
-                Debug.Log("Érvényes mentés fájl.");
-
                 SetLevelButtons(saveData);
                 buttonContinue.interactable = saveData.Level2 == 1 || saveData.Level3 == 1;
                 if (buttonContinue.interactable)
                 {
-                    Debug.Log("Continue gomb aktív. Kattintás esemény hozzáadása.");
                     buttonContinue.onClick.AddListener(() => ContinueGame(saveData));
                 }
             }
@@ -86,6 +84,7 @@ public class SaveManager : MonoBehaviour
         {
             Debug.LogWarning("Nem található mentés fájl. Az összes szint feloldva.");
             CreateDefaultSave();
+            UnlockAllLevels();
         }
     }
 
@@ -104,7 +103,6 @@ public class SaveManager : MonoBehaviour
         try
         {
             File.WriteAllText(saveFilePath, json);
-            Debug.Log("Alapértelmezett mentés létrehozva.");
         }
         catch (System.Exception e)
         {
@@ -145,7 +143,6 @@ public class SaveManager : MonoBehaviour
     {
         if (allLevelsUnlocked)
         {
-            Debug.Log("Összes szint fel van oldva, nem mentünk");
             return; // Ha az összes szint fel van oldva, nem mentünk
         }
         StartCoroutine(SaveGameCoroutine());
@@ -153,7 +150,6 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator SaveGameCoroutine()
     {
-        Debug.Log("Mentés...");
         savingNotification.SetActive(true);
 
         SaveData saveData = LoadSaveData();
@@ -190,7 +186,6 @@ public class SaveManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         savingNotification.SetActive(false);
-        Debug.Log("Mentés sikeres.");
         yield return null;
     }
 
@@ -207,9 +202,6 @@ public class SaveManager : MonoBehaviour
 
     public void NewGameStarted()
     {
-        Debug.Log("Új játék indítása...");
-
-        Debug.Log("savingNotification.SetActive(true);");
         savingNotification.SetActive(true);
 
         SaveData saveData = new SaveData
@@ -231,8 +223,6 @@ public class SaveManager : MonoBehaviour
             savingNotification.SetActive(false);
             Debug.LogError("Mentés sikertelen: " + e.Message);
         }
-
-        Debug.Log("savingNotification.SetActive(false);");
         savingNotification.SetActive(false);
 
         buttonContinue.interactable = false;
@@ -240,7 +230,6 @@ public class SaveManager : MonoBehaviour
 
     private void UnlockAllLevels()
     {
-        Debug.Log("UnlockAllLevels() -> Összes szint feloldása.");
         buttonLevel1.interactable = true;
         buttonLevel2.interactable = true;
         buttonLevel3.interactable = true;

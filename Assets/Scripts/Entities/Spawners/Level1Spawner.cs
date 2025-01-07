@@ -79,7 +79,7 @@ public class Level1Spawner : MonoBehaviour
     {
         // Get the screen width in world units
 
-        /*SpawnWave(1);
+        SpawnWave(4);
 
         yield return new WaitForSeconds(10);
         Vector3 spawnPosition;
@@ -114,7 +114,7 @@ public class Level1Spawner : MonoBehaviour
         spawnPosition = new Vector3(Camera.main.aspect * Camera.main.orthographicSize, Camera.main.orthographicSize + 2, 0);
         enemy = Instantiate(DuoFighterPrefab, spawnPosition, Quaternion.identity);
         enemy.GetComponent<DuoFighters>().enemySprites = duoFighterSprites;
-        enemy.GetComponent<DuoFighters>().FireRate = 0.5f;*/
+        enemy.GetComponent<DuoFighters>().FireRate = 0.5f;
 
         if(GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;
