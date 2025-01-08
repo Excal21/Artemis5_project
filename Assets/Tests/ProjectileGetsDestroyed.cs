@@ -18,6 +18,7 @@ public class ProjectileGetsDestroyed
 
         spaceship.GetComponent<Player>().Speed = 40f;
         spaceship.GetComponent<Player>().ProjectileSpeed = 40f;
+        spaceship.GetComponent<Player>().FireRate = 2f;
         Assert.IsNotNull(spaceship, "A teszt nem tudta létrehozni a játékos űrhajóját");
 
         spaceship.GetComponent<Player>().Shoot();
