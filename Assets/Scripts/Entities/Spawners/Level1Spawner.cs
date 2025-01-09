@@ -20,6 +20,9 @@ public class Level1Spawner : MonoBehaviour
     private bool finishable = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake(){
+        Application.targetFrameRate = 60;
+    }
     void Start()
     {
         AudioHandler.instance.PlayMusic(AudioHandler.Music.LEVEL1);
