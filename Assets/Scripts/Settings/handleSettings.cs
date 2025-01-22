@@ -66,7 +66,7 @@ public class HandleSettings : MonoBehaviour
         //resolutions = Screen.resolutions;
 
         // Filter out duplicate resolutions
-        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(Screen.resolutions.Where(i => i.refreshRateRatio.value >= 59).ToHashSet());
+        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(Screen.resolutions.Where(i => i.refreshRateRatio.value >= 59 && i.refreshRateRatio.value < 70).ToHashSet());
         //resolutions = new Resolution[uniqueResolutions.Count];
         //resolutions.ToList().ForEach(i => uniqueResolutions.Add(i));
         
