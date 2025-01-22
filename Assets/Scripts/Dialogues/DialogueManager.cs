@@ -53,7 +53,14 @@ public class DialogueManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        AudioHandler.instance.StopMusic(1);
+        if (AudioHandler.instance != null)
+        {
+            AudioHandler.instance.StopMusic(1);
+        }
+        else
+        {
+            Debug.LogError("Nem található az AudioHandler script!");
+        }
 
         #if UNITY_ANDROID// || UNITY_EDITOR
         // Android esetén a pressAnyKeyToContinueImage szélességét, illetve annak a szövegét módisítjuk.
