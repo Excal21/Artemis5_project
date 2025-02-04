@@ -4936,7 +4936,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1366263727}
   m_HandleRect: {fileID: 1366263726}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9011,12 +9011,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48930d53e989154408519e4d0d4222fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolutionTextTitle: {fileID: 267890806}
+  resolutionDropdown: {fileID: 370699852}
+  fullScreenTitle: {fileID: 488653096}
+  fullscreenToggle: {fileID: 828070746}
+  vsyncTitle: {fileID: 1963670432}
+  vsyncToggle: {fileID: 847067637}
+  volumeTextTitle: {fileID: 398181499}
   volumeSlider: {fileID: 265886985}
   volumeText: {fileID: 1018377720}
   applyButton: {fileID: 311018860}
-  fullscreenToggle: {fileID: 828070746}
-  vsyncToggle: {fileID: 847067637}
-  resolutionDropdown: {fileID: 370699852}
 --- !u!1 &1772241548
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,15 +8,22 @@ using System;
 public class HandleSettings : MonoBehaviour
 {
     [Header("Settings UI Elements")]
-    [SerializeField] private Slider volumeSlider;
-    [SerializeField] private TextMeshProUGUI volumeText;
-    [SerializeField] private Button applyButton;
-    [SerializeField] private Toggle fullscreenToggle;
-    [SerializeField] private Toggle vsyncToggle;
-
     [Header("Resolution Dropdowns")]
-    //FIXME: Lehetne privát és SerializeField?
-    public TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TextMeshProUGUI    resolutionTextTitle;
+    [SerializeField] private TMP_Dropdown       resolutionDropdown;
+    [Header("Fullscreen")]
+    [SerializeField] private TextMeshProUGUI    fullScreenTitle;
+    [SerializeField] private Toggle             fullscreenToggle;
+    [Header("Vsync")]
+    [SerializeField] private TextMeshProUGUI    vsyncTitle;
+    [SerializeField] private Toggle             vsyncToggle;
+    [Header("Volume Settings")]
+    [SerializeField] private TextMeshProUGUI    volumeTextTitle;
+    [SerializeField] private Slider             volumeSlider;
+    [SerializeField] private TextMeshProUGUI    volumeText;
+    [Header("Apply Button")]
+    [SerializeField] private Button             applyButton;
+
     private Resolution[] resolutions;
 
     // Temporary settings storage
@@ -24,6 +31,23 @@ public class HandleSettings : MonoBehaviour
     private int tempResolutionIndex;
     private bool tempIsFullscreen;
     private int tempVsyncCount;
+
+    void Awake()
+    {
+        #if UNITY_ANDROID// || UNITY_EDITOR
+        resolutionTextTitle.gameObject.SetActive(false);
+        resolutionDropdown.gameObject.SetActive(false);
+        vsyncTitle.gameObject.SetActive(false);
+        vsyncToggle.gameObject.SetActive(false);
+
+        fullScreenTitle.rectTransform.anchoredPosition = new Vector2(fullScreenTitle.rectTransform.anchoredPosition.x, 150);
+        fullscreenToggle.GetComponent<RectTransform>().anchoredPosition = new Vector2(fullscreenToggle.GetComponent<RectTransform>().anchoredPosition.x, 150);
+
+        volumeTextTitle.rectTransform.anchoredPosition = new Vector2(volumeTextTitle.rectTransform.anchoredPosition.x, -150);
+        volumeSlider.GetComponent<RectTransform>().anchoredPosition = new Vector2(volumeSlider.GetComponent<RectTransform>().anchoredPosition.x, -150);
+        // A volumeText-et nem kell átrendezni, mert az a volumeSlider gyereke, így azzal együtt mozog.
+        #endif
+    }
 
     void Start()
     {
@@ -42,7 +66,7 @@ public class HandleSettings : MonoBehaviour
         //resolutions = Screen.resolutions;
 
         // Filter out duplicate resolutions
-        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(Screen.resolutions.Where(i => i.refreshRateRatio.value >= 59).ToHashSet());
+        HashSet<Resolution> uniqueResolutions = new HashSet<Resolution>(Screen.resolutions.Where(i => i.refreshRateRatio.value >= 59 && i.refreshRateRatio.value < 70).ToHashSet());
         //resolutions = new Resolution[uniqueResolutions.Count];
         //resolutions.ToList().ForEach(i => uniqueResolutions.Add(i));
         
