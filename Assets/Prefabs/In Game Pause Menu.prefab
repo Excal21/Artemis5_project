@@ -7436,12 +7436,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48930d53e989154408519e4d0d4222fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolutionTextTitle: {fileID: 1630690957536468467}
+  resolutionDropdown: {fileID: 1474352579235682074}
+  fullScreenTitle: {fileID: 4600295278381218027}
+  fullscreenToggle: {fileID: 5570296054130895789}
+  vsyncTitle: {fileID: 5044164002576140969}
+  vsyncToggle: {fileID: 4861416025866933641}
+  volumeTextTitle: {fileID: 1556489162717163452}
   volumeSlider: {fileID: 5901215149571697760}
   volumeText: {fileID: 5569594177951528478}
   applyButton: {fileID: 8884811993034808013}
-  fullscreenToggle: {fileID: 5570296054130895789}
-  vsyncToggle: {fileID: 4861416025866933641}
-  resolutionDropdown: {fileID: 1474352579235682074}
 --- !u!1 &3348341287371515744
 GameObject:
   m_ObjectHideFlags: 0

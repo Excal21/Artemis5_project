@@ -51,9 +51,22 @@ public class DialogueManager : MonoBehaviour
     private Vector2 originalCenterDialogueBoxSize;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake(){
-        Application.targetFrameRate = 60;
-        AudioHandler.instance.StopMusic(1);
+    void Awake()
+    {
+        if (AudioHandler.instance != null)
+        {
+            AudioHandler.instance.StopMusic(1);
+        }
+        else
+        {
+            Debug.LogError("Nem található az AudioHandler script!");
+        }
+
+        #if UNITY_ANDROID// || UNITY_EDITOR
+        // Android esetén a pressAnyKeyToContinueImage szélességét, illetve annak a szövegét módisítjuk.
+        pressAnyKeyToContinueImage.rectTransform.sizeDelta = new Vector2(700, pressAnyKeyToContinueImage.rectTransform.sizeDelta.y);
+        pressAnyKeyToContinueImage.GetComponentInChildren<TextMeshProUGUI>().text = "Touch the screen to continue";
+        #endif
     }
     void Start()
     {
