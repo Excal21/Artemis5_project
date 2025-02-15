@@ -71,3 +71,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Artemis5_project.code-workspace
+
+# Ignore this folder
+/.utmp
+.utmp/tools/release/arm64-v8a/compile_commands.json
