@@ -47,8 +47,6 @@ public class HandleNavigation : MonoBehaviour
 
     public bool IsPlayerDeadOrCleared {set => isPlayerDeadOrCleared = value; }
 
-
-
     #region Start és Update
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -81,7 +79,7 @@ public class HandleNavigation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DEBUG_CheckUIElementsStates();
+        //DEBUG_CheckUIElementsStates();
 
         //Ha nincs cutscene, akkor a szünetmenü kezelése.
         if(!isCutscene)
@@ -559,7 +557,7 @@ public class HandleNavigation : MonoBehaviour
                 // Keresés a panel gyermekeiben
                 foreach (var selectable in currentActivePanel.GetComponentsInChildren<Selectable>(true))
                 {
-                    if (selectable.interactable)
+                    if (selectable.interactable && selectable.gameObject.activeInHierarchy)
                     {
                         EventSystem.current.SetSelectedGameObject(selectable.gameObject);
                         SetElementColor(selectable);
@@ -648,15 +646,20 @@ public class HandleNavigation : MonoBehaviour
     {
         if(debugOutput != null)
         {
+            //debugOutput betűméretének beállítása
+			debugOutput.fontSize = 24;
+			
             string debugText = "!DEBUG!:";
 
             //debugText += "\n";
 
+            /*
             debugText += "Time.timeScale: " + (Time.timeScale == 0 ? ColoredString("0", Color.red) : ColoredString("1", Color.green))
                         + "\t isGamePaused: " + (isGamePaused ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green))
                         + "\t isCutscene: " + (isCutscene ? ColoredString("Yes", Color.red) : ColoredString("No", Color.green))
                         + "\n";
 
+            
             GameObject[] allGameObjects = Resources.FindObjectsOfTypeAll<GameObject>();
             List<GameObject> gameObjectsPanels = new List<GameObject>();
 
@@ -667,6 +670,7 @@ public class HandleNavigation : MonoBehaviour
                     gameObjectsPanels.Add(go);
                 }
             }
+            */
 
             //FOR DEBUGGING!
             /*
@@ -710,13 +714,16 @@ public class HandleNavigation : MonoBehaviour
             }
             */
 
+            /*
             foreach (GameObject panel in gameObjectsPanels)
             {
                 //SZŰRÉS: Ha a panel neve nem tartalmazza a "SECTOR" vagy a "YOU" szót, akkor ne írjuk ki.
-                if(!(panel.name.Contains("SECTOR") || panel.name.Contains("YOU") || panel.name.Contains("Saving")))
-                {
-                    break;
-                }
+                
+                //if(!(panel.name.Contains("SECTOR") || panel.name.Contains("YOU") || panel.name.Contains("Saving")))
+                //{
+                //    break;
+                //}
+                
                 
                 Button[] panelButtons = panel.GetComponentsInChildren<Button>();
                 Toggle[] panelToggles = panel.GetComponentsInChildren<Toggle>();
@@ -785,7 +792,10 @@ public class HandleNavigation : MonoBehaviour
             debugText += currentSelectedObject != null? "Current Selected GameObject: " + currentSelectedObject.name + "\t": "Current Selected Gameobject: null\t";
             debugText += lastSelectedObject    != null? "Last Selected GameObject: "    + lastSelectedObject.name    + "\t": "Last Selected Gameobject: null\t";
             debugText += "ispointerDown: " + (isPointerDown ? ColoredString("Yes", Color.green) : ColoredString("No", Color.red)) + "\n";
+            */
+
             debugOutput.text = debugText;
+            
         }
     }
 

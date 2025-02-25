@@ -68,7 +68,7 @@ public class DialogueLoader : MonoBehaviour
         // Load character sprites
         LoadCharacterSprites();
 
-        Debug.Log($"Opening text: {openingText}");
+        //Debug.Log($"Opening text: {openingText}");
     }
 
     private void LoadCharacterSprites()

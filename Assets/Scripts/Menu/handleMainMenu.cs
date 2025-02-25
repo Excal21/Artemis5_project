@@ -29,7 +29,12 @@ public class HandleMainMenu : MonoBehaviour
     public TextMeshProUGUI debugOutput = null;
     #endregion
 
-    #region Start és Update
+    #region Start, Awake és Update
+    void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -612,7 +617,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
                 // Keresés a panel gyermekeiben
                 foreach (var selectable in currentSelectedPanel.GetComponentsInChildren<Selectable>(true))
                 {
-                    if (selectable.interactable)
+                    if (selectable.interactable && selectable.gameObject.activeInHierarchy)
                     {
                         // Kiválasztjuk az első interaktív elemet
                         EventSystem.current.SetSelectedGameObject(selectable.gameObject);
@@ -670,7 +675,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
 
             foreach (GameObject go in allGameObjects)
             {
-                if (go.CompareTag("Panel"))
+                if (go.CompareTag("Panel")  && !go.name.Contains("Confirm") && !go.name.Contains("Credits") && !go.name.Contains("Main") && !go.name.Contains("Star"))
                 {
                     gameObjectsPanels.Add(go);
                 }
@@ -719,7 +724,7 @@ void AdjustDropdownScroll(TMP_Dropdown dropdown)
             */
 
             foreach (GameObject panel in gameObjectsPanels)
-            {            
+            {    
                 Button[] panelButtons = panel.GetComponentsInChildren<Button>();
                 Toggle[] panelToggles = panel.GetComponentsInChildren<Toggle>();
                 Slider[] panelSliders = panel.GetComponentsInChildren<Slider>();

@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+//AHHOZ, HOGY EZT HASZNÁLNI LEHESSEN, AZ "Entities.asmdef"-BEN A "Unity.TextMeshPro"-t KELL HOZZÁADNI!
+//using TMPro;
+// System;
+
 public class Player : MonoBehaviour
 {
     #region Képernyőhatárok munkaváltozói
@@ -32,7 +36,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float projectileOffset = 1f;
     [SerializeField] private float projectileSpeed = 5f;
     [SerializeField] private bool controllable = true;
+    [SerializeField] private float sensitivitySpeed = 1.0f;
+    [SerializeField] private float verticalCalibrationOffset = -0.75f;
+    [SerializeField] private bool  legacymovement = true;
+    //[SerializeField] public TextMeshProUGUI debugOutput;
+    //string debugString = "!DEBUG!:\n";
     #endregion
+	
+	#region Egyéb
+	private HandleNavigation handleNavigation;
+	#endregion
 
     #region Getterek/Setterek
     public float Speed { get => speed; set => speed = value; }
@@ -46,6 +59,9 @@ public class Player : MonoBehaviour
     public int Health { get => health; }
     public bool Controllable { set => controllable = value; }
     public bool Invincible { get => invincible; set => invincible = value; }
+    public float SensitivitySpeed { get => sensitivitySpeed; set => sensitivitySpeed = value; }
+    public float VerticalCalibrationOffset { get => verticalCalibrationOffset; set => verticalCalibrationOffset = value; }
+    public bool  Legacymovement { get => legacymovement; set => legacymovement = value; }
     #endregion
 
     #region Mozgások metódusai
@@ -88,7 +104,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-
             if (newPosition.y <= screenTop)
             {
                 transform.position = new Vector3(newPosition.x, newPosition.y, transform.position.z);
@@ -122,12 +137,72 @@ public class Player : MonoBehaviour
 
         // Az accelerometer értékeinek használata a telefon döntésének érzékelésére
         Vector3 tilt = Input.acceleration;
+		float xVelocity, yVelocity;
+		//debugString = "";
+		
+		if(Legacymovement)
+		{
+			/*
+			//EREDETI
+			// Az X tengely (bal-jobb) mozgás, ha a telefon jobbra vagy balra van döntve
+			newPosition += Vector2.right * tilt.x * Time.deltaTime * speed;
+			// Az Y tengely (fel-le) mozgás, ha a telefon fel-le van döntve
+			newPosition += Vector2.up * (tilt.y + 1f > 0.5 ? tilt.y + 1f : tilt.y + 0.7f) * Time.deltaTime * speed;
+			*/
+			//EREDETI + KORLÁT
+			xVelocity = Time.deltaTime * speed * Mathf.Clamp(tilt.x, -1f, 1f);			
+			yVelocity = Time.deltaTime * speed * Mathf.Clamp(tilt.y + 1f > 0.5 ? tilt.y + 1f : tilt.y + 0.7f, -1f, 1f);
+		}
+		else
+		{
+			//Kalibrált pont - Viszonyítási pont
+			tilt.y -= verticalCalibrationOffset;
 
-        // Az X tengely (bal-jobb) mozgás, ha a telefon jobbra vagy balra van döntve
-        newPosition += Vector2.right * tilt.x * Time.deltaTime * speed;
-
-        // Az Y tengely (fel-le) mozgás, ha a telefon fel-le van döntve
-        newPosition += Vector2.up * (tilt.y + 1f > 0.5? tilt.y + 1f : tilt.y + 0.7f) * Time.deltaTime * speed;
+			//Holtjáték
+			//if (Mathf.Abs(tilt.x) < 0.01f)		tilt.x = 0f;
+			//if (Mathf.Abs(tilt.y) < 0.01f)		tilt.y = 0f;
+			
+			xVelocity = Time.deltaTime * speed * Mathf.Clamp(tilt.x * sensitivitySpeed, -1f, 1f);
+            yVelocity = Time.deltaTime * speed * Mathf.Clamp(tilt.y * sensitivitySpeed, -1f, 1f);
+		}
+		
+		newPosition += Vector2.right * xVelocity;
+		newPosition += Vector2.up * yVelocity;
+		
+		/*
+		#region DEBUG - TELEFONOS MOZGÁS
+		debugString += "MoveWithTilt():\n"
+					+ "\tverticalCalibrationOffset: " + verticalCalibrationOffset + "\n"
+					+ "\tTilt X: " + tilt.x + "\n"
+					+ "\tTilt Y: " + tilt.y + "\n"
+					+ "\tVelocity X: " + xVelocity + "\n"
+					+ "\tVelocity Y: " + yVelocity + "\n"
+					+ "\ttilt.y: " + tilt.y + "\n"
+					+  "\tSensitivitySpeed: " + SensitivitySpeed + "\n"
+					+  "\tMultiplied: " + tilt.y * sensitivitySpeed + "\n"
+                    +  "\tMultiplied: " + Mathf.Clamp(tilt.y * sensitivitySpeed, -1f, 1f) + "\n";
+		debugString += "\tX MAX SPEED = ";
+		if (Mathf.Clamp(tilt.x * sensitivitySpeed, -1f, 1f) == -1 || Mathf.Clamp(tilt.x * sensitivitySpeed, -1f, 1f) == 1)
+			debugString += "TRUE\n";
+		else
+			debugString += "FALSE\n";
+		debugString += "\tY MAX SPEED = ";
+		if(Legacymovement)
+		{
+			if(Mathf.Clamp(tilt.y + 1f > 0.5 ? tilt.y + 1f : tilt.y + 0.7f, -1f, 1f) == -1 || Mathf.Clamp(tilt.y + 1f > 0.5 ? tilt.y + 1f : tilt.y + 0.7f, -1f, 1f) == 1)
+				debugString += "TRUE\n";
+			else
+				debugString += "FALSE\n";
+		}
+		else
+		{
+			if(Mathf.Clamp(tilt.y * sensitivitySpeed, -1f, 1f) == -1 || Mathf.Clamp(tilt.y * sensitivitySpeed, -1f, 1f) == 1)
+				debugString += "TRUE\n";
+			else
+				debugString += "FALSE\n";
+		}
+		#endregion
+		*/
 
         // Képernyőhatárok figyelembevétele
         if (newPosition.x >= screenLeft && newPosition.x <= screenRight)
@@ -146,11 +221,19 @@ public class Player : MonoBehaviour
     public void DeathScreen()
     {
         AudioHandler.instance.StopMusic();
-          GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().IsPlayerDeadOrCleared = true;
+		
+		HandleNavigation handleNav = handleNavigation;
+		
+		if(handleNav == null)
+		{
+			handleNav = GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>();
+		}
+		
+        handleNav.IsPlayerDeadOrCleared = true;
 
         GameObject pauseMenu = GameObject.FindGameObjectWithTag("PauseMenu").transform.Find("Canvas - Pause Menu").gameObject;
         
-        GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>().isGamePaused = true;
+        handleNav.isGamePaused = true;
         
         pauseMenu.transform.Find("Image - Pause Menu Background").gameObject.SetActive(true);
         pauseMenu.transform.Find("Panel - YOU DIED").gameObject.SetActive(true);
@@ -173,6 +256,8 @@ public class Player : MonoBehaviour
         this.gravity = gravity;
         controllable = true;
         GameObject.FindWithTag("HealthIndicator").GetComponent<HealtIndicator>().Show();
+		
+		handleNavigation = GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>();
     }
     #endregion
 
@@ -188,6 +273,22 @@ public class Player : MonoBehaviour
         screenRight = screenBounds.x;
 
         StartCoroutine(MoveToStartPosition(screenBottom + 0.5f));
+
+		#if UNITY_ANDROID
+        if (PlayerPrefs.HasKey("sensitivity"))
+        {
+            SensitivitySpeed = PlayerPrefs.GetFloat("sensitivity");
+        }
+        if (PlayerPrefs.HasKey("calibration"))
+        {
+            VerticalCalibrationOffset = PlayerPrefs.GetFloat("calibration");
+        }
+		if (PlayerPrefs.HasKey("legacymovement"))
+		{
+            Legacymovement = PlayerPrefs.GetInt("legacymovement") == 1;
+		}
+		#endif
+		
     }
 
     public void Update()
@@ -209,8 +310,9 @@ public class Player : MonoBehaviour
         // Ha a játékos irányítható, akkor mozgás
         if (controllable)
         {
-            // Telefon döntögetésével történő mozgás
-            MoveWithTilt();
+            #if UNITY_ANDROID
+                MoveWithTilt();				// Telefon döntögetésével történő mozgás
+            #endif
 
             // Inputok lekezelése
             if (Input.GetKey(KeyCode.W))
@@ -229,6 +331,13 @@ public class Player : MonoBehaviour
             {
                 Right();
             }
+			
+			/*
+            if(debugOutput != null)
+            {
+                debugOutput.text = debugString;
+            }
+			*/
         }
 
         // Jet Propulsion
@@ -242,9 +351,15 @@ public class Player : MonoBehaviour
             jetProp.SetActive(false);
         }
         prevYcord = transform.position.y;
-
+		
+		
+		//A játékos szünet alatt nem tud lőni.
+		if (handleNavigation != null && handleNavigation.isGamePaused)
+		{
+			return;
+		}
         // Lövés
-        if (Input.GetKey(KeyCode.Space) || Input.touchCount > 0 && Time.time > lastShotTime + 1 / fireRate)
+        if ((Input.GetKey(KeyCode.Space) || Input.touchCount > 0) && Time.time > lastShotTime + 1 / fireRate)
         {
             Shoot();
             lastShotTime = Time.time;
