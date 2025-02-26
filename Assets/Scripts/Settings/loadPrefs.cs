@@ -19,6 +19,8 @@ public class LoadPrefs : MonoBehaviour
 
     [SerializeField] private Toggle vsyncToggle = null;
 
+    [SerializeField] private Slider sensitivitySlider = null;
+
     private void Start()
     {
         if (canUse)
@@ -47,6 +49,28 @@ public class LoadPrefs : MonoBehaviour
         else
         {
             settings.setVolume(50);
+        }
+
+        if (PlayerPrefs.HasKey("sensitivity"))
+        {
+            float localSensitivity = PlayerPrefs.GetFloat("sensitivity");
+
+            sensitivitySlider.value = localSensitivity;
+        }
+        else
+        {
+            settings.setSensitivity(1);
+        }
+
+        if (PlayerPrefs.HasKey("calibration"))
+        {
+            float localCalibration = PlayerPrefs.GetFloat("calibration");
+
+            settings.setCalibration(localCalibration);
+        }
+        else
+        {
+            settings.setCalibration(1);
         }
 
         if (PlayerPrefs.HasKey("fullscreen"))

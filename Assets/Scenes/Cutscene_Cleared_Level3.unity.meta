@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Level3.unity.meta
+guid: 76808273b27dd0c4ba59baa866ddcbd7
+========
 guid: d59d1db8edd81e54d84c24c817d8e1f7
+>>>>>>>> Player:Assets/Scenes/Cutscene_Cleared_Level3.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -66,6 +66,8 @@ public class DialogueManager : MonoBehaviour
         // Android esetén a pressAnyKeyToContinueImage szélességét, illetve annak a szövegét módisítjuk.
         pressAnyKeyToContinueImage.rectTransform.sizeDelta = new Vector2(700, pressAnyKeyToContinueImage.rectTransform.sizeDelta.y);
         pressAnyKeyToContinueImage.GetComponentInChildren<TextMeshProUGUI>().text = "Touch the screen to continue";
+
+        Application.targetFrameRate = 60;
         #endif
     }
     void Start()

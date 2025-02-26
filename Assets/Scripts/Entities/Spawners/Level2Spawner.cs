@@ -18,6 +18,10 @@ public class Level2Spawner : MonoBehaviour
 
     private bool finishable = false;
 
+    void Awake(){
+        Application.targetFrameRate = 60;
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -134,7 +138,7 @@ public class Level2Spawner : MonoBehaviour
         yield return new WaitForSeconds(5);
 
 
-        finishable = true;
+        if(GameObject.FindWithTag("Player") != null) finishable = true;
         yield return true;
     }
     private void SpawnWave(int enemyNumber)

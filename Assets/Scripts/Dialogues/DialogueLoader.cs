@@ -1,7 +1,9 @@
 using UnityEngine;
 using System;
 using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 public class DialogueLoader : MonoBehaviour
 {
@@ -19,36 +21,54 @@ public class DialogueLoader : MonoBehaviour
         {
             Debug.LogError("Nem található a 'black_box.png' sprite a 'Resources/Textures/Others/' mappában!");
         }
+
+        StartCoroutine(LoadDialogueFromJSON());
     }
 
-    public void LoadDialogueFromJSON()
+    public IEnumerator LoadDialogueFromJSON()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, jsonFileName);
 
-        if (File.Exists(filePath))
+        string jsonContent;
+
+        // Android esetén UnityWebRequest használata
+        if (filePath.Contains("://") || filePath.Contains(":///"))
         {
-            string jsonContent = File.ReadAllText(filePath);
-            dialogueData = JsonUtility.FromJson<DialogueData>(jsonContent);
+            UnityWebRequest request = UnityWebRequest.Get(filePath);
+            yield return request.SendWebRequest();
 
-            // Az openingText értékének beállítása
-            openingText = dialogueData.opening;
-
-            // Load character sprites
-            LoadCharacterSprites();
-
-            /*
-            Debug.Log($"Opening text: {openingText}");
-            Debug.Log("Dialógusok betöltve:");
-            foreach (var dialogue in dialogueData.dialogues)
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log($"[{dialogue.characterName}] {dialogue.text}");
+                Debug.LogError($"Nem sikerült betölteni a JSON fájlt: {filePath}, Hiba: {request.error}");
+                yield break;
             }
-            */
+
+            jsonContent = request.downloadHandler.text;
         }
         else
         {
-            Debug.LogError($"Nem található a JSON fájl: {filePath}");
+            // Más platformokon közvetlenül olvasható a fájl
+            if (File.Exists(filePath))
+            {
+                jsonContent = File.ReadAllText(filePath);
+            }
+            else
+            {
+                Debug.LogError($"Nem található a JSON fájl: {filePath}");
+                yield break;
+            }
         }
+
+        // Parse JSON
+        dialogueData = JsonUtility.FromJson<DialogueData>(jsonContent);
+
+        // Az openingText értékének beállítása
+        openingText = dialogueData.opening;
+
+        // Load character sprites
+        LoadCharacterSprites();
+
+        //Debug.Log($"Opening text: {openingText}");
     }
 
     private void LoadCharacterSprites()
@@ -84,7 +104,7 @@ public class DialogueLoader : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"DialogueLoader -> LoadCharacterSprites() -> Sprite not found for character: \"{theCharacterName}\" at path: {spritePath}");
+                    Debug.LogWarning($"Sprite not found for character: \"{theCharacterName}\" at path: {spritePath}");
                 }
             }
         }
@@ -93,7 +113,7 @@ public class DialogueLoader : MonoBehaviour
     public Sprite GetDefaultSprite()
     {
         return defaultSprite;
-    } 
+    }
 
     public Sprite GetCharacterSprite(string characterAvatar)
     {
@@ -105,7 +125,6 @@ public class DialogueLoader : MonoBehaviour
         else
         {
             Debug.LogWarning($"GetDefaultSprite() -> Sprite not found for character: {theCharacterName} - Using default sprite instead.");
-            
             return defaultSprite;
         }
     }
