@@ -260,7 +260,14 @@ public class Player : MonoBehaviour
 		handleNavigation = GameObject.Find("HandleNavigation").GetComponent<HandleNavigation>();
     }
     #endregion
-
+	
+	public void Awake()
+    {
+		#if UNITY_ANDROID
+        Application.targetFrameRate = 60;
+		#endif
+    }
+	
     public void Start()
     {
         prevYcord = transform.position.y;

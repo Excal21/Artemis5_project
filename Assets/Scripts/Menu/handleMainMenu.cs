@@ -32,7 +32,9 @@ public class HandleMainMenu : MonoBehaviour
     #region Start, Awake és Update
     void Awake()
     {
+		#if UNITY_ANDROID
         Application.targetFrameRate = 60;
+		#endif
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
